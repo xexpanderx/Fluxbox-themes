@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 22 22"
+   id="svg"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   width="100%"
+   height="100%"
+   sodipodi:docname="preferences-desktop-accessibility-panel.svg">
+  <defs
+     id="defs81">
+    <style
+       id="current-color-scheme"
+       type="text/css">
+      .ColorScheme-Text {
+        color:#7B7C7E;
+      }
+      .ColorScheme-Background{
+        color:#EFF0F1;
+      }
+      .ColorScheme-Highlight{
+        color:#3DAEE6;
+      }
+      .ColorScheme-ViewText {
+        color:#7B7C7E;
+      }
+      .ColorScheme-ViewBackground{
+        color:#FCFCFC;
+      }
+      .ColorScheme-ViewHover {
+        color:#3DAEE6;
+      }
+      .ColorScheme-ViewFocus{
+        color:#1E92FF;
+      }
+      .ColorScheme-ButtonText {
+        color:#7B7C7E;
+      }
+      .ColorScheme-ButtonBackground{
+        color:#EFF0F1;
+      }
+      .ColorScheme-ButtonHover {
+        color:#3DAEE6;
+      }
+      .ColorScheme-ButtonFocus{
+        color:#1E92FF;
+      }
+</style>
+  </defs>
+  <metadata
+     id="metadata34">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#3daee9"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0.06666667"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="718"
+     id="namedview32"
+     showgrid="true"
+     inkscape:zoom="15.999999"
+     inkscape:cx="10.173086"
+     inkscape:cy="7.2477745"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg"
+     borderlayer="true"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:snap-bbox="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3046"
+       empspacing="4"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
+  <g
+     id="g4143">
+    <path
+       sodipodi:open="true"
+       sodipodi:end="6.2784904"
+       sodipodi:start="0"
+       d="M 13.109706,2.9727294 A 2.0585997,2.019758 0 0 1 11.053523,4.992486 2.0585997,2.019758 0 0 1 8.9925124,2.9774707 2.0585997,2.019758 0 0 1 11.043858,0.95298398 2.0585997,2.019758 0 0 1 13.109683,2.9632469"
+       sodipodi:ry="2.019758"
+       sodipodi:rx="2.0585997"
+       sodipodi:cy="2.9727294"
+       sodipodi:cx="11.051106"
+       id="path3760"
+       style="fill:#394050;fill-opacity:1;stroke:none"
+       sodipodi:type="arc" />
+    <path
+       sodipodi:nodetypes="zczczczzczcczcczczzcz"
+       inkscape:connector-curvature="0"
+       id="path2983"
+       d="m 2.278332,6.0226262 c 0.18828,-0.8056 0.87119,-0.81311 0.87119,-0.81311 0,0 5.48673,0.57833 8.18917,0.58079 2.70245,0.002 7.98591,-0.55175 7.98591,-0.55175 0,0 0.79321,0.0173 0.90022,0.78407 0.10702,0.7668 -0.49367,0.98735 -0.49367,0.98735 0,0 -5.16801,0.79214 -5.80793,1.48102 -0.63991,0.68888 -0.3186,2.7343398 -0.11616,4.5882598 0.20245,1.85392 1.5391,6.38872 1.5391,6.38872 0,0 0.33463,1.13127 -0.52271,1.42295 -0.85734,0.29167 -1.3259,-0.5397 -1.3259,-0.5397 l -1.63614,-4.91976 c 0,0 -0.24739,-0.94743 -0.60983,-0.95831 -0.36245,-0.0109 -0.60984,0.84215 -0.60984,0.84215 l -1.48102,4.79155 c 0,0 -0.40346,1.04047 -1.36486,0.78407 -0.96141,-0.25641 -0.63887,-1.36487 -0.63887,-1.36487 0,0 1.28581,-4.40964 1.48102,-6.24352 0.19521,-1.83389 0.5224,-4.1456098 -0.31944,-4.8786598 -0.84184,-0.73306 -5.34329,-1.33583 -5.34329,-1.33583 0,0 -0.88524,-0.23982 -0.69695,-1.04542 z"
+       style="fill:#394050;stroke:none;fill-opacity:1" />
+  </g>
+</svg>

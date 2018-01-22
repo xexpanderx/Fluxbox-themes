@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: flash2svg, http://dissentgraphics.com/tools/flash2svg -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="Plex-Home-Theater"
+   image-rendering="optimizeSpeed"
+   version="1.1"
+   style="background-color:#ffffff"
+   x="0px"
+   y="0px"
+   width="1024px"
+   height="1024px"
+   viewBox="0 0 1024 1024"
+   enable-background="new 0 0 1024 1024"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="plex-home-theater.svg">
+  <metadata
+     id="metadata25">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="715"
+     id="namedview23"
+     showgrid="false"
+     inkscape:zoom="0.23046875"
+     inkscape:cx="925.05333"
+     inkscape:cy="799.07882"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="Plex-Home-Theater" />
+  <defs
+     transform="matrix(1 0 0 1 0 0) "
+     id="defs3" />
+  <g
+     id="g4139">
+    <g
+       style="fill:#394050"
+       id="circle">
+      <g
+         style="fill:#394050"
+         id="shape2">
+        <path
+           style="fill:#394050"
+           d="M969.75,392.05 C968.65,387.7 967.4,383.05 966.1,378.45 963.6,369.7 960.75,360.85 957.65,352.1 951.2,333.85 943.5,316.05 934.5,298.45 930.7,291.05 926.55,283.5 922.2,276.05 L922.175,276.05 Q891.574,224.04 845.85,178.3 C753.7,86.15 642.4,40.05 512.05,40.05 381.7,40.05 270.45,86.15 178.3,178.3 86.15,270.45 40.05,381.7 40.05,512.05 40.05,642.4 86.15,753.7 178.3,845.85 270.45,938 381.7,984.05 512.05,984.05 524.75,984.05 537.25,983.6 549.1,982.8 569.3,981.35 589,978.75 607.8,975.1 615.75,973.55 623.6,971.8 631.2,969.95 712,949.65 783.35,908.35 845.85,845.85 894.45,797.25 930.25,743.35 953.2,684.05 971.65,636.4 981.85,585.25 983.75,530.55 983.95,524.5 984.05,518.3 984.05,512.05 984.05,470.3 979.35,430.45 969.75,392.05z"
+           fill-opacity="1"
+           fill="#363F6A"
+           id="path1" />
+      </g>
+    </g>
+    <path
+       style="fill:#ffffff;fill-opacity:1"
+       inkscape:connector-curvature="0"
+       d="m 511.075,632.5 71.325,140.35 154.65,0 -156.6,-260.35 -69.375,120 z"
+       id="path5" />
+    <path
+       style="fill:#ffffff;fill-opacity:1"
+       inkscape:connector-curvature="0"
+       d="m 586.25,247.9 -75.2,145.4 69.4,119.2 160.1,-264.6 -154.3,0 z"
+       id="path6" />
+    <path
+       style="fill:#ffcc00;fill-opacity:1"
+       inkscape:connector-curvature="0"
+       d="m 435.8,247.9 -79.75,0 155.6,264.6 -152.6,260.35 78.7,0 73.3,-140.4 0.025,0.05 69.375,-120 -69.4,-119.2 -75.25,-145.4 z"
+       id="path7" />
+    <path
+       style="fill:#ffcc00;fill-opacity:1"
+       inkscape:connector-curvature="0"
+       d="m 359.05,772.85 152.6,-260.35 -155.6,-264.6 -74.9,0 159.7,264.6 -157.4,260.35 75.6,0 z"
+       id="path8" />
+  </g>
+</svg>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="24"
+   height="24"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="emblem-danger.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#ffffff"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="14.132333"
+     inkscape:cx="-4.7428392"
+     inkscape:cy="11.633822"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1366"
+     inkscape:window-height="716"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1">
+    <sodipodi:guide
+       position="4.5,19.500017"
+       orientation="15,0"
+       id="guide3264" />
+    <sodipodi:guide
+       position="29.82067,4.0027745"
+       orientation="0,15"
+       id="guide3266" />
+    <sodipodi:guide
+       position="19.5,4.5000174"
+       orientation="-15,0"
+       id="guide3268" />
+    <sodipodi:guide
+       position="30.120878,20.113942"
+       orientation="0,-15"
+       id="guide3270" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-1028.3622)">
+    <g
+       id="g4147"
+       style="fill:#f03916;fill-opacity:1">
+      <g
+         transform="translate(-0.25,-0.12230652)"
+         id="g4148"
+         style="fill:#f03916;fill-opacity:1">
+        <g
+           style="fill:#f03916;fill-opacity:1"
+           transform="matrix(0.44029588,0,0,0.28111603,-9.7643537,1026.3064)"
+           id="g5">
+          <path
+             style="fill:#f03916;fill-opacity:1"
+             inkscape:connector-curvature="0"
+             d="m 47.982,36.647 c 0.542,-0.583 1.262,-0.876 2.151,-0.876 1.076,0 1.797,0.375 2.16,1.119 0.365,0.746 0.544,1.82 0.544,3.224 0,0.828 -0.042,1.666 -0.132,2.52 L 51.9,51.898 c -0.088,1.104 -0.277,1.949 -0.563,2.538 -0.292,0.59 -0.764,0.886 -1.427,0.886 -0.681,0 -1.148,-0.287 -1.413,-0.858 -0.264,-0.569 -0.451,-1.438 -0.563,-2.604 L 47.33,42.859 c -0.112,-1.755 -0.169,-3.014 -0.169,-3.778 10e-4,-1.04 0.273,-1.852 0.821,-2.434 z"
+             id="path7" />
+        </g>
+        <circle
+           style="fill:#f03916;fill-opacity:1;stroke:none"
+           id="path4146"
+           cx="12.232786"
+           cy="1043.6068"
+           r="1"
+           d="m 13.232786,1043.6068 c 0,0.5523 -0.447715,1 -1,1 -0.552285,0 -1,-0.4477 -1,-1 0,-0.5523 0.447715,-1 1,-1 0.552285,0 1,0.4477 1,1 z" />
+      </g>
+      <path
+         id="path4142"
+         transform="translate(0,1028.3622)"
+         d="M 12 4 A 8 8 0 0 0 4 12 A 8 8 0 0 0 12 20 A 8 8 0 0 0 20 12 A 8 8 0 0 0 12 4 z M 12 5 A 7 7 0 0 1 19 12 A 7 7 0 0 1 12 19 A 7 7 0 0 1 5 12 A 7 7 0 0 1 12 5 z "
+         style="opacity:1;fill:#f03916;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="500"
+   height="500"
+   id="svg4429"
+   sodipodi:version="0.32"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="emma.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   version="1.0"
+   inkscape:export-filename="C:\Users\Gregor\Desktop\delphin.png"
+   inkscape:export-xdpi="11.427757"
+   inkscape:export-ydpi="11.427757">
+  <defs
+     id="defs4431">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 372.04724 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="1052.3622 : 372.04724 : 1"
+       inkscape:persp3d-origin="526.18109 : 248.03149 : 1"
+       id="perspective4438" />
+  </defs>
+  <sodipodi:namedview
+     inkscape:document-units="mm"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.51083207"
+     inkscape:cx="404.27827"
+     inkscape:cy="272.71451"
+     inkscape:current-layer="layer1"
+     id="namedview4433"
+     showgrid="false"
+     inkscape:window-width="1366"
+     inkscape:window-height="716"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     units="px"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata4435">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>delfin</dc:title>
+        <dc:date>2009</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>SKV MeriDian e.V.</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>GNU/GPL</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>delfin</rdf:li>
+            <rdf:li>dolphin</rdf:li>
+            <rdf:li>delphin</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/publicdomain/" />
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-174.93103,-211.31883)">
+    <path
+       style="fill:#00bbf2;fill-opacity:1;stroke:none;display:inline"
+       id="body"
+       d="m 436.05402,260.58648 c -244.71171,2.72568 -201.22339,124.45192 -200.2391,127.041 -2.31077,1.86479 -30.17281,19.45735 -30.50912,25.56363 0.55188,3.14545 1.83286,4.77725 2.46268,5.4446 -2.20057,0.19838 -9.23245,1.22963 -7.26529,12.85885 2.14672,12.69066 9.63607,15.25442 12.90992,17.32232 19.84324,11.49577 113.3632,1.51207 156.76499,36.20203 -35.12442,75.74747 -12.70755,149.11014 63.58857,186.03892 2.27408,-12.39105 -8.24497,-79.83044 35.81107,-118.03554 -17.19426,-25.70241 -14.49338,-30.00145 -14.38916,-29.96862 7.97627,6.97251 43.38094,26.78372 85.14139,48.47946 8.10866,4.21268 24.8906,12.77101 24.8906,12.77101 -0.97685,-1.32704 57.73723,-64.85172 75.22999,-104.82968 17.49277,-39.97797 5.42199,-180.81683 5.42199,-180.81683 C 595.8557,279.72736 523.63808,260.37818 436.05402,260.58648 z"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccscccccsszcc" />
+    <path
+       style="fill:#004455;fill-opacity:1;stroke:none;display:inline"
+       id="auge"
+       d="m 403.22308,357.93584 c 7.14055,3.23465 20.74758,-0.8633 27.08135,-5.72817 5.75217,-4.63516 -1.26685,-7.59819 -5.60917,-9.49825 -5.77241,-2.52585 -21.64543,-3.54309 -21.47218,15.22642 z"
+       inkscape:connector-curvature="0" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       style="fill:#004455;fill-opacity:1;stroke:none;display:inline"
+       id="schatten#kopf"
+       d="m 288.27286,286.97161 c -46.28256,22.22878 -64.86132,58.88903 -53.22279,100.27655 26.24782,-17.23477 67.79629,-19.44195 107.21818,-16.3567 -31.80655,-9.65137 -70.37876,-6.89177 -95.44727,-4.38514 -9.27539,-22.60606 8.01156,-61.4592 41.45188,-79.53471 z"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#004455;fill-opacity:1;stroke:none;display:inline"
+       id="schatten"
+       d="m 414.1027,371.97745 c -51.14467,0.18577 -89.78872,22.1959 -118.86086,38.04058 -20.08034,10.94402 -35.48582,18.72673 -58.98024,17.15356 -23.89016,-2.29917 -26.80151,-4.55613 -32.21133,-7.52829 -0.16258,-0.0893 -5.41871,2.43279 -3.81539,11.07155 1.36384,7.34851 2.53326,12.48909 13.43154,18.51255 23.88294,11.68643 109.61919,0.55641 156.42079,35.72856 -28.97299,59.99834 -25.90868,142.61721 63.99205,186.36287 2.29007,-12.38328 -8.35582,-80.08627 35.70824,-118.29914 -7.41072,-11.51377 -13.87049,-22.42341 -14.71358,-29.54793 23.57475,16.37541 65.8176,39.37549 110.6576,61.89127 0.72535,-0.23818 36.89454,-33.88655 63.57207,-78.88505 26.67755,-44.99851 -56.97857,-92.08576 -56.97857,-92.08576 C 524.38066,390.8359 455.97807,371.82534 414.1027,371.97745 z"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ssccscccccczcs" />
+    <path
+       style="fill:#00bbf2;fill-opacity:1;stroke:none;display:inline"
+       id="flosse"
+       d="m 523.64217,462.67068 c 19.45673,18.63209 48.8853,49.28033 82.05385,77.23938 0,0 8.77918,-5.46166 19.41437,-24.42261 10.63519,-18.96093 10.06275,-29.61885 10.06275,-29.61885 -9.59402,-5.84599 -21.87888,-12.09398 -37.64015,-18.76986 -8.71445,-3.69111 -73.88154,-25.38213 -73.89082,-4.42806 z"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cczcsc" />
+  </g>
+</svg>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   width="512"
+   height="512"
+   sodipodi:docname="Wunderlist.svg">
+  <metadata
+     id="metadata8">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs6">
+    <clipPath
+       id="clipPath-846244332">
+      <g
+         transform="translate(0,-1004.3622)"
+         id="g17">
+        <path
+           style="fill:#1890d0"
+           inkscape:connector-curvature="0"
+           d="m -24,13 c 0,1.105 -0.672,2 -1.5,2 -0.828,0 -1.5,-0.895 -1.5,-2 0,-1.105 0.672,-2 1.5,-2 0.828,0 1.5,0.895 1.5,2 z"
+           transform="matrix(15.333333,0,0,11.5,414.99999,878.8622)"
+           id="path19" />
+      </g>
+    </clipPath>
+    <clipPath
+       id="clipPath-836912485">
+      <g
+         transform="translate(0,-1004.3622)"
+         id="g12">
+        <path
+           style="fill:#1890d0"
+           inkscape:connector-curvature="0"
+           d="m -24,13 c 0,1.105 -0.672,2 -1.5,2 -0.828,0 -1.5,-0.895 -1.5,-2 0,-1.105 0.672,-2 1.5,-2 0.828,0 1.5,0.895 1.5,2 z"
+           transform="matrix(15.333333,0,0,11.5,414.99999,878.8622)"
+           id="path14" />
+      </g>
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1272"
+     inkscape:window-height="674"
+     id="namedview4"
+     showgrid="false"
+     inkscape:zoom="0.16296602"
+     inkscape:cx="761.79205"
+     inkscape:cy="-121.07132"
+     inkscape:window-x="15"
+     inkscape:window-y="34"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <g
+     id="g4173">
+    <rect
+       ry="50.02"
+       y="39.042915"
+       x="37.885632"
+       height="437.20773"
+       width="438.74179"
+       id="rect3015"
+       style="fill:#c87137;fill-opacity:1;fill-rule:evenodd;stroke:none" />
+    <rect
+       ry="40.926682"
+       y="81.695557"
+       x="78.237175"
+       height="357.72614"
+       width="358.98132"
+       id="rect3015-3"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none" />
+    <path
+       sodipodi:nodetypes="cccccc"
+       inkscape:connector-curvature="0"
+       id="path4158"
+       d="m 164.91168,81.695559 182.34483,0 -1.2e-4,350.719331 -88.60338,-24.2818 -92.97429,27.1638 z"
+       style="fill:#f03916;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <path
+       inkscape:transform-center-y="-6.1048674"
+       inkscape:transform-center-x="-0.49658202"
+       d="m 296.54041,296.20654 -39.98829,-22.22874 -40.98147,20.33959 8.78372,-44.90018 -32.00807,-32.69042 45.41693,-5.5211 21.1994,-40.54338 19.28548,41.48795 45.11002,7.63324 -33.49785,31.16206 z"
+       inkscape:randomized="0"
+       inkscape:rounded="0"
+       inkscape:flatsided="false"
+       sodipodi:arg2="1.5941236"
+       sodipodi:arg1="0.96580507"
+       sodipodi:r2="34.447868"
+       sodipodi:r1="68.895737"
+       sodipodi:cy="239.5393"
+       sodipodi:cx="257.35563"
+       sodipodi:sides="5"
+       id="path4171"
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-opacity:1"
+       sodipodi:type="star" />
+  </g>
+</svg>

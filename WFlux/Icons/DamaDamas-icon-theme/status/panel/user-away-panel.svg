@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 22 22"
+   id="svg"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   width="100%"
+   height="100%"
+   sodipodi:docname="empathy-away.svg">
+  <defs
+     id="defs81">
+    <style
+       id="current-color-scheme"
+       type="text/css">
+      .ColorScheme-Text {
+        color:#7B7C7E;
+      }
+      .ColorScheme-Background{
+        color:#EFF0F1;
+      }
+      .ColorScheme-Highlight{
+        color:#3DAEE6;
+      }
+      .ColorScheme-ViewText {
+        color:#7B7C7E;
+      }
+      .ColorScheme-ViewBackground{
+        color:#FCFCFC;
+      }
+      .ColorScheme-ViewHover {
+        color:#3DAEE6;
+      }
+      .ColorScheme-ViewFocus{
+        color:#1E92FF;
+      }
+      .ColorScheme-ButtonText {
+        color:#7B7C7E;
+      }
+      .ColorScheme-ButtonBackground{
+        color:#EFF0F1;
+      }
+      .ColorScheme-ButtonHover {
+        color:#3DAEE6;
+      }
+      .ColorScheme-ButtonFocus{
+        color:#1E92FF;
+      }
+</style>
+  </defs>
+  <metadata
+     id="metadata34">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#3daee9"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0.03921569"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="711"
+     id="namedview32"
+     showgrid="true"
+     inkscape:zoom="5.6568542"
+     inkscape:cx="56.164487"
+     inkscape:cy="26.105702"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg"
+     borderlayer="true"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:snap-bbox="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3046"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
+  <g
+     id="konversation"
+     transform="matrix(-1,0,0,1,22,0)">
+    <path
+       style="fill:#394050;fill-opacity:1"
+       id="path3"
+       d="m 20.5,10.375038 c 0,4.560497 -4.25653,8.253889 -9.499873,8.253889 -1.246233,0 -2.4289416,-0.207281 -3.5210407,-0.586168 -1.5223599,0.833186 -2.8774218,1.401387 -4.6923588,1.757482 -0.5423787,0.111115 -0.7582681,0.10023 -0.8045835,0.0332 -0.053665,-0.0789 0.1245213,-0.233854 0.2821985,-0.360909 C 4.0210663,18.100508 4.3146552,17.382489 4.7396007,16.577894 2.7528135,15.073475 1.5,12.850304 1.5,10.375047 1.5,5.8142957 5.7499494,2.1160904 11.000127,2.1160904 16.243217,2.1158371 20.5,5.8142957 20.5,10.375047 Z"
+       inkscape:connector-curvature="0" />
+    <rect
+       y="0"
+       x="0"
+       height="22"
+       width="22"
+       id="rect2999"
+       style="fill:#ffffff;fill-opacity:0;stroke:none" />
+  </g>
+  <path
+     style="opacity:1;fill:#999999;fill-opacity:1;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="path3337"
+     sodipodi:type="arc"
+     sodipodi:cx="10.881281"
+     sodipodi:cy="10.5"
+     sodipodi:rx="6.6767769"
+     sodipodi:ry="5.5"
+     sodipodi:start="0"
+     sodipodi:end="6.2784904"
+     sodipodi:open="true"
+     d="m 17.558058,10.5 a 6.6767769,5.5 0 0 1 -6.66894,5.499996 6.6767769,5.5 0 0 1 -6.6845956,-5.487085 6.6767769,5.5 0 0 1 6.6532486,-5.5128769 6.6767769,5.5 0 0 1 6.700213,5.4741439" />
+</svg>

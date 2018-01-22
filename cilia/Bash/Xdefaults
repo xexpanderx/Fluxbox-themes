@@ -1,0 +1,32 @@
+Xft.dpi: 96
+XTerm*background: #2D2D2D
+XTerm*cursorColor: #2D2D2D
+XTerm*foreground: #6AA7A5
+XTerm*faceName: Dejavu Sans Mono:bold:pixelsize=12
+
+! black
+*color0:  #BFBFBF
+*color8:  #3B7578
+! red
+*color1:  #416863
+*color9:  #B54F52
+! green
+*color2:  #9B3948
+*color10: #475B52
+! yellow
+*color3:  #365153
+*color11: #466852
+! blue
+*color4:  #20474C
+*color12: #66434D
+! magenta
+*color5:  #2A474A
+*color13: #724E5B
+! cyan
+*color6:  #9B3948
+*color14: #365153
+! white
+*color7:  #406851
+*color15: #B54F52
+
+

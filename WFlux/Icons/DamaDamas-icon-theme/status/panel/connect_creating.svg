@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="22"
+   height="22"
+   viewBox="0 0 22 22"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="connect_creating.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="11.2"
+     inkscape:cx="29.116043"
+     inkscape:cy="9.9856065"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1366"
+     inkscape:window-height="711"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-1030.3622)">
+    <g
+       id="network-wired-activated-locked"
+       transform="translate(0,1030.3622)">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4774"
+         d="m 3,3 0,11 7,0 0,1.271484 A 2,2 0 0 0 9.066406,16.5 L 3,16.5 l 0,1 6.064453,0 A 2,2 0 0 0 11,19 2,2 0 0 0 12.933594,17.5 L 19,17.5 l 0,-1 -6.064453,0 A 2,2 0 0 0 12,15.269531 L 12,14 19,14 19,3 3,3 Z m 1,1 14,0 0,9 -6,0 -2,0 -6,0 0,-9 z M 5,5 5,6 7,6 7,5 5,5 Z M 5,8 5,9 7,9 7,8 5,8 Z m 0,3 0,1 2,0 0,-1 -2,0 z"
+         style="fill:#394050;fill-opacity:1;stroke:none" />
+      <rect
+         style="fill:#e74c3c;fill-opacity:0;stroke:none"
+         id="rect4776"
+         width="22"
+         height="22"
+         x="0"
+         y="0" />
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="512"
+   height="512"
+   id="svg859"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="wordpress.svg"
+   viewBox="0 0 512 512">
+  <defs
+     id="defs861">
+    <linearGradient
+       id="linearGradient4241"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#ba174e;stop-opacity:1;"
+         offset="0"
+         id="stop4243" />
+    </linearGradient>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.27655885"
+     inkscape:cx="444.24661"
+     inkscape:cy="728.51813"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     width="0px"
+     height="0px"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1366"
+     inkscape:window-height="708"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata864">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-540.3622)">
+    <path
+       style="fill:#00bbf2;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       id="path4048"
+       inkscape:connector-curvature="0"
+       d="m 253.84316,558.39092 c -130.94536,0 -237.428678,106.62602 -237.428678,237.57132 0,130.95103 106.483318,237.42866 237.428678,237.42866 130.95104,0 237.57132,-106.47763 237.57132,-237.42866 0,-130.9453 -106.62028,-237.57132 -237.57132,-237.57132 z m 0,23.97114 c 55.59024,0 106.26641,21.27155 144.255,56.0754 -0.91886,-0.0594 -1.76357,-0.1425 -2.711,-0.1425 -20.97481,0 -35.95677,18.32655 -35.95677,37.95435 0,17.59597 10.15352,32.48663 20.97481,50.08261 8.12164,14.21715 17.69296,32.38959 17.69296,58.7864 0,18.26949 -5.44489,41.31602 -16.26611,69.05978 l -21.40284,71.19993 -77.05015,-229.58102 c 12.8531,-0.67345 24.39917,-1.99758 24.39917,-1.99758 11.50621,-1.36404 10.0793,-18.22377 -1.42685,-17.55032 0,0 -34.46138,2.71106 -56.78882,2.71106 -20.98049,0 -56.36073,-2.71106 -56.36073,-2.71106 -11.51189,-0.67345 -12.79604,16.87114 -1.28422,17.55032 0,0 10.89551,1.32413 22.40166,1.99758 l 33.24571,91.17605 -46.80082,140.11715 -77.62094,-231.2932 c 12.86452,-0.67345 24.39923,-1.99758 24.39923,-1.99758 11.49474,-1.36404 10.0793,-18.22377 -1.42685,-17.55032 0,0 -34.60407,2.71106 -56.931518,2.71106 -4.00662,0 -8.68669,-0.12535 -13.69781,-0.28566 C 113.66888,620.71567 179.24718,582.3618 253.84316,582.3618 Z m 187.48871,111.15198 c 16.65996,30.40917 26.11147,65.32714 26.11147,102.4482 0,78.7738 -42.68013,147.48545 -106.15801,184.49237 L 426.4926,791.96702 c 12.18533,-30.46049 16.26611,-54.81975 16.26611,-76.47942 0,-7.85907 -0.50798,-15.17598 -1.42684,-21.97356 z M 58.934762,709.06679 160.66954,988.15964 C 89.440912,953.55556 40.385622,880.47773 40.385622,795.96224 c 0,-30.95701 6.70621,-60.33886 18.54914,-86.89545 z m 198.760918,105.58729 65.6353,179.78367 c 0.43344,1.05589 0.85612,1.94058 1.42685,2.85376 -22.19042,7.81339 -46.04749,12.12829 -70.91467,12.12829 -20.95198,0 -41.08202,-3.0764 -60.2133,-8.7039 l 64.06582,-186.06182 z" />
+  </g>
+</svg>

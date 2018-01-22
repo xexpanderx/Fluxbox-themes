@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created using Karbon, part of Calligra: http://www.calligra.org/karbon -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="512"
+   height="512"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="input-tablet.svg"
+   viewBox="0 0 512 512">
+  <metadata
+     id="metadata11">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="716"
+     id="namedview9"
+     showgrid="false"
+     inkscape:showpageshadow="false"
+     borderlayer="true"
+     inkscape:zoom="0.61458332"
+     inkscape:cx="420.31382"
+     inkscape:cy="377.95298"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2"
+     inkscape:snap-global="false"
+     inkscape:document-units="px" />
+  <defs
+     id="defs4" />
+  <rect
+     style="fill:#323438;fill-opacity:1;stroke:none"
+     id="rect4159"
+     width="374.0571"
+     height="450"
+     x="66.594376"
+     y="32.764141"
+     ry="8.3329077" />
+  <path
+     inkscape:connector-curvature="0"
+     style="fill:#666666;fill-opacity:1;stroke:none"
+     d="m 78.283607,66.097192 0,350.000778 350.678543,0 0,-350.000778 -350.678543,0 z"
+     id="rect4157" />
+  <rect
+     ry="0"
+     y="416.09833"
+     x="78.283646"
+     height="33.332836"
+     width="350.67853"
+     id="rect4163"
+     style="fill:#666666;fill-opacity:1;stroke:none" />
+  <rect
+     style="fill:#4b4e54;fill-opacity:1;stroke:none"
+     id="rect4355"
+     width="70.135704"
+     height="16.666704"
+     x="218.55504"
+     y="41.097492" />
+</svg>
