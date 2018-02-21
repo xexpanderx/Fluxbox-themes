@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="22"
+   height="22"
+   viewBox="0 0 22 22"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="battery_caution.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="7.919596"
+     inkscape:cx="-11.766604"
+     inkscape:cy="2.3348734"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1366"
+     inkscape:window-height="718"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-1030.3622)">
+    <g
+       transform="matrix(0.74074072,0,0,0.74074072,59.148145,1037.7696)"
+       id="Fill10">
+      <rect
+         ry="0"
+         y="-10"
+         x="-79.849998"
+         height="29.700001"
+         width="29.700001"
+         id="rect4335-5-9-9-2-9-7-8-1-9"
+         style="fill:#394050;fill-opacity:0;stroke:none" />
+      <g
+         id="g4746">
+        <path
+           style="fill:#394050;fill-opacity:1;stroke:none"
+           d="m -52.850021,1.5941197 -1.42941,0 0,-4.2882354 -22.870588,0 0,14.2941177 22.870588,0 0,-4.2882351 1.42941,0 z m -2.85603,5.7176472 0,2.8588221 -20.014558,0 0,-11.4352929 20.011768,0 0,2.8588236 0,5.7176472 z"
+           id="rect4251-5-2-6-1-0-9-7-9-7"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="ccccccccccccccccc" />
+        <rect
+           style="fill:#e74c3c;fill-opacity:1;stroke:none;stroke-width:9;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect3526-6-7-0-8-2-2-3-3-8"
+           width="3.280093"
+           height="10.082813"
+           x="-75.030083"
+           y="-0.54999703" />
+      </g>
+    </g>
+  </g>
+</svg>

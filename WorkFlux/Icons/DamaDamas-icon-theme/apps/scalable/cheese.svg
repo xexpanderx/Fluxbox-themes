@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 511.99999 511.99999"
+   height="512"
+   width="512"
+   version="1.1"
+   id="svg2"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="cheese.svg">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="715"
+     id="namedview18"
+     showgrid="false"
+     inkscape:zoom="0.57452426"
+     inkscape:cx="369.56311"
+     inkscape:cy="238.33844"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" />
+  <metadata
+     id="metadata8">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs6">
+    <filter
+       height="1.096"
+       y="-0.048"
+       width="1.096"
+       x="-0.048"
+       id="filter4329"
+       style="color-interpolation-filters:sRGB">
+      <feGaussianBlur
+         id="feGaussianBlur4331"
+         stdDeviation="2.1324205" />
+    </filter>
+    <filter
+       height="1.0327445"
+       y="-0.016372267"
+       width="1.0399742"
+       x="-0.019987123"
+       id="filter4376"
+       style="color-interpolation-filters:sRGB">
+      <feGaussianBlur
+         id="feGaussianBlur4378"
+         stdDeviation="1.1736058" />
+    </filter>
+    <filter
+       height="1.0570984"
+       y="-0.0285492"
+       width="1.0632123"
+       x="-0.031606145"
+       id="filter4436"
+       style="color-interpolation-filters:sRGB">
+      <feGaussianBlur
+         id="feGaussianBlur4438"
+         stdDeviation="0.63519096" />
+    </filter>
+  </defs>
+  <g
+     id="g4172">
+    <rect
+       rx="31.121531"
+       ry="35.16534"
+       y="24.816008"
+       x="48.702854"
+       height="444.71027"
+       width="376.73434"
+       id="rect3003"
+       style="fill:#ebebeb;fill-opacity:1;stroke:none" />
+    <path
+       sodipodi:nodetypes="cccczcczcczcczc"
+       inkscape:connector-curvature="0"
+       id="path3773"
+       d="m 79.598324,55.911819 c -2.486014,3.057119 -2.089441,7.093557 -2.089441,7.093557 l 0.07314,345.511254 0.005,25.33034 c 0,0 -0.163188,3.96176 1.676098,6.02758 1.839436,2.06581 6.218918,2.25958 6.218918,2.25958 l 303.344883,-0.0149 c 0,0 5.08128,0.27911 7.36674,-1.72272 2.28547,-2.00178 2.08546,-6.45112 2.08546,-6.45112 l 0.0989,-359.386757 c 0,0 0.82406,-13.747879 -3.19613,-17.888046 -4.02017,-4.140166 -16.10523,-3.368989 -16.10523,-3.368989 l -292.876753,0.04534 c 0,0 -4.115894,-0.48956 -6.601858,2.56731 z"
+       style="fill:#00bbf2;fill-opacity:1;stroke:none" />
+    <path
+       sodipodi:nodetypes="czczc"
+       inkscape:connector-curvature="0"
+       id="path3012"
+       d="m 55.974106,159.48144 c 0,0 34.548046,-10.85207 66.003594,-12.71179 31.45554,-1.85972 62.58116,6.8448 62.58116,6.8448 0,0 -31.82467,-26.08908 -62.58116,-25.42359 -30.756497,0.66548 -66.003594,31.29058 -66.003594,31.29058 z"
+       style="fill:#394050;stroke:none" />
+    <path
+       sodipodi:nodetypes="czczc"
+       inkscape:connector-curvature="0"
+       id="path3012-3"
+       d="m 275.32342,144.07641 c 0,0 32.88564,-15.16153 63.84856,-21.01021 30.96293,-5.84864 62.94339,-1.17698 62.94339,-1.17698 0,0 -34.88676,-21.82582 -65.30833,-17.25066 -30.42159,4.57516 -61.48362,39.43785 -61.48362,39.43785 z"
+       style="fill:#394050;stroke:none" />
+    <path
+       sodipodi:nodetypes="cczcczc"
+       inkscape:connector-curvature="0"
+       id="path3800"
+       d="m 77.26141,297.51825 0,64.30309 c 0,0 81.72084,62.29918 159.72051,56.00586 77.99967,-6.2933 160.41196,-56.69732 160.41196,-56.69732 l 0.69144,-89.19456 c 0,0 -87.23359,20.52379 -156.95483,31.11438 -69.72123,10.59059 -163.86908,-5.53145 -163.86908,-5.53145 z"
+       style="fill:#ffffff;stroke:none" />
+    <rect
+       ry="110.76764"
+       y="273.0383"
+       x="266.76202"
+       height="221.53528"
+       width="221.53528"
+       id="rect3427"
+       style="fill:#ebebeb;fill-opacity:1;fill-rule:evenodd;stroke:none" />
+    <rect
+       style="fill:#00bbf2;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="rect3429"
+       width="184.61272"
+       height="184.61272"
+       x="285.2233"
+       y="291.4996"
+       ry="92.306358" />
+    <rect
+       ry="73.8451"
+       y="309.96088"
+       x="303.68442"
+       height="147.69022"
+       width="147.69022"
+       id="rect3431"
+       style="fill:#216778;fill-opacity:1;fill-rule:evenodd;stroke:none" />
+    <rect
+       style="fill:#164450;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="rect3433"
+       width="110.76764"
+       height="110.76764"
+       x="322.14587"
+       y="328.42215"
+       ry="55.38382" />
+    <rect
+       ry="36.92255"
+       y="346.88333"
+       x="340.60703"
+       height="73.8451"
+       width="73.8451"
+       id="rect3435"
+       style="fill:#0b2228;fill-opacity:1;fill-rule:evenodd;stroke:none" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="rect3437"
+       width="36.92255"
+       height="36.92255"
+       x="377.52972"
+       y="346.88333"
+       ry="18.461275" />
+    <rect
+       ry="9.2306376"
+       y="402.26715"
+       x="340.60703"
+       height="18.461275"
+       width="18.461275"
+       id="rect3439"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none" />
+  </g>
+</svg>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   width="500"
+   height="500"
+   sodipodi:docname="goa-account-owncloud.svg"
+   viewBox="0 0 500 500">
+  <metadata
+     id="metadata8">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs6">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath4201">
+      <rect
+         style="fill:#51c3c3;fill-opacity:1;stroke:none"
+         id="rect4203"
+         width="460"
+         height="460"
+         x="26"
+         y="26"
+         rx="36"
+         ry="36" />
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="716"
+     id="namedview4"
+     showgrid="true"
+     inkscape:zoom="0.65186405"
+     inkscape:cx="770.04936"
+     inkscape:cy="229.08883"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g4142"
+     showguides="false">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3787"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
+  <g
+     id="g4142"
+     transform="matrix(0.97826087,0,0,0.97826087,5.5652172,-6.434783)">
+    <path
+       sodipodi:nodetypes="cccccccccc"
+       inkscape:connector-curvature="0"
+       id="path3755"
+       d="m 252.61202,148.21459 c -47.30868,0.0342 -90.70965,26.25887 -112.74273,68.12359 -9.85361,-3.37707 -20.19418,-5.11604 -30.61038,-5.14776 -52.639002,-10e-4 -95.312126,42.67054 -95.312711,95.30955 5.85e-4,52.63901 42.673709,95.31071 95.312711,95.30954 l 268.64145,0 c 53.04547,-10e-4 96.04655,-43.00355 96.04584,-96.04902 7e-4,-53.04546 -43.00039,-96.04796 -96.04584,-96.049 -5.22341,0.013 -10.43711,0.45066 -15.58925,1.31073 -22.88513,-38.86338 -64.59823,-62.746 -109.69909,-62.80763 z"
+       style="fill:#808080;fill-opacity:1;stroke:none" />
+  </g>
+</svg>

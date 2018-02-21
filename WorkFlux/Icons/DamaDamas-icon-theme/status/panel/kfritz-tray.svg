@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 22 22"
+   id="svg"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   width="100%"
+   height="100%"
+   sodipodi:docname="kfritz-tray.svg">
+  <defs
+     id="defs81">
+    <style
+       id="current-color-scheme"
+       type="text/css">
+      .ColorScheme-Text {
+        color:#7B7C7E;
+      }
+      .ColorScheme-Background{
+        color:#EFF0F1;
+      }
+      .ColorScheme-Highlight{
+        color:#3DAEE6;
+      }
+      .ColorScheme-ViewText {
+        color:#7B7C7E;
+      }
+      .ColorScheme-ViewBackground{
+        color:#FCFCFC;
+      }
+      .ColorScheme-ViewHover {
+        color:#3DAEE6;
+      }
+      .ColorScheme-ViewFocus{
+        color:#1E92FF;
+      }
+      .ColorScheme-ButtonText {
+        color:#7B7C7E;
+      }
+      .ColorScheme-ButtonBackground{
+        color:#EFF0F1;
+      }
+      .ColorScheme-ButtonHover {
+        color:#3DAEE6;
+      }
+      .ColorScheme-ButtonFocus{
+        color:#1E92FF;
+      }
+</style>
+  </defs>
+  <metadata
+     id="metadata34">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#3daee9"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0.03921569"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="715"
+     id="namedview32"
+     showgrid="true"
+     inkscape:zoom="8"
+     inkscape:cx="9.8947682"
+     inkscape:cy="15.389606"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg"
+     borderlayer="true"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:snap-bbox="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3046"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
+  <g
+     id="g4151">
+    <rect
+       y="0"
+       x="0"
+       height="22"
+       width="22"
+       id="rect2999"
+       style="fill:#ffffff;fill-opacity:0;stroke:none" />
+    <g
+       style="fill:#394050;fill-opacity:1"
+       id="g3"
+       transform="matrix(0.04664879,0.016535,-0.016535,0.04664879,6.8886017,0.1928813)">
+      <g
+         style="fill:#394050;fill-opacity:1"
+         id="g5">
+        <g
+           style="fill:#394050;fill-opacity:1"
+           id="g7">
+          <path
+             style="fill:#394050;fill-opacity:1"
+             id="path9"
+             d="M 340.273,275.083 286.518,221.322 C 275.811,210.658 258.08,210.982 247,222.066 l -27.082,27.076 c -1.711,-0.943 -3.482,-1.928 -5.344,-2.973 -17.102,-9.476 -40.509,-22.464 -65.14,-47.113 -24.704,-24.701 -37.704,-48.144 -47.209,-65.257 -1.003,-1.813 -1.964,-3.561 -2.913,-5.221 l 18.176,-18.149 8.936,-8.947 c 11.097,-11.1 11.403,-28.826 0.721,-39.521 L 73.39,8.194 C 62.708,-2.486 44.969,-2.162 33.872,8.938 l -15.15,15.237 0.414,0.411 C 14.056,31.068 9.811,38.544 6.652,46.606 3.74,54.28 1.927,61.603 1.098,68.941 -6,127.785 20.89,181.564 93.866,254.541 c 100.875,100.868 182.167,93.248 185.674,92.876 7.638,-0.913 14.958,-2.738 22.397,-5.627 7.992,-3.122 15.463,-7.361 21.941,-12.43 l 0.331,0.294 15.348,-15.029 c 11.074,-11.098 11.393,-28.83 0.716,-39.542 z"
+             inkscape:connector-curvature="0" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
