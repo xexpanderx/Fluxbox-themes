@@ -17,3 +17,7 @@
 <b>WorkFlux (HiDPI version)</b>
 
 ![alt tag](https://raw.githubusercontent.com/xexpanderx/Fluxbox-themes/master/WorkFlux/3.png)
+
+<b>Blossom</b>
+
+![alt tag](https://raw.githubusercontent.com/xexpanderx/Fluxbox-themes/master/Blossom/screenshot.png)
