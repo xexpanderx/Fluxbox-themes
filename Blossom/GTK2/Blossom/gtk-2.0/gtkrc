@@ -1,16 +1,16 @@
 ## Default colors
 gtk-color-scheme = "base_color:#000000\nbg_color:#000000\nscrollbar_color:#F22C42"
 gtk-color-scheme = "text_color:#FFFFFF\nfg_color:#FFFFFF"
-gtk-color-scheme = "tooltip_bg_color:#000000\ntooltip_fg_color:#000000\nlink_color:#20474C\nvisited_link_color:#9A3948"
+gtk-color-scheme = "tooltip_bg_color:#000000\ntooltip_fg_color:#000000\nlink_color:#20474C\nvisited_link_color:#F22C42"
 ## Toolbar colors
 gtk-color-scheme = "toolbar_bg_color:#000000"
 
 ## Treeview colors
 gtk-color-scheme = "treeview_bg_color:#000000"
-gtk-color-scheme = "treeview_header_selected_bg_color:#9A3948"
+gtk-color-scheme = "treeview_header_selected_bg_color:#F22C42"
 gtk-color-scheme = "treeview_header_text_selected_bg_color:#FFFFFF"
 ## Handle colors
-gtk-color-scheme = "handle_bg_color:#9A3948"
+gtk-color-scheme = "handle_bg_color:#F22C42"
 
 ## Dark-Flat
 gtk-color-scheme = "theme_bg_dark_color:#000000\ntheme_fg_dark_color:#000000\ntheme_text_dark_color:#000000"
@@ -21,7 +21,7 @@ gtk-color-scheme = "other_text_color2:#000000"
 
 ## Menu color selection
 gtk-color-scheme = "menu_selected_bg_color:#363636"
-gtk-color-scheme = "menubar_selected_bg_color:#9A3948"
+gtk-color-scheme = "menubar_selected_bg_color:#F22C42"
 gtk-color-scheme = "menubar_bg_color:#000000"
 gtk-color-scheme = "menubar_fg_color:#FFFFFF"
 gtk-color-scheme = "menubar_fg_selected_color:#000000"
@@ -38,15 +38,15 @@ gtk-color-scheme = "spinbutton_fg_color:#FFFFFF"
 gtk-color-scheme = "spinbutton_selected_bg_color:#363636"
 
 ## Scale colors
-gtk-color-scheme = "scale_bg_color:#9A3948"
+gtk-color-scheme = "scale_bg_color:#F22C42"
 
 ## Firefox and select text marker
 gtk-color-scheme = "firefox_selected_color:#20474C"
 
 ## Button
-gtk-color-scheme = "button_prelight_fg_color:#9A3948"
+gtk-color-scheme = "button_prelight_fg_color:#F22C42"
 gtk-color-scheme = "button_prelight_bg_color:#363636"
-gtk-color-scheme = "button_label_prelight_bg_color:#9A3948"
+gtk-color-scheme = "button_label_prelight_bg_color:#F22C42"
 
 ## Entry
 gtk-color-scheme = "entry_bg_color:#101010"
