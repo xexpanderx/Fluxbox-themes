@@ -50,6 +50,9 @@ gtk-color-scheme = "button_label_prelight_bg_color:#F22C42"
 
 ## Entry
 gtk-color-scheme = "entry_bg_color:#101010"
+
+## Progressbar
+gtk-color-scheme = "progressbar_bg_selected_color:#F22C42"
 ###################################################################
 
 gtk-auto-mnemonics	= 1
@@ -1461,7 +1464,7 @@ style "treeview" {
 	fg[PRELIGHT]		= @treeview_header_text_selected_bg_color
 
 	bg[NORMAL]   		= @treeview_bg_color
-	bg[SELECTED]		= @selected_bg_color		
+	bg[SELECTED]		= @progressbar_bg_selected_color		
 	text[NORMAL]    	= @fg_color				
 	text[SELECTED]  	= @selected_fg_color					
 	text[ACTIVE] 		= @selected_fg_color
