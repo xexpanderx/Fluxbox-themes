@@ -1,3 +1,7 @@
+<b>Unicorn</b>
+
+![alt tag](https://raw.githubusercontent.com/xexpanderx/Fluxbox-themes/master/Unicorn/screenshot.png)
+
 <b>cilia</b>
 
 ![alt tag](https://raw.githubusercontent.com/xexpanderx/Fluxbox-themes/master/cilia/screenshot.png)
