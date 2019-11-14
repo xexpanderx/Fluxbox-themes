@@ -3134,11 +3134,11 @@ progressbar.vertical progress {
 }
 
 progressbar trough {
-  background-color: #D53679;
+  background-color: #2C2C2C;
 }
 
 progressbar progress {
-  background-color: #2C2C2C;
+  background-color: #D53679;
 }
 
 progressbar trough.empty progress {
