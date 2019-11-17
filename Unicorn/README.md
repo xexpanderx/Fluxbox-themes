@@ -13,6 +13,6 @@ This line in your Fluxbox init file:
 
 sh install.sh
 
-<b>Post-install and configuration</b>
+<b>Post-install and configurations</b>
 
 Font used in GTK2/GTK3 is Roboto. Make sure to apply Roboto font if you want consistenty with Fluxbox theme.
