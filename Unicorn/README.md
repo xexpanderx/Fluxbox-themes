@@ -1,4 +1,5 @@
 <b> Requirements </b>
+
 This line in your Fluxbox init file:
 
 <code> session.screen0.allowRemoteActions:	True </code>
