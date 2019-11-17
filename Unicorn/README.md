@@ -11,7 +11,7 @@ This line in your Fluxbox init file:
 
 <b>Install</b>
 
-Use the provided installer script:
+Use the provided installer script and follow instructions:
 
 <code> sh install.sh </code>
 
