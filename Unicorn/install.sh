@@ -17,7 +17,7 @@ if [ "$sponge_var" != "" ] ; then
 	echo "Let me try to apply Fluxbox style for you (allowRemoteActions true required)..."
 	fluxbox-remote restart
 	echo "Installation done."
-	echo "* Apply GTK2/GTK3 and icons with lxappearance or similar! *"
+	echo "* Apply GTK2/GTK3, icons and font (Roboto, size 12) with lxappearance or similar! *"
 else
 	echo "Please install moreutils."
 fi
