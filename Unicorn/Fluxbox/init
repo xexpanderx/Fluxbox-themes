@@ -3,7 +3,7 @@ session.screen0.window.unfocus.alpha:	255
 session.screen0.menu.alpha:	255
 session.screen0.tab.placement:	TopLeft
 session.screen0.tab.width:	10
-session.screen0.iconbar.iconWidth:	136
+session.screen0.iconbar.iconWidth:	134
 session.screen0.iconbar.iconTextPadding:	15
 session.screen0.iconbar.alignment:	Left
 session.screen0.iconbar.usePixmap:	false
