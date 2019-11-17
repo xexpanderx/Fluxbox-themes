@@ -3722,12 +3722,12 @@ tooltip {
 }
 
 tooltip.background {
-  background-color: rgba(35, 35, 35, 0.9);
+  background-color: #0f1013;
   color: #d2d2d2;
 }
 
 tooltip decoration {
-  background-color: transparent;
+  background-color: #0f1013;
 }
 
 tooltip label {
@@ -5272,18 +5272,18 @@ na-tray-applet {
 /* multimedia OSD */
 MsdOsdWindow.background.osd {
   border-radius: 0px;
-  background-color: rgba(35, 35, 35, 0.9);
+  background-color: #0F1013;
   color: #d2d2d2;
 }
 
 MsdOsdWindow.background.osd .trough {
   border-radius: 0px;
-  background-color: rgba(255, 255, 255, 0.12);
+  background-color: #2C2C2C;
 }
 
 MsdOsdWindow.background.osd .progressbar {
   border-radius: 0px;
-  background-color: #d2d2d2;
+  background-color: #2C2C2C;
 }
 
 .workspace-switcher .workspace-layout {

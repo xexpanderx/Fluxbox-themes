@@ -205,7 +205,7 @@ style "default" {
 		progressbarstyle		= 0
 		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
 		rgba					= FALSE	# alpha transparency
-		roundness				= 2 # 0 = square
+		roundness				= 0 # 0 = square
 		scrollbarstyle			= 0 # 0 = nothing
 		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
 		shadow_shades			= {1.0, 1.0}
@@ -258,7 +258,7 @@ style "wide" = "murrine" {
 		progressbarstyle		= 0
 		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
 		rgba					= FALSE	# alpha transparency
-		roundness				= 2 # 0 = square
+		roundness				= 0 # 0 = square
 		scrollbarstyle			= 0 # 0 = nothing
 		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
 		shadow_shades			= {1.0, 1.0}
@@ -309,7 +309,7 @@ engine "murrine" {
 		progressbarstyle		= 0
 		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
 		rgba					= FALSE	# alpha transparency
-		roundness				= 2 # 0 = square
+		roundness				= 0 # 0 = square
 		scrollbarstyle			= 0 # 0 = nothing
 		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
 		shadow_shades			= {1.0, 1.0}
@@ -377,7 +377,7 @@ engine "murrine" {
 		progressbarstyle		= 0
 		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
 		rgba					= FALSE	# alpha transparency
-		roundness				= 2 # 0 = square
+		roundness				= 0 # 0 = square
 		scrollbarstyle			= 0 # 0 = nothing
 		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
 		shadow_shades			= {1.0, 1.0}
@@ -431,7 +431,7 @@ style "button_label" {
 		progressbarstyle		= 0
 		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
 		rgba					= FALSE	# alpha transparency
-		roundness				= 2 # 0 = square
+		roundness				= 0 # 0 = square
 		scrollbarstyle			= 0 # 0 = nothing
 		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
 		shadow_shades			= {1.0, 1.0}
@@ -484,7 +484,7 @@ style "checkradio_label" {
 		progressbarstyle		= 0
 		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
 		rgba					= FALSE	# alpha transparency
-		roundness				= 2 # 0 = square
+		roundness				= 0 # 0 = square
 		scrollbarstyle			= 0 # 0 = nothing
 		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
 		shadow_shades			= {1.0, 1.0}
@@ -541,7 +541,7 @@ style "entry" { # text
 		progressbarstyle		= 0
 		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
 		rgba					= FALSE	# alpha transparency
-		roundness				= 2 # 0 = square
+		roundness				= 0 # 0 = square
 		scrollbarstyle			= 0 # 0 = nothing
 		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
 		shadow_shades			= {1.0, 1.0}
@@ -590,7 +590,7 @@ style "expander" {
 		progressbarstyle		= 0
 		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
 		rgba					= FALSE	# alpha transparency
-		roundness				= 2 # 0 = square
+		roundness				= 0 # 0 = square
 		scrollbarstyle			= 0 # 0 = nothing
 		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
 		shadow_shades			= {1.0, 1.0}
@@ -641,7 +641,7 @@ style "frame_title" {
 		progressbarstyle		= 0
 		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
 		rgba					= FALSE	# alpha transparency
-		roundness				= 2 # 0 = square
+		roundness				= 0 # 0 = square
 		scrollbarstyle			= 0 # 0 = nothing
 		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
 		shadow_shades			= {1.0, 1.0}
@@ -693,7 +693,7 @@ style "handle" {
 		progressbarstyle		= 0
 		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
 		rgba					= FALSE	# alpha transparency
-		roundness				= 2 # 0 = square
+		roundness				= 0 # 0 = square
 		scrollbarstyle			= 0 # 0 = nothing
 		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
 		shadow_shades			= {1.0, 1.0}
@@ -764,7 +764,7 @@ engine "murrine" {
 		progressbarstyle		= 0
 		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
 		rgba					= FALSE	# alpha transparency
-		roundness				= 2 # 0 = square
+		roundness				= 0 # 0 = square
 		scrollbarstyle			= 0 # 0 = nothing
 		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
 		shadow_shades			= {1.0, 1.0}
@@ -832,7 +832,7 @@ style "menu" {
 		progressbarstyle		= 0
 		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
 		rgba					= FALSE	# alpha transparency
-		roundness				= 2 # 0 = square
+		roundness				= 0 # 0 = square
 		scrollbarstyle			= 0 # 0 = nothing
 		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
 		shadow_shades			= {1.0, 1.0}
@@ -1233,7 +1233,7 @@ style "spinbutton" = "button" { # input/stepper
 		progressbarstyle		= 0
 		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
 		rgba					= FALSE	# alpha transparency
-		roundness				= 2 # 0 = square
+		roundness				= 0 # 0 = square
 		scrollbarstyle			= 0 # 0 = nothing
 		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
 		shadow_shades			= {1.0, 1.0}
@@ -1289,7 +1289,7 @@ style "toolbar" {
 		progressbarstyle		= 0
 		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
 		rgba					= FALSE	# alpha transparency
-		roundness				= 2 # 0 = square
+		roundness				= 0 # 0 = square
 		scrollbarstyle			= 0 # 0 = nothing
 		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
 		shadow_shades			= {1.0, 1.0}
@@ -1354,7 +1354,7 @@ style "toolbar_separator" {
 		progressbarstyle		= 0
 		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
 		rgba					= FALSE	# alpha transparency
-		roundness				= 2 # 0 = square
+		roundness				= 0 # 0 = square
 		scrollbarstyle			= 0 # 0 = nothing
 		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
 		shadow_shades			= {1.0, 1.0}
@@ -1409,7 +1409,7 @@ style "tooltips" {
 		progressbarstyle		= 0
 		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
 		rgba					= FALSE	# alpha transparency
-		roundness				= 2 # 0 = square
+		roundness				= 0 # 0 = square
 		scrollbarstyle			= 0 # 0 = nothing
 		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
 		shadow_shades			= {1.0, 1.0}
@@ -1549,7 +1549,7 @@ style "checkradio"  {
 		progressbarstyle		= 0
 		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
 		rgba					= FALSE	# alpha transparency
-		roundness				= 2 # 0 = square
+		roundness				= 0 # 0 = square
 		scrollbarstyle			= 0 # 0 = nothing
 		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
 		shadow_shades			= {1.0, 1.0}
@@ -1760,7 +1760,7 @@ style "menuitem_text_is_fg_color_workaround" {
 		progressbarstyle		= 0
 		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
 		rgba					= FALSE	# alpha transparency
-		roundness				= 2 # 0 = square
+		roundness				= 0 # 0 = square
 		scrollbarstyle			= 0 # 0 = nothing
 		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
 		shadow_shades			= {1.0, 1.0}
@@ -1816,7 +1816,7 @@ style "fg_is_text_color_workaround" {
 		progressbarstyle		= 0
 		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
 		rgba					= FALSE	# alpha transparency
-		roundness				= 2 # 0 = square
+		roundness				= 0 # 0 = square
 		scrollbarstyle			= 0 # 0 = nothing
 		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
 		shadow_shades			= {1.0, 1.0}
