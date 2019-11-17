@@ -11,7 +11,7 @@ This line in your Fluxbox init file:
 
 <b>Install</b>
 
-sh install.sh
+<code> sh install.sh </code>
 
 <b>Post-install and configurations</b>
 
