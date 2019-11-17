@@ -1883,7 +1883,7 @@ menu menuitem,
   min-height: 20px;
   min-width: 40px;
   padding: 4px 8px;
-  font: normal;
+  font-weight: normal;
   text-shadow: none;
 }
 
@@ -3975,7 +3975,7 @@ cursor-handle.insertion-cursor:dir(ltr), cursor-handle.insertion-cursor:dir(rtl)
 }
 
 .context-menu {
-  font: normal;
+  font-weight: normal;
 }
 
 .keycap {
@@ -4359,12 +4359,12 @@ frame.gedit-map-frame > border:dir(rtl) {
 .tweak-group-white,
 .tweak-white,
 .tweak-white:hover {
-  background-image: #D53679;
+  background-color: #D53679;
 }
 
 .tweak-startup,
 .tweak-startup:hover {
-  background-image: #D53679;
+  background-color: #D53679;
 }
 
 .tweak-group-startup {
