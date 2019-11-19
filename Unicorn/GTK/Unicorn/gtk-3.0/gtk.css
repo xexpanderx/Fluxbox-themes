@@ -1771,7 +1771,7 @@ treeview.view.trough {
 treeview.view.trough:selected {
   border-bottom: 0px solid rgba(210, 210, 210, 0.12);
   box-shadow: none;
-  background-color: #D53679;
+  background-color: #525252;
   color: #FFFFFF;
 }
 
