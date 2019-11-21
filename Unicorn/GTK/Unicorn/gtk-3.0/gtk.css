@@ -2649,7 +2649,7 @@ radio{
 
 check:hover,
 radio:hover {
-  background-color: #D53679;
+  background-color: #2C2C2C;
   min-height: 20px;
   min-width: 20px;
   margin: 5px;
@@ -2658,7 +2658,7 @@ radio:hover {
 
 check:focus,
 radio:focus {
-  background-color: #D53679;
+  background-color: #2C2C2C;
   min-height: 20px;
   min-width: 20px;
   margin: 5px;
@@ -2666,31 +2666,33 @@ radio:focus {
 
 check:focus:hover,
 radio:focus:hover {
-  background-color: #E53679;
+  background-color: #2C2C2C;
   min-height: 20px;
   min-width: 20px;
   margin: 5px;
   color: #FFFFFF;
 }
+
+check:checked:hover,
+radio:focus:hover {
+  background-color: #d53679;
+  min-height: 20px;
+  min-width: 20px;
+  margin: 5px;
+  color: #FFFFFF;
+}
+
 
 check:checked, check:indeterminate,
 radio:checked,
 radio:indeterminate {
   color: #FFFFFF;
-  background-color: #D53679;
+  background-color: #d53679;
   min-height: 20px;
   min-width: 20px;
   margin: 5px;
 }
 
-check:hover:selected:focus,
-radio:hover:selected:focus {
-  background-color: #FFFFFF;
-  min-height: 20px;
-  min-width: 20px;
-  margin: 5px;
-  color: #FFFFFF
-}
 
 check:checked:disabled, check:indeterminate:disabled,
 radio:checked:disabled,
