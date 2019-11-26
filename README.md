@@ -1,3 +1,8 @@
+<b>Batti</b>
+
+![alt tag](https://raw.githubusercontent.com/xexpanderx/Fluxbox-themes/master/Batti/screenshot.png)
+
+
 <b>Unicorn</b>
 
 ![alt tag](https://raw.githubusercontent.com/xexpanderx/Fluxbox-themes/master/Unicorn/screenshot.png)
