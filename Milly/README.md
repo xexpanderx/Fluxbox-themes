@@ -1,3 +1,7 @@
+<b>Milly</b>
+
+![alt tag](https://raw.githubusercontent.com/xexpanderx/Fluxbox-themes/master/Milly/screenshot.png)
+
 <b> Requirements </b>
 
 This line in your Fluxbox init file:
