@@ -1,3 +1,7 @@
+<b>Milly</b>
+
+![alt tag](https://raw.githubusercontent.com/xexpanderx/Fluxbox-themes/master/Milly/screenshot.png)
+
 <b>Batti</b>
 
 ![alt tag](https://raw.githubusercontent.com/xexpanderx/Fluxbox-themes/master/Batti/screenshot.png)
