@@ -1,0 +1,1133 @@
+#!/bin/bash
+#
+# Copyright 2018,2019 Sébastien Ballet. All rights reserved.
+# 
+# Use of this source code is governed by the BSD 3-clause license
+# that can be found in the LICENSE file. 
+#
+
+###
+# Xbuttons_bar ver. 2019.0626
+#
+# Scripts designed to handle a buttons-bar on the XDM screen.
+#
+# The buttons's bar settings are loaded from the configuration
+# file Xbuttons_bar.<XDISP>.conf when available, from the default
+# configuration file Xbuttons_bar.conf otherwise.
+#
+# <XDISP> is the X server display name, without field 'screennumber',
+# and to XDM resource name format, that is, with underscores in place
+# of dots and colons.
+#
+# For instance, the value of <XDISP> in case of X server display
+# name :0 is "_0". It is "_1" in case of X server display name :1,
+# it is "com_foo_bar_0" in case of X server name com.foo.bar:0.
+#
+# On a system configured to run 2 local X servers (:0,:1), the
+# Xbuttons_bar configuration dedicated to X server :0 must be in
+# file Xbuttons_bar._0.conf, and the Xbuttons_bar configuration
+# dedicated to X server :1 must be in file Xbuttons_bar._1.conf. 
+#
+# When any of these files is missing, Xbuttons_bar will fallback
+# to the default configuration file Xbuttons_bar.conf.
+#
+# The Xbuttons_bar configuration files must be located in the same
+# directory as script Xbuttons_bar.
+#
+# Usage:
+#
+#   Xbuttons_bar [--xoff <XOFF>]
+#                [--yoff <YOFF>]
+#                [--height <HEIGHT>]
+#                [--primary <GEOMETRY> ]
+#                [--bg-color <COLOR>]
+#
+#   -x|--xoff <XOFF>
+#     Optional argument to specify the X offset of the buttons-bar.
+#
+#   -y|--yoff <YOFF>
+#     Optional argument to specify the Y offset of the buttons-bar.
+#
+#   -h|--height <HEIGHT>
+#     Optional argument to specify the height of the buttons-bar.
+#
+#   -p|--primary <GEOMETRY>
+#     Optional argument to specify the geometry of the primary display 
+#     when Xsetup property PRIMARY_ONLY is set to "on".
+#
+#   -b|--bg-color
+#     Optional argument to specify the background color of the 
+#     buttons-bar.
+###
+
+          ###
+          #    Variables    #
+                          ###
+
+# Xbuttons_bar version number.
+#
+VERSION="2019.0626"
+
+# Absolute path to this script's directory.
+#
+SCRIPTDIR=$(dirname $(realpath $0))
+
+# The X server display name, without field 'screennumber', and to 
+# XDM resource name format, that is, with underscores in place of 
+# dots and colons.
+#
+XDISP=$(echo ${DISPLAY} | cut -f1 -d":" | tr "." "_")_$(echo ${DISPLAY} | cut -f2- -d":" | cut -f1 -d".")
+
+# The file in which Xbuttons_bar logs its activity.
+#
+LOGFILE=/var/log/xdm-xbuttons_bar.${XDISP}.log
+
+# The X offset of the buttons-bar.
+#
+XOFF="+0"
+
+# The Y offset of the buttons-bar.
+#
+YOFF="+0"
+
+# The height of the buttons-bar.
+#
+HEIGHT=40
+
+# Used to store the geometry of the buttons-bar. Computed according to
+# the value of variable XOFF, YOFF, and HEIGHT.
+#
+GEOMETRY=""
+
+# Used to store the geometry of the primary display.
+#
+PRIMARY_GEOM=""
+
+# The background color of the buttons-bar. Default to 'black'.
+#
+BG_COLOR=black
+
+# The exit values of the (xmessage) buttons to access the system
+# and session menus.
+#
+SESMENU_XID=2
+SYSMENU_XID=3
+
+# The exit value of the (xmessage) button to take a screenshot
+# of XDM screen.
+# 
+SCREENSHOT_XID=4
+
+# The exit values of the (xmessage) buttons to suspend, hibernate,
+# reboot, and halt the system.
+#
+SUSPEND_XID=10
+HIBERNATE_XID=11
+REBOOT_XID=12
+HALT_XID=13
+
+# The exit value of the (xmessage) buttons to scroll sessions menu 
+# on the left/right.
+#
+SESLSCROLL_XID=96
+SESRSCROLL_XID=97
+
+# The exit value of the (xmessage) button to reset the sessions
+# menu selection.
+#
+SESRESET_XID=98
+
+# The exit value of the (xmessage) button to exit from the menu
+# system/sessions.
+#
+EXITMENU_XID=99
+
+# The exit value of the (xmessage) button associated to the 1st
+# available session.
+#
+FIRST_SESSION_XID=100
+
+# The file used to store the selected session name, if any. it is
+# empty when no session is selected.
+#
+# When script Xsession is executed with no argument and this file
+# is not empty, Xsession must start the specified session.
+#
+# This file is reset on Xbuttons_bar startup unless when property
+# PERSISTENT_SESSION (from Xbuttons_bar configuration file) is 
+# enabled.
+#
+XSESSION_FILE=/var/lib/xdm/xdm.${XDISP}.xsession
+
+# The list of (availables) desktop sessions. The items in this
+# array are to the format <session-name>:<session-id>, with
+# session-id >= FIRST_SESSION_XID
+#
+SESSIONS_LIST=()
+
+# The identifier (>= FIRST_SESSION_XID) of the selected desktop
+# session, 0 when there is no selection.
+#
+SESSION_ID=0
+
+# The index of the 1st item of SESSIONS_LIST accessible from the
+# desktop sessions menu.
+#
+FIRST_VISIBLE_SESSION=0
+
+# Used to store the system menu buttons list to the format specified 
+# by option "-buttons" of command xmessage.
+#
+# Initialized by load_config() when the system menu is enabled (ie.
+# BUTTONS_BAR includes 'SYSTEM') and used by run_system_menu().
+#
+SYSMENU_BLIST=""
+
+# lock file used to ensure that only one screenshoter instance (per X
+# server) can be run at a time.
+#
+SCREENSHOT_LOCK=/var/lock/xdm-screenshooter.${XDISP}.lock
+
+          ###
+          #    Functions    #
+                          ###
+	
+# Returns 0 when $1 matches (case insensitive) 1|on|yes|true,
+# otherwise returns 1.
+#
+function is_enabled() {
+  echo "$1" | grep -qiE "^(1|on|yes|true)$" && return 0
+  return 1
+}
+
+# Returns 0 when $(is_enabled $1) returns 1, otherwise return 1.
+#
+function is_disabled() {
+  is_enabled $1 && return 1
+  return 0
+}
+
+# Logs the informations (ie. $@) into the file pointed by
+# LOGFILE unless DISABLE_LOG (*) is enabled.
+#
+# (*) defined in Xbuttons_bar's configuration file.
+#
+function log_infos() {
+ is_enabled ${DISABLE_LOG} && return
+ echo 2>/dev/null -e "$(date +%Y/%m/%d\ %T) [$$]: $@" >> ${LOGFILE}
+}
+
+# Creates the file XSESSION_FILE when required.
+#
+function create_xsession_file() {
+  
+  [ -e "${XSESSION_FILE}" ] && return
+  
+  # invariant: XSESSION_FILE does not exist
+
+  local DIR=$(dirname ${XSESSION_FILE})
+    
+  if [ ! -d "${DIR}" ] ; then
+    if ! mkdir 2>/dev/null "${DIR}" ; then
+      log_infos "Failed to create directory ${DIR}. mkdir returns $?"
+      return
+    fi
+    log_infos "Created directory ${DIR}"
+  fi
+    
+  echo -n "" > ${XSESSION_FILE}
+}
+
+# Reset the file XSESSION_FILE
+#
+function reset_xsession_file() {
+  [ -s "${XSESSION_FILE}" ]  && echo -n "" > ${XSESSION_FILE}
+}
+
+# Loads the file XSESSION_FILE and update SESSION_ID
+# accordingly.
+#
+function load_xsession_file() {
+  local SNAME=""
+  
+  if [ -s "${XSESSION_FILE}" ] ; then
+    read SNAME < ${XSESSION_FILE}
+    SESSION_ID=$(get_session_id ${SNAME})
+    
+    if [ ${SESSION_ID} -eq 0 ] ; then
+      # The session stored in XSESSION_FILE is invalid,
+      # therefore this file must be reset...
+      #
+      reset_xsession_file
+    fi
+  fi
+}
+
+# Updates the file XSESSION_FILE according to the current
+# selected session specified by SESSION_ID
+#
+function update_xsession_file() {
+  echo -n "$(get_session_name ${SESSION_ID})" > ${XSESSION_FILE}
+}
+
+# Script's initialization function. Must be called first. Executes the
+# following tasks:
+#
+#   * if the log file pointed by LOGFILE exists, saves its content in 
+#     file ${LOGFILE}.old
+#
+#   * initializes the properties to their default to prevent runtime 
+#     errors in case configuration loading fails.
+#
+#   * check that xmessage is available.
+#
+#   * creates file pointed by XSESSION_FILE when required.
+#
+#   * loads configuration file.
+#	
+function init() {
+
+  # save (old) logfile, when present ...
+  #
+  if [ -e "${LOGFILE}" ] ; then
+    mv ${LOGFILE} ${LOGFILE}.old
+  fi
+  
+  # Initializes the properties to their defaults to prevent runtime
+  # errors in case configuration loading fails.
+  #
+  BUTTONS_ORDER="SESSIONS SYSTEM"
+  SYSMENU_BUTTONS_ORDER="SUSPEND HIBERNATE REBOOT HALT"
+  SESMENU_BTLABEL="Session"
+  NOSESSION_STR="default"
+  SYSMENU_BTLABEL="System"
+  SCREENSHOT_BTLABEL="Screenshot"
+  SUSPEND_BTLABEL="Suspend"
+  HIBERNATE_BTLABEL="Hibernate"
+  REBOOT_BTLABEL="Reboot"
+  HALT_BTLABEL="Halt"
+  EXITMENU_BTLABEL="Exit"
+  RESET_BTLABEL="Reset"
+  FONT="-misc-dejavu sans light-extralight-r-normal--17-*-*-*-*-*-*-*"
+  FG_COLOR=white
+  SYSMENU_FONT=${FONT}
+  SESMENU_FONT=${FONT}
+  SYSMENU_FG_COLOR=${FG_COLOR}
+  SESMENU_FG_COLOR=${FG_COLOR}
+  XINITRC_FILES_DIR=/etc/X11/xinit
+  SESSIONS_BLACKLIST=()
+  SESMENU_VIEWPORT_SIZE=5
+  SESMENU_LSCROLL_BTLABEL=" < "
+  SESMENU_RSCROLL_BTLABEL=" > "
+  PERSISTENT_SESSION=off
+  SCREENSHOT_DELAY=5
+  SCREENSHOT_DIR=/tmp
+  SCREENSHOT_NTFY_MSG="Will Take a screenshot in @SCREENSHOT_DELAY@ seconds ..."
+  SCREENSHOT_TAKEN_MSG="Screenshot saved in file @SCREENSHOT_FILENAME@."
+  SCREENSHOT_FAIL_MSG="Failed to take a screenshot."
+  SCREENSHOT_ALWAYS_FULL=off
+  
+  if ! which xmessage &>/dev/null ; then
+    log_infos "Warning, xmessage is not available. Exiting..."
+    exit 1
+  fi
+  
+  # Deletes the screenshooter lock if present...
+  #
+  if [ -f "${SCREENSHOT_LOCK}" ] ; then
+    rm -f "${SCREENSHOT_LOCK}"
+  fi
+
+  # creates XSESSION_FILE then loads settings ...
+  #
+  create_xsession_file  
+  load_config
+  
+  # Defines GEOMETRY according to value of XOFF, YOFF and HEIGHT
+  #
+  GEOMETRY="x${HEIGHT}${XOFF}${YOFF}"
+}
+
+# Returns the main menu buttons list to the format specified 
+# by option "-buttons" of command xmessage.
+#
+function get_main_buttons_list() {
+  local CHKLST=""
+  local BLIST=""
+  local CBID
+  local CBTN
+  local SMLBL
+  local CSNAME=$(get_session_name ${SESSION_ID})
+
+  [ -z "${CSNAME}" ] && CSNAME="${NOSESSION_STR}"
+  
+  SMLBL="${SESMENU_BTLABEL/@SESSION_NAME@/${CSNAME}}"
+  
+  for CBID in ${BUTTONS_ORDER} ; do
+    CBTN=""
+    case ${CBID} in
+      SESSIONS)   CBTN="${SMLBL}:${SESMENU_XID}" ;;
+      SYSTEM)     CBTN="${SYSMENU_BTLABEL}:${SYSMENU_XID}" ;;
+      SCREENSHOT) CBTN="${SCREENSHOT_BTLABEL}:${SCREENSHOT_XID}" ;;
+      
+      *)  
+        log_infos "BUTTONS_ORDER: Unsupported button '${CBID}'"  
+	continue 
+      ;;
+    esac
+    
+    if ! echo "${CHKLST}" | grep -qE " ${CBID} " ; then
+      CHKLST+=" ${CBID} "
+    else
+      log_infos "BUTTONS_ORDER: button ${CBID} defined more than once. Ignored."
+      continue
+    fi
+    
+    [ -z "${BLIST}" ] && BLIST="${CBTN}" || BLIST="${BLIST},${CBTN}"
+  done
+  echo "${BLIST}"
+}
+
+# Returns the system menu buttons list to the format specified 
+# by option "-buttons" of command xmessage.
+#
+function get_system_buttons_list() {
+  local CHKLST=""
+  local BLIST=""
+  local CBID
+  local CBTN
+
+  for CBID in ${SYSMENU_BUTTONS_ORDER} ; do
+    CBTN=""
+    case ${CBID} in
+      SUSPEND)   CBTN="${SUSPEND_BTLABEL}:${SUSPEND_XID}" ;;
+      HIBERNATE) CBTN="${HIBERNATE_BTLABEL}:${HIBERNATE_XID}" ;;
+      REBOOT)    CBTN="${REBOOT_BTLABEL}:${REBOOT_XID}" ;;
+      HALT)      CBTN="${HALT_BTLABEL}:${HALT_XID}" ;;
+      *)  
+        log_infos "SYSMENU_BUTTONS_ORDER: Unsupported button '${CBID}'"
+	continue
+      ;;
+    esac
+    
+    if ! echo "${CHKLST}" | grep -qE " ${CBID} " ; then
+      CHKLST+=" ${CBID} "
+    else
+      log_infos "SYSMENU_BUTTONS_ORDER: button ${CBID} defined more than once. Ignored."
+      continue
+    fi
+    
+    [ -z "${BLIST}" ] && BLIST="${CBTN}" || BLIST="${BLIST},${CBTN}"
+  done
+  
+  # Adds the button to exit the system menu
+  #
+  if [ ! -z "${BLIST}" ] ; then
+    BLIST="${BLIST},${EXITMENU_BTLABEL}:${EXITMENU_XID}"
+  else 
+    BLIST="${EXITMENU_BTLABEL}:${EXITMENU_XID}" 
+  fi 
+  
+  echo "${BLIST}"
+}
+
+# Initializes the variable SESSIONS_LIST according to the desktop 
+# sessions :
+#
+#   * for which there is an executable file xinitrc.<session-name>
+#     in directory XINITRC_FILES_DIR
+#
+#   * which are not in the blacklist SESSIONS_BLACKLIST.
+#
+# The items in SESSIONS_LIST are to the format <session-name>:<session-id>
+# where session-id is an integer starting at FIRST_SESSION_XID.
+#
+function init_sessions_list() {
+  local SNLIST
+  local CS
+  local BS
+  local EXCL
+  local SID=${FIRST_SESSION_XID}
+
+  SNLIST=$(find 2>/dev/null ${XINITRC_FILES_DIR} \
+           -type f -name "xinitrc.*" -executable \
+	   -printf "%f\n" | sort | sed -e "s/^xinitrc[.]//")
+	   
+  for CS in ${SNLIST} ; do
+    EXCL=false
+    for BS in ${SESSIONS_BLACKLIST[@]} ; do
+      if [ "${CS}" == "${BS}" ] ; then
+        EXCL=true
+	break
+      fi
+    done
+      
+    if [ ${EXCL} = false ] ; then
+      SESSIONS_LIST+=( ${CS}:${SID} )
+      ((SID++))
+    fi
+  done
+}
+
+# Returns the name of the session with ID $1, or an empty
+# string when there is no session with the specified ID
+#
+function get_session_name() {
+  local SID=$1
+  local INDEX=-1
+  local SCOUNT=${#SESSIONS_LIST[@]}
+  local SNAME=""
+  
+  INDEX=$(( ${SID}-${FIRST_SESSION_XID} ))
+  
+  if [ ${INDEX} -ge 0 ] && [ ${INDEX} -lt ${SCOUNT} ] ; then
+    local CSINFO=${SESSIONS_LIST[$INDEX]}
+    SNAME=${CSINFO%:*}
+  fi
+  echo ${SNAME}
+}
+
+# Returns the id of the session with name $1, or 0 when there
+# is no session with the specified name.
+#
+function get_session_id() {
+  local SNAME=$1
+  local CSINFO
+  local CNAME
+  local SID=0
+  
+  for CSINFO in ${SESSIONS_LIST[@]} ; do
+    CNAME=${CSINFO%:*}
+    
+    if [ "${CNAME}" = "${SNAME}" ] ; then
+      SID=${CSINFO#*:}
+      break
+    fi
+  done
+  
+  echo ${SID}
+}
+
+# Sets the selected session according to the ID specified
+# by $1 and update XSESSION_FILE accordingly.
+#
+function set_selected_session() {  
+  SESSION_ID=$1
+  update_xsession_file
+}
+
+# Loads Xbuttons_bar settings.
+#
+# The settings are loaded from the configuration file
+# Xbuttons_bar.${XDISP}.conf when available, from the
+# default configuration file Xbuttons_bar.conf otherwise.
+#
+function load_config() {
+  local CFGFILE=""
+  local INIMSG=""
+  local SNAME=""
+  
+  if [ -r ${SCRIPTDIR}/Xbuttons_bar.${XDISP}.conf ] ; then
+    CFGFILE=${SCRIPTDIR}/Xbuttons_bar.${XDISP}.conf
+  elif [ -r ${SCRIPTDIR}/Xbuttons_bar.conf ] ; then
+    CFGFILE=${SCRIPTDIR}/Xbuttons_bar.conf
+  fi
+  
+  # Loads the configuration file, if any...
+  #  
+  if [ ! -z "${CFGFILE}" ] ; then
+    source ${CFGFILE}
+    INIMSG="Settings loaded from ${CFGFILE}."
+  else
+    INIMSG="Warning, missing configuration file. Check your installation."
+  fi
+
+  log_infos "Xbuttons_bar ver. ${VERSION}"
+  log_infos "${INIMSG}\n"
+  
+  log_infos "---- Configuration ------------------------------------------"
+  log_infos "  BUTTONS_ORDER             : ${BUTTONS_ORDER}"
+  log_infos "  SYSMENU_BUTTONS_ORDER     : ${SYSMENU_BUTTONS_ORDER}"
+  log_infos "  SESMENU_BTLABEL           : ${SESMENU_BTLABEL}"
+  log_infos "  NOSESSION_STR             : ${NOSESSION_STR}"
+  log_infos "  SYSMENU_BTLABEL           : ${SYSMENU_BTLABEL}"
+  log_infos "  SCREENSHOT_BTLABEL        : ${SCREENSHOT_BTLABEL}"
+  log_infos "  SUSPEND_BTLABEL           : ${SUSPEND_BTLABEL}"
+  log_infos "  HIBERNATE_BTLABEL         : ${HIBERNATE_BTLABEL}"
+  log_infos "  REBOOT_BTLABEL            : ${REBOOT_BTLABEL}"
+  log_infos "  HALT_BTLABEL              : ${HALT_BTLABEL}"
+  log_infos "  EXITMENU_BTLABEL          : ${EXITMENU_BTLABEL}"
+  log_infos "  RESET_BTLABEL             : ${RESET_BTLABEL}"
+  log_infos "  FONT                      : ${FONT}"
+  log_infos "  FG_COLOR                  : ${FG_COLOR}"
+  log_infos "  SYSMENU_FONT              : ${SYSMENU_FONT}"
+  log_infos "  SYSMENU_FG_COLOR          : ${SYSMENU_FG_COLOR}"
+  log_infos "  SESMENU_FONT              : ${SESMENU_FONT}"
+  log_infos "  SESMENU_FG_COLOR          : ${SESMENU_FG_COLOR}"
+  log_infos "  XINITRC_FILES_DIR         : ${XINITRC_FILES_DIR}"
+  log_infos "  SESSIONS_BLACKLIST        : ${SESSIONS_BLACKLIST[*]}"
+  log_infos "  SESSMENU_VIEWPORT_SIZE    : ${SESSMENU_VIEWPORT_SIZE}"
+  log_infos "  SESMENU_LSCROLL_BTLABEL   : ${SESMENU_LSCROLL_BTLABEL}"
+  log_infos "  SESMENU_RSCROLL_BTLABEL   : ${SESMENU_RSCROLL_BTLABEL}"
+  log_infos "  PERSISTENT_SESSION        : ${PERSISTENT_SESSION}"  
+  log_infos "  SCREENSHOT_DELAY          : ${SCREENSHOT_DELAY}"  
+  log_infos "  SCREENSHOT_DIR            : ${SCREENSHOT_DIR}"
+  log_infos "  SCREENSHOT_NTFY_MSG       : ${SCREENSHOT_NTFY_MSG}"
+  log_infos "  SCREENSHOT_NOW_BTLABEL    : ${SCREENSHOT_NOW_BTLABEL}"
+  log_infos "  SCREENSHOT_CANCEL_BTLABEL : ${SCREENSHOT_CANCEL_BTLABEL}"
+  log_infos "  SCREENSHOT_TAKEN_MSG      : ${SCREENSHOT_TAKEN_MSG}"
+  log_infos "  SCREENSHOT_FAIL_MSG       : ${SCREENSHOT_FAIL_MSG}"
+  log_infos "  SCREENSHOT_DLG_FONT       : ${SCREENSHOT_DLG_FONT}"
+  log_infos "  SCREENSHOT_ALWAYS_FULL    : ${SCREENSHOT_ALWAYS_FULL}"
+  log_infos "-------------------------------------------------------------"
+  
+  if [ -z "${BUTTONS_ORDER}" ] ; then
+    log_infos "Warning, empty buttons-bar. Exiting ..."
+    exit 1
+  fi
+  
+  if echo "${BUTTONS_ORDER}" | grep -qE "SYSTEM" ; then
+    SYSMENU_BLIST=$(get_system_buttons_list)
+  fi
+  
+  if echo "${BUTTONS_ORDER}" | grep -qE "SESSION" ; then
+    init_sessions_list
+    
+    if is_enabled ${PERSISTENT_SESSION} ; then
+      load_xsession_file
+    else
+      # The selected session must not persist across
+      # user logins and system reboots, therefore, the
+      # file XSESSION_FILE must be reset.
+      #
+      reset_xsession_file
+    fi
+  else
+    # The button "session" is disabled, therefore, the
+    # file XSESSION_FILE must be reset.
+    reset_xsession_file
+  fi
+  
+  if ! echo "${SESMENU_VIEWPORT_SIZE}" | grep -qE "^[[:digit:]]+$" ; then
+    log_infos "SESMENU_VIEWPORT_SIZE: invalid value '${SESMENU_VIEWPORT_SIZE}'. Reset to 10."
+    SESMENU_VIEWPORT_SIZE=10
+  fi
+
+  if ! echo "${SCREENSHOT_DELAY}" | grep -qE "^[[:digit:]]+$" ; then
+    log_infos "SCREENSHOT_DELAY: invalid value '${SCREENSHOT_DELAY}'. Reset to 5."
+    SCREENSHOT_DELAY=5
+  fi
+}
+
+# Parse the arguments passed on the command line. This function
+# must be called as below :
+#
+#   parse_command_line "$@"
+#
+function parse_command_line() {
+  local SIGN
+  
+  while [ ! -z "$1" ] ; do    
+  
+    case "$1" in
+      -x|--xoff)
+        if [ ! -z "$2" ] ; then
+	  XOFF="$2"
+	  SIGN=${XOFF:0:1}
+	  if [ "${SIGN}" != "-" ] && [ "${SIGN}" != "+" ] ; then
+	    log_infos "$1: Warning, missing +/- in front of ${XOFF}. Set to +${XOFF}."
+	    XOFF="+${XOFF}"
+	  fi
+	  shift 2
+	else
+	  log_infos "$1: Argument <XOFF> is missing."
+	  shift 1
+	fi
+      ;;
+
+      -y|--yoff)
+        if [ ! -z "$2" ] ; then
+	  YOFF="$2"
+	  SIGN=${YOFF:0:1}
+	  if [ "${SIGN}" != "-" ] && [ "${SIGN}" != "+" ] ; then
+	    log_infos "$1: Warning, missing +/- in front of ${YOFF}. Set to +${YOFF}."
+	    YOFF="+${YOFF}"
+	  fi
+	  shift 2
+	else
+	  log_infos "$1: Argument <YOFF> is missing."
+	  shift 1
+	fi
+      ;;
+      
+      -h|--height)
+        if [ ! -z "$2" ] ; then
+	  HEIGHT="$2"
+	  shift 2
+	else
+	  log_infos "$1: Argument <HEIGHT> is missing."
+	  shift 1
+	fi
+      ;;
+      
+      -p|--primary) 
+        if [ ! -z "$2" ] ; then
+	  PRIMARY_GEOM="$2"
+	  if echo "PRIMARY_GEOM" | grep -qE "[0-9]+[x][0-9]+[+-][0-9]+[+-][0-9]+" ; then
+	    log_infos "$1: Warning, the geometry '$2' does not seem valid."
+	  fi
+	  shift 2
+	else
+	  log_infos "$1: Argument <GEOMETRY> is missing."
+	  shift 1
+	fi
+      ;;
+
+      -b|--bg-color)
+        if [ ! -z "$2" ] ; then
+	  BG_COLOR="$2"
+	  shift 2
+	else
+	  log_infos "$1: Argument <COLOR> is missing."
+	  shift 1
+	fi
+      ;;
+      
+      *)
+        log_infos "Unrecognized argument '$1'"
+	shift 1
+      ;;
+    esac
+  done
+}
+
+# Runs the system menu. 
+#
+# Returns 0 when the menu terminated normally, 1 otherwise,
+# in which case Xbuttons_bar must terminate immediately.
+#
+# The exit-code 1 is returned in the following cases :
+#
+#   * The command xmessage terminates with exit-code 1 which means
+#     an error occured or a signal was caught (ex: xmessage was 
+#     killed by Xstartup)
+#
+#  * when the option REBOOT or HALT has been selected.
+#
+function run_system_menu() {
+  local TERMINATE=false
+  
+  # To enable display of international texts in xmessage, it is required
+  # to set :
+  #   XMessage*international to "true"
+  #   XMessage*FontSet to ${SYSMENU_FONT}
+  #
+  # Note that option -fn (or -font) does not work when *international 
+  # is set to "true".
+  #  
+  local ARGS=("-buttons" "${SYSMENU_BLIST}" \
+        "-fg" "${SYSMENU_FG_COLOR}" \
+	"-bg" "${BG_COLOR}" \
+	"-bd" "${BG_COLOR}" \
+	"-xrm" "Xmessage*international: True" \
+	"-xrm" "Xmessage*FontSet: ${SYSMENU_FONT}" \
+	"-xrm" "Xmessage*scrollVertical: never" \
+	"-xrm" "Xmessage*scrollHorizontal: never" \
+	"-xrm" "Xmessage*shapeStyle: Rectangle" \
+	"-geometry" "${GEOMETRY}" )
+  
+  while [ ${TERMINATE} = false ] ; do
+    log_infos "[system-menu] Execing 'xmessage ${ARGS[*]}'\n"
+    xmessage 2>/dev/null "${ARGS[@]}" ""
+
+    case $? in
+      1) 
+         # xmessage exits on error or a signal was caught (ex: xmessage
+	 # was killed by Xstartup)
+	 #
+        log_infos "xmessage terminated with exit-code 1. Terminating ..."
+	return 1
+      ;;
+
+      ${SUSPEND_XID})
+        log_infos "System goes into sleep mode..."
+	/usr/sbin/pm-suspend
+	log_infos "System wakes up from sleep."
+      ;;
+      
+      ${HIBERNATE_XID})
+        log_infos "System goes into hibernate mode..."
+	/usr/sbin/pm-hibernate
+	log_infos "System wakes up from hibernate."
+      ;;
+      
+      ${REBOOT_XID})
+        log_infos "Reboots the system..."
+	
+	# This is to let Xbuttons_bar terminate before
+	# system reboot
+	#
+	( sleep 1 ; /sbin/reboot ) &
+	return 1
+      ;;
+
+      ${HALT_XID})
+        log_infos "Halts the system..."
+
+	# This is to let Xbuttons_bar terminate before
+	# system halt
+	#
+	( sleep 1 ; /sbin/poweroff ) &
+	return 1
+      ;;
+      
+      ${EXITMENU_XID}) # Close the menu...
+        TERMINATE=true 
+      ;;
+    esac
+  done
+  
+  return 0
+}
+
+# Returns the list of buttons (to the format specified by option 
+# "-buttons" of command xmessage) which must be accessible from
+# the desktop sessions menu according to the variables SESSIONS_LIST
+# and FIRST_VISIBLE_SESSION.
+#
+# When SESMENU_VIEWPORT_SIZE is < ${#SESSIONS_LIST}, scroll buttons 
+# are added accordingly.
+#
+# The button to scroll left (SESLSCROLL_XID) is placed before the 1st
+# session button when FIRST_VISIBLE_SESSION > 0
+#
+# The button to scroll right (SESRSCROLL_XID) is placed after the 
+# last visible session button when :
+#   FIRST_VISIBLE_SESSION+SESSMENU_VIEWPORT_SIZE < ${#SESSION_LIST}
+#
+function get_sessions_buttons_list() {
+  local BLIST=""
+  local CBIDX
+  local SCOUNT=${#SESSIONS_LIST[@]}
+  local CSINFO
+  local BCOUNT=0
+  local SNAME
+  local SID
+  
+  CBIDX=${FIRST_VISIBLE_SESSION}
+
+  while [ ${BCOUNT} -lt ${SESMENU_VIEWPORT_SIZE} ] && [ ${CBIDX} -lt ${SCOUNT} ] ; do
+    CSINFO=${SESSIONS_LIST[$CBIDX]}
+    
+    if [ ${SESSION_ID} -gt 0 ] ; then
+      SNAME=${CSINFO%:*}
+      SID=${CSINFO#*:}
+      
+      if [ ${SID} -eq ${SESSION_ID} ] ; then
+        # Puts the name of current selected session in bracket
+	# to "highlight" it.
+	#
+        CSINFO="[${SNAME}]:${SID}"
+      fi
+    fi
+
+    if [ -z "${BLIST}" ] ; then
+      BLIST="${CSINFO}"
+    else
+      BLIST="${BLIST},${CSINFO}"
+    fi
+    ((CBIDX++))
+    ((BCOUNT++))
+  done
+  
+  if [ ${FIRST_VISIBLE_SESSION} -gt 0 ] ; then
+    BLIST="${SESMENU_LSCROLL_BTLABEL}:${SESLSCROLL_XID},${BLIST}"
+  fi
+  
+  if [ ${CBIDX} -lt ${SCOUNT} ] ; then
+    BLIST="${BLIST},${SESMENU_RSCROLL_BTLABEL}:${SESRSCROLL_XID}"
+  fi
+  
+  echo "${BLIST}"
+}
+
+# Runs the desktop sessions menu.
+#
+# Returns 0 when the menu terminated normally, 1 otherwise,
+# in which case Xbuttons_bar must terminate immediately.
+#
+# The exit-code 1 is returned when the command xmessage terminates 
+# with exit-code 1 which means an error occured or a signal was 
+# caught (ex: xmessage was killed by Xstartup)
+#
+# When 0 is returns, Xbuttons_bar must continue and SESSION_ID
+# is the identifier (>=FIRST_SESSION_XID) of the last selected
+# desktop session or 0 when user has reset the desktop session
+# selection.
+#
+function run_desktop_sessions_menu() {
+  local ARGS=()
+  local BLIST
+  local TERMINATE=false
+  local XMCODE
+  
+  while [ ${TERMINATE} = false ] ; do
+    BLIST="$(get_sessions_buttons_list)"
+    
+    # If a session is selected, add the button to reset 
+    # the selection ...
+    #
+    if [ ${SESSION_ID} -gt 0 ] ; then
+      BLIST="${BLIST},${RESET_BTLABEL}:${SESRESET_XID}"
+    fi
+    
+    # Add the button to exit the sessions menu...
+    #
+    BLIST="${BLIST},${EXITMENU_BTLABEL}:${EXITMENU_XID}"
+    
+    # To enable display of international texts in xmessage, it is required
+    # to set :
+    #   XMessage*international to "true"
+    #   XMessage*FontSet to ${SESMENU_FONT}
+    #
+    # Note that option -fn (or -font) does not work when *international 
+    # is set to "true".
+    #      
+    ARGS=("-buttons" "${BLIST}" \
+          "-fg" "${SESMENU_FG_COLOR}" \
+	  "-bg" "${BG_COLOR}" \
+	  "-bd" "${BG_COLOR}" \
+	  "-xrm" "Xmessage*international: True" \
+	  "-xrm" "Xmessage*FontSet: ${SESMENU_FONT}" \
+	  "-xrm" "Xmessage*scrollVertical: never" \
+	  "-xrm" "Xmessage*scrollHorizontal: never" \
+	  "-xrm" "Xmessage*shapeStyle: Rectangle" \
+	  "-geometry" "${GEOMETRY}" )
+
+    log_infos "[sessions-menu] Execing 'xmessage ${ARGS[*]}'\n"
+    xmessage 2>/dev/null "${ARGS[@]}" ""
+    XMCODE=$?
+    
+    case ${XMCODE} in
+      1) 
+         # xmessage exits on error or a signal was caught (ex: xmessage
+	 # was killed by Xstartup)
+	 #
+        log_infos "xmessage terminated with exit-code 1. Terminating ..."
+	return 1
+      ;;
+      
+      ${SESLSCROLL_XID})  ((FIRST_VISIBLE_SESSION--)) ;;
+      ${SESRSCROLL_XID}) ((FIRST_VISIBLE_SESSION++))  ;;
+      
+      ${SESRESET_XID}) # Reset the session selection
+        set_selected_session 0
+	TERMINATE=true
+      ;;
+
+      ${EXITMENU_XID}) # Close the menu...
+        TERMINATE=true 
+      ;;
+      
+      *)
+        # Update the current selected session, if required...
+	#
+        if [ ${XMCODE} -ne ${SESSION_ID} ] ; then
+          set_selected_session ${XMCODE}
+	  TERMINATE=true
+	fi
+      ;;      
+    esac
+  done
+  
+  return 0
+}
+
+#
+# Attention, this function must be run in the background to prevent
+# blocking of current instance of Xbuttons_bar.
+#
+function take_screenshot() {
+  local MSG
+  local XMCODE
+  local ARGS
+  local SNAME
+  local YSIGN
+  local YPOS
+  local GEOM
+  
+  # Compute the geometry of dialog boxes according to the geometry
+  # of the buttons bar. If the buttons bar is on the top (YOFF >= +0), 
+  # the dialog boxes must be placed below, if the buttons bar is on 
+  # the bottom (YOFF <= -0), the dialog boxes must be placed above...
+  #
+  YSIGN=${YOFF:0:1}
+  YPOS=$(( ${YOFF:1} + ${HEIGHT}*2 ))
+  
+  GEOM=${XOFF}${YSIGN}${YPOS}
+  
+  if [ ! -d "${SCREENSHOT_DIR}" ] ; then
+    mkdir -p "${SCREENSHOT_DIR}"
+  fi
+
+  ARGS=( \
+        "-fg" "black" \
+	"-bg" "white" \
+	"-bd" "black" \
+	"-xrm" "Xmessage*international: True" \
+	"-xrm" "Xmessage*FontSet: ${SCREENSHOT_DLG_FONT}" \
+	"-xrm" "Xmessage*scrollVertical: never" \
+	"-xrm" "Xmessage*scrollHorizontal: never" \
+	"-xrm" "Xmessage*shapeStyle: Rectangle" \
+	"-geometry" "${GEOM}" )
+  
+  if [ ${SCREENSHOT_DELAY} -gt 0 ] ; then
+    MSG=$(echo "${SCREENSHOT_NTFY_MSG}" | sed "s,@SCREENSHOT_DELAY@,${SCREENSHOT_DELAY},")
+    xmessage 2>/dev/null \
+             "${ARGS[@]}" \
+	     "-buttons" \
+	     "${SCREENSHOT_NOW_BTLABEL}:100,${SCREENSHOT_CANCEL_BTLABEL}:101" \
+	     -timeout ${SCREENSHOT_DELAY} "${MSG}"
+
+    XMCODE=$?
+  else
+    XMCODE=0
+  fi
+  
+  if [ ${XMCODE} -eq 0 ] || [ ${XMCODE} -eq 100 ]  ; then
+    SNAME="${SCREENSHOT_DIR}/xdm.${XDISP}.$(date +%Y%m%d_%H%M%S).png"
+    MSG=$(echo "${SCREENSHOT_TAKEN_MSG}" | sed "s,@SCREENSHOT_FILENAME@,${SNAME},")
+    
+    if [ -z "${PRIMARY_GEOM}" ] || is_enabled ${SCREENSHOT_ALWAYS_FULL} ; then
+      ERRMSG=$(import 2>&1 -w root ${SNAME})
+    else
+      # Taking a screenshot of the primary display only. For that, it 
+      # is required to pass the geometry of primary display to option 
+      # crop. Furthermore, it is also required to pass the option +repage
+      # to reset the offset of the output image to +0+0, to prevent trouble
+      # with some software. For instance, when an image with an offset 
+      # is opened in gimp, the message below is displayed : 
+      #
+      # "The PNG file specifies an offset of <X>,<Y>. Do you want ot apply 
+      # this offset to the layer ?"
+      #
+      ERRMSG=$(import 2>&1 -w root -crop ${PRIMARY_GEOM} +repage ${SNAME})
+    fi
+    
+    [ $? -ne 0 ] && MSG="${SCREENSHOT_FAIL_MSG}: ${ERRMSG}"
+    xmessage 2>/dev/null "${ARGS[@]}" "-buttons" "Ok" -timeout 30 "${MSG}"
+  fi
+  
+  rm -f "${SCREENSHOT_LOCK}"
+}
+
+# Xbuttons_bar's main function.
+#
+function main() {
+  local TERMINATE=false
+  local PSID=${SESSION_ID}
+  local BLIST=$(get_main_buttons_list)
+  local ARGS=()
+  local SSPID=0
+  local SSCMD
+  local RCMD
+
+  if [ -z "${BLIST}" ] ; then
+    log_infos "Warning, unsupported buttons-bar configuration. Exiting ..."
+    exit 1
+  fi
+
+  # To enable display of international texts in xmessage, it is required
+  # to set :
+  #   XMessage*international to "true"
+  #   XMessage*FontSet to ${FONT}
+  #
+  # Note that option -fn (or -font) does not work when *international 
+  # is set to "true".
+  #      
+  ARGS=("-buttons" "${BLIST}" \
+        "-fg" "${FG_COLOR}" \
+	"-bg" "${BG_COLOR}" \
+	"-bd" "${BG_COLOR}" \
+	"-xrm" "Xmessage*international: True" \
+	"-xrm" "Xmessage*FontSet: ${FONT}" \
+	"-xrm" "Xmessage*scrollVertical: never" \
+	"-xrm" "Xmessage*scrollHorizontal: never" \
+	"-xrm" "Xmessage*shapeStyle: Rectangle" \
+	"-geometry" "${GEOMETRY}" )
+  
+  while [ ${TERMINATE} = false ] ; do
+	  
+    log_infos "Execing 'xmessage ${ARGS[*]}'\n"
+    xmessage 2>/dev/null "${ARGS[@]}" ""
+    
+    case $? in
+      1) 
+         # xmessage exits on error or a signal was caught (ex: xmessage
+         # was killed by Xstartup)
+	 #
+        log_infos "xmessage terminated with exit-code 1. Terminating ..."
+        TERMINATE=true
+      ;;
+      
+      ${SYSMENU_XID})
+        if ! run_system_menu ; then
+	  TERMINATE=true
+	fi
+      ;;
+      
+      ${SESMENU_XID})
+        if run_desktop_sessions_menu ; then
+	  if [ ${PSID} -ne ${SESSION_ID} ] ; then
+	    # The selected sesion has changed. It is required to
+	    # regenerate the list of buttons to pass to xmessage, 
+	    # and to update ARGS[1]  accordingly.
+	    #
+	    BLIST=$(get_main_buttons_list)
+	    ARGS[1]="${BLIST}"
+	    PSID=${SESSION_ID}
+	  fi
+	else
+	  TERMINATE=true
+	fi
+      ;;
+      
+     ${SCREENSHOT_XID})
+     
+       # if the last registered screenshooter (SSPID>0) is 
+       # terminated (RCMD!=SSCMD), deletes the screenshooter
+       # lock file...
+       #
+       if [ ${SSPID} -ne 0 ] ; then
+         RCMD=$(ps -p ${SSPID} -o cmd=|cat)
+	 
+	 if [ "${RCMD}" != "${SSCMD}" ] ; then
+	   SSPID=0
+	   SSCMD=""
+	   rm -f "${SCREENSHOT_LOCK}"
+	 fi
+       fi
+       
+       # start the screenshooter if and only if the lock file
+       # does not exist ...
+       #
+       if [ ! -e "${SCREENSHOT_LOCK}" ]  ; then
+         touch "${SCREENSHOT_LOCK}"
+         take_screenshot &
+	 SSPID=$!
+	 SSCMD=$(ps -p ${SSPID} -o cmd=|cat)
+       fi
+     ;;
+     
+    esac
+  done
+  
+  log_infos "Terminated.\n"
+}
+
+          ###
+          #    Entry Point    #
+                            ###
+parse_command_line "$@"
+init
+main

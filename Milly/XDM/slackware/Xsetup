@@ -1,0 +1,1169 @@
+#!/bin/bash
+#
+# Copyright 2018,2019 Sébastien Ballet. All rights reserved.
+# 
+# Use of this source code is governed by the BSD 3-clause license
+# that can be found in the LICENSE file. 
+#
+
+####
+# Xsetup ver. 2019.1023
+#
+# This script is the program which must be run before offering the 
+# XDM Login window. It must be specified through the properties 
+# DisplayManager.<DISPLAY>.setup in xdm-config configuration file.
+#
+# The Xsetup settings are loaded from the configuration file 
+# Xsetup.<XDISP>.conf when available, from the default configuration
+# file Xsetup.conf otherwise.
+#
+# <XDISP> is the X server display name, without field 'screennumber',
+# and to XDM resource name format, that is, with underscores in place
+# of dots and colons.
+#
+# For instance, the value of <XDISP> in case of X server display
+# name :0 is "_0". It is "_1" in case of X server display name :1,
+# it is "com_foo_bar_0" in case of X server name com.foo.bar:0.
+#
+# On a system configured to run 2 local X servers (:0,:1), the
+# Xsetup configuration dedicated to X server :0 must be in file 
+# Xsetup._0.conf, and the Xsetup configuration dedicated to X server
+# :1 must be in file Xsetup._1.conf. 
+#
+# When any of these files is missing, Xsetup will fallback
+# to the default configuration file Xsetup.conf.
+#
+# The Xsetup configuration files must be located in the same
+# directory as script Xsetup.
+####
+
+          ###
+          #    Variables    #
+                          ###
+
+# Xsetup version number.
+#
+VERSION="2019.0628"
+
+# Absolute path to this script's directory.
+#
+SCRIPTDIR=$(dirname $(realpath $0))
+
+# Absolute path to the extensions directory.
+#
+EXTDIR=${SCRIPTDIR}/extensions.d
+
+# The X server display name, without field 'screennumber', and to 
+# XDM resource name format, that is, with underscores in place of 
+# dots and colons.
+#
+XDISP=$(echo ${DISPLAY} | cut -f1 -d":" | tr "." "_")_$(echo ${DISPLAY} | cut -f2- -d":" | cut -f1 -d".")
+
+# The file in which Xsetup logs its activity.
+#
+LOGFILE=/var/log/xdm-xsetup.${XDISP}.log
+
+# File used to store informations on background processes started by 
+# Xsetup (or by Xsetup's extension(s)) that must be killed by Xstartup
+# on user's log in.
+#
+# Each line in this file is to the format : <NAME>:<PID>:<CMD>
+#
+# <NAME> is the (internal) process's name
+# <PID> is the process's PID
+# <CMD> is the process's command line
+#
+BKPROCESS_REGISTRY=/var/lib/xdm/xdm-bkprocess.${XDISP}.reg
+
+# Used to store the height and color of the borders at the top
+# and bottom of the xdm background image. 
+# 
+# BHEIGHT_TOP / BCOLOR_TOP are updated by load_config() according
+# to the value of BORDER_TOP (*) when the buttons-bar and/or the
+# xclock widget must be placed at the top of xdm background image.
+#
+# BHEIGHT_BTM / BCOLOR_BTM are updated by load_config() according
+# to the value of BORDER_BTM (*) when the buttons-bar and/or the
+# xclock widget must be placed at the bottom of xdm background image.
+#
+# (*) defined in Xsetup configuration file.
+#
+BHEIGHT_TOP=0
+BCOLOR_TOP=none
+BHEIGHT_BTM=0
+BCOLOR_BTM=none
+
+# Used to store the informations below on the X abstract screen :
+#
+#     0  1  2  3  4  5
+#  ( mW mH cW cH MW MH)
+#
+#    mW : minimum width    mH : minimum height
+#    cW : current width    cH : current height
+#    MW : maximum width    MH : maximum height
+#
+# This variable is initialized by init() unless it is redefined in 
+# Xsetup configuration file.
+#
+XSCREEN_NFO=()
+
+# Used to store the informations below on the "primary "display, ie
+# the display with PRIMARY_ID (defined in Xsetup configuration
+# file) as identifier  :
+#
+#      0    1   2   3    4      5      6      7       8      9
+#  ( <OUT> <W> <H> <mW> <mH> <XOFF> <YOFF> <AFLAG> <PFLAG> <RANK> )
+#
+#  OUT  : The output (ex. VGA1, HDMI1,...)
+#  W    : The X resolution (pixels)
+#  H    : The Y resolution (pixels)
+#  mW   : The X size (mm)
+#  mH   : The Y size (mm)
+#  XOFF : The X offset
+#  YOFF : The Y offset
+#  AFLAG: The automatic flag (on or off)
+#  PFLAG: The primary flag (on or off)
+#  RANK : rank (or # number) of the display (>=0)
+#
+# This variable is inialized by init() unless it is redefined in Xsetup
+# configuration file. It is ignored when PRIMARY_DISPLAY is off.
+#
+PRIMARY_NFO=()
+
+          ###
+          #    Functions    #
+                          ###
+
+# Returns 0 when $1 matches (case insensitive) 1|on|yes|true,
+# otherwise returns 1.
+#
+function is_enabled() {
+  echo "$1" | grep -qiE "^(1|on|yes|true)$" && return 0
+  return 1
+}
+
+# Returns 0 when $(is_enabled $1) returns 1, otherwise return 1.
+#
+function is_disabled() {
+  is_enabled $1 && return 1
+  return 0
+}
+
+# Returns 0 if $1 is in the comma separated list of values 
+# specified by $2, 1 otherwise.
+#
+# Attention, values in list $2 must not includes spaces.
+#
+function is_in_list() {
+  local ITEM="$1"
+  local LIST=( $(echo "$2" | tr "," " ") )
+  local CITEM
+  
+  for CITEM in ${LIST[@]} ; do
+    [ "${ITEM}" == "${CITEM}" ] && return 0
+  done
+  return 1
+}
+
+# Returns informations on the X abstract screen (when available) as 
+# an array to the format below :
+#
+#     0  1  2  3  4  5
+#  ( mW mH cW cH MW MH)
+#
+#    mW : minimum width    mH : minimum height
+#    cW : current width    cH : current height
+#    MW : maximum width    MH : maximum height
+#
+function get_xscreen_infos() {
+  local XSCRSTR=$(xrandr 2>/dev/null |grep -E "^Screen[ ]+[0-9]+[:]")
+  
+  # XSCRSTR is to the format :
+  #  "Screen %d: minimum %d x %d, current %d x %d, maximum %d x %d"
+
+  echo "${XSCRSTR}" \
+    | grep --only-matching -E "[0-9]+[ ][x][ ][0-9]+" \
+    | tr "x" " "
+}
+
+# Returns informations on the display specified by $1 (when available),
+# which can be :
+#
+# * the keyword 'primary' to get informations on the primary display.
+#
+# * a number (>=0), to get informations on the display #$1
+#
+# * an output name (ex. VGA1,HDMI1,DVI-D-0,...) to get informations on 
+#   the display connected to that output.
+#
+# Collected informations are returned as an array to the format below  :
+#
+#      0    1   2   3    4      5      6      7       8      9
+#  ( <OUT> <W> <H> <mW> <mH> <XOFF> <YOFF> <AFLAG> <PFLAG> <RANK> )
+#
+#  OUT  : The output (ex. VGA1, HDMI1,...)
+#  W    : The X resolution (pixels)
+#  H    : The Y resolution (pixels)
+#  mW   : The X size (mm)
+#  mH   : The Y size (mm)
+#  XOFF : The X offset
+#  YOFF : The Y offset
+#  AFLAG: The automatic flag (on or off)
+#  PFLAG: The primary flag (on or off)
+#  RANK : rank (or # number) of the display (>=0)
+#
+function get_display_infos() {
+  local DISP=$1
+  local INFOS=()
+  local REGEX
+  local DATA
+  
+  # To get information on a display, it is required to parse
+  # the output of xrandr --listmonitors which is to the format: 
+  #  
+  #  " <RANK>: +*<OUT> <W>/mW>x<H>/<mH>+<XOFF>+<YOFF> <OUT>"
+  #
+  #   RANK : rank (or # number) of the monitor
+  #   +    : automatic flag, when set
+  #   *    : primary flag, when set
+  #   OUT  : output name
+  #   W    : X resolution (pixel)
+  #   mW   : X resolution (mm)
+  #   H    : Y resolution (pixel)
+  #   mH   : Y resolution (mm)
+  #   XOFF : X offset
+  #   YOFF : Y offset
+  
+  if [ "${DISP}" = "primary" ] ; then
+    # Get informations on primary display
+    #
+    REGEX="^[ ][0-9]+[:][ ][+]{0,1}[*]" 
+  elif echo ${DISP} | grep -qE "^[[:digit:]]+$" ; then
+    # Get informations on the display #${DISP}
+    #
+    REGEX="^[ ]${DISP}[:]"
+  else 
+    # Get informations on the display connected to the output $DISP.
+    #
+    REGEX="^[ ][0-9]+[:][ ][+]{0,1}[*]{0,1}${DISP}[ ]" 
+  fi
+  
+  DATA=( $(xrandr --listmonitors | grep -E "${REGEX}") )
+  
+  # On success, there are 4 items in DATA :
+  #   DATA[0] = rank (or # number) of display
+  #   DATA[1] = automatic/primary flags (if any) and output name
+  #   DATA[2] = Width/mWidthxHeight/mHeight+Xoff+Yoff
+  #   DATA[3] = output
+  
+  if [ ${#DATA[@]} -eq 4 ] ; then
+     #        0     1      2       3     4    5
+     # TMP: Width mWidth Height mHeight Xoff Yoff
+     #
+    local TMP=( $(echo "${DATA[2]}" | tr "/x+" " ") )
+    local AFLAG=off
+    local PFLAG=off
+    local RANK=$(echo "${DATA[0]}" | tr --delete ":")
+
+    [ "${DATA[1]:0:1}" = "+" ] && AFLAG=on
+    [ "${DATA[1]:0:1}" = "*" ] || [ "${DATA[1]:1:1}" = "*" ] && PFLAG=on
+
+    echo ${DATA[3]} ${TMP[0]} ${TMP[2]} ${TMP[1]} ${TMP[3]} ${TMP[4]} ${TMP[5]} ${AFLAG} ${PFLAG} ${RANK}
+  fi
+}
+
+# Returns the geometry WIDTHxHEIGHT+XOFF+YOFF of the display specified
+# by $1 when available, an empty string otherwise. $1 can be one of the
+# following :
+#
+#   * the keyword 'primary', to get the geometry of primary display.
+#   * a number(>=0) to get the geometry of display #$1
+#   * an output name (ex VGA1,HDMI-0,...) to get the geometry of the
+#     display connected to that output.
+#
+function get_display_geometry() {
+  local DISP=$1
+  local INFOS=()
+  local GEOM=""
+  
+  [ -z "${DISP}" ] &&  return
+  
+  INFOS=( $(get_display_infos "${DISP}") )
+  
+  if [ ! -z "${INFOS}" ] ; then
+    GEOM="${INFOS[1]}x${INFOS[2]}+${INFOS[5]}+${INFOS[6]}"
+  fi
+  
+  echo "${GEOM}"
+}
+
+# Computes the X offset to place a widget at a given distance from a
+# given anchor on the X axis of the primary display when PRIMARY_ONLY=on,
+# on the X axis of the X abstract screen otherwise.
+#
+# $1 : The anchor. Can be LEFT, RIGHT, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT,
+#      BOTTOM_RIGHT.
+#
+# $2 : the distance.
+#
+function get_xoff() {
+  local ANCHOR=$1
+  local DIST=$2
+  local XOFF="+0"
+  local X2
+  
+  # Reminder:
+  #  XSCREEN_NFO: <mW>  <mH> <cW> <cH> <MW>  <MH>
+  #  PRIMARY_NFO: <OUT> <W>  <H>  <mW> <mH> <XOFF> <YOFF> <AFLAG> <PFLAG> <RANK> 
+  #                0     1    2     3    4     5      6      7       8      9
+  
+  if is_enabled ${PRIMARY_ONLY} ; then
+    # The X offset is relative to the primary display.
+    #
+    case ${ANCHOR} in
+      LEFT|TOP_LEFT|BOTTOM_LEFT) 
+        XOFF="+$((${PRIMARY_NFO[5]} + ${DIST}))"
+      ;;
+      
+      RIGHT|TOP_RIGHT|BOTTOM_RIGHT)
+        X2=$(( ${PRIMARY_NFO[5]} + ${PRIMARY_NFO[1]}   ))
+	XOFF="-$(( ( ${XSCREEN_NFO[2]} - ${X2} ) + ${DIST} ))"
+      ;;
+    esac
+  else
+    # The X offset is relative to the X abstract screen.
+    #
+    case ${ANCHOR} in
+      LEFT|TOP_LEFT|BOTTOM_LEFT)    XOFF="+${DIST}" ;;
+      RIGHT|TOP_RIGHT|BOTTOM_RIGHT) XOFF="-${DIST}" ;;
+    esac
+  fi
+  
+  echo "${XOFF}"
+}
+
+# Computes the X coordinate from the top left corner of the X abstract
+# screen to place a widget at a given distance from a given anchor on the
+# X axis of the primary display when PRIMARY_ONLY=on, on the X axis of the
+# X abstract screen otherwise.
+#
+# $1 : The anchor. Can be LEFT, RIGHT, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT,
+#      BOTTOM_RIGHT.
+#
+# $2 : the distance.
+#
+function get_xpos() {
+  local ANCHOR=$1
+  local DIST=$2
+  local XPOS=0
+  local X2
+  
+  # Reminder:
+  #  XSCREEN_NFO: <mW>  <mH> <cW> <cH> <MW>  <MH>
+  #  PRIMARY_NFO: <OUT> <W>  <H>  <mW> <mH> <XOFF> <YOFF> <AFLAG> <PFLAG> <RANK> 
+  #                0     1    2     3    4     5      6      7       8      9
+    
+  if is_enabled ${PRIMARY_ONLY} ; then
+    # The X position is relative to the primary display.
+    #
+    case ${ANCHOR} in
+      LEFT|TOP_LEFT|BOTTOM_LEFT) 
+        XPOS=$(( ${PRIMARY_NFO[5]} + ${DIST} ))
+      ;;
+      
+      RIGHT|TOP_RIGHT|BOTTOM_RIGHT)
+        X2=$(( ${PRIMARY_NFO[5]} + ${PRIMARY_NFO[1]} ))
+        XPOS=$(( ${X2} - ${DIST} ))
+      ;;
+    esac
+  else
+    # The X position is relative to the X abstract screen.
+    #
+    case ${ANCHOR} in
+      LEFT|TOP_LEFT|BOTTOM_LEFT)    XPOS=${DIST} ;;
+      RIGHT|TOP_RIGHT|BOTTOM_RIGHT) XPOS=$(( ${XSCREEN_NFO[2]} - ${DIST} )) ;;
+    esac
+  fi
+  
+  echo "${XPOS}"
+}
+
+# Computes the Y offset to place a widget at a given distance from a
+# given anchor on the Y axis of the primary display when PRIMARY_ONLY=on,
+# on the Y axis of the X abstract screen otherwise.
+#
+# $1 : The anchor. Can be TOP, BOTTOM, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT,
+#      BOTTOM_RIGHT.
+#
+# $2 : the distance.
+#
+function get_yoff() {
+  local ANCHOR=$1
+  local DIST=$2
+  local YOFF="+0"
+  local Y2
+  
+  # Reminder:
+  #  XSCREEN_NFO: <mW>  <mH> <cW> <cH> <MW>  <MH>
+  #  PRIMARY_NFO: <OUT> <W>  <H>  <mW> <mH> <XOFF> <YOFF> <AFLAG> <PFLAG> <RANK> 
+  #                0     1    2     3    4     5      6      7       8      9
+    
+  if is_enabled ${PRIMARY_ONLY} ; then
+    # The Y offset is relative to the primary display.
+    #
+    case ${ANCHOR} in
+      TOP|TOP_LEFT|TOP_RIGHT) 
+        YOFF="+$((${PRIMARY_NFO[6]} + ${DIST}))"
+      ;;
+      
+      BOTTOM|BOTTOM_LEFT|BOTTOM_RIGHT)
+        Y2=$(( ${PRIMARY_NFO[6]} + ${PRIMARY_NFO[2]} ))
+	YOFF="-$(( ( ${XSCREEN_NFO[3]} - ${Y2} ) + ${DIST} ))"
+      ;;
+    esac
+  else
+    # The Y offset is relative to the X abstract screen.
+    #
+    case ${ANCHOR} in
+      TOP|TOP_LEFT|TOP_RIGHT)          YOFF="+${DIST}" ;;
+      BOTTOM|BOTTOM_LEFT|BOTTOM_RIGHT) YOFF="-${DIST}" ;;
+    esac
+  fi
+  
+  echo "${YOFF}"
+}
+
+# Computes the Y coordinate from the top left corner of the X abstract
+# screen to place a widget at a given distance from a given anchor on the
+# Y axis of the primary display when PRIMARY_ONLY=on, on the Y axis of the
+# X abstract screen otherwise.
+#
+# $1 : The anchor. Can be TOP, BOTTOM, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT,
+#      BOTTOM_RIGHT.
+#
+# $2 : the distance.
+#
+function get_ypos() {
+  local ANCHOR=$1
+  local DIST=$2
+  local YPOS=0
+  local Y2
+  
+  # Reminder:
+  #  XSCREEN_NFO: <mW>  <mH> <cW> <cH> <MW>  <MH>
+  #  PRIMARY_NFO: <OUT> <W>  <H>  <mW> <mH> <XOFF> <YOFF> <AFLAG> <PFLAG> <RANK> 
+  #                0     1    2     3    4     5      6      7       8      9
+  
+  if is_enabled ${PRIMARY_ONLY} ; then
+    # The Y position is relative to the primary display.
+    #
+    case ${ANCHOR} in
+      TOP|TOP_LEFT|TOP_RIGHT) 
+        YPOS=$(( ${PRIMARY_NFO[6]} + ${DIST} ))
+      ;;
+      
+      BOTTOM|BOTTOM_LEFT|BOTTOM_RIGHT)
+        Y2=$(( ${PRIMARY_NFO[6]} + ${PRIMARY_NFO[2]} ))
+        YPOS=$(( ${Y2} - ${DIST} ))
+      ;;
+    esac
+  else
+    # The Y position is relative to the X abstract screen.
+    #
+    case ${ANCHOR} in
+      TOP|TOP_LEFT|TOP_RIGHT)          YPOS=${DIST} ;;
+      BOTTOM|BOTTOM_LEFT|BOTTOM_RIGHT) YPOS=$(( ${XSCREEN_NFO[3]} - ${DIST} )) ;;
+    esac
+  fi
+  
+  echo "${YPOS}"
+}
+
+# Logs the informations (ie. $@) into the file pointed by
+# LOGFILE unless DISABLE_LOG (*) is enabled.
+#
+# (*) defined in Xsetup's configuration file.
+#
+function log_infos() {
+ is_enabled ${DISABLE_LOG} && return
+ echo 2>/dev/null -e "$(date +%Y/%m/%d\ %T) [$$]: $@" >> ${LOGFILE}
+}
+
+# Loads Xsetup settings.
+#
+# The settings are loaded from the configuration file
+# Xsetup.${XDISP}.conf when available, from the default
+# configuration file Xsetup.conf otherwise.
+#
+function load_config() {
+  local CFGFILE=""
+  local INIMSG=""
+  
+  local BONTOP=off
+  local BONBTM=off
+  
+  # Identify the configuration file to load ...
+  #
+  if [ -r ${SCRIPTDIR}/Xsetup.${XDISP}.conf ] ; then
+    CFGFILE=${SCRIPTDIR}/Xsetup.${XDISP}.conf
+  elif [ -r ${SCRIPTDIR}/Xsetup.conf ] ; then
+    CFGFILE=${SCRIPTDIR}/Xsetup.conf
+  fi
+  
+  # Loads the configuration file, if any...
+  #  
+  if [ ! -z "${CFGFILE}" ] ; then
+    source ${CFGFILE}
+    INIMSG="Settings loaded from ${CFGFILE}."
+  else
+    INIMSG="Warning, missing configuration file. Check your installation."
+  fi
+
+  log_infos "Xsetup ver. ${VERSION}"
+  log_infos "${INIMSG}\n"
+  
+  # verify settings and proceed to adjustments and correction
+  # when required.
+  #
+  if is_enabled ${WITH_BUTTONS_BAR} ; then
+    if ! is_in_list "${BUTTONS_BAR_POSITION}" \
+		    "TOP_LEFT,TOP_RIGHT,BOTTOM_LEFT,BOTTOM_RIGHT" ; then
+      log_infos "Warning, invalid buttons bar position (${BUTTONS_BAR_POSITION}). Reset to TOP_LEFT."
+      BUTTONS_BAR_POSITION=TOP_LEFT
+    fi
+  fi
+  
+  if is_enabled ${WITH_XCLOCK} ; then
+    if ! is_in_list "${XCLOCK_POSITION}" \
+		    "TOP_LEFT,TOP_RIGHT,BOTTOM_LEFT,BOTTOM_RIGHT" ; then
+      log_infos "Warning, invalid xclock position (${XCLOCK_POSITION}). Reset to TOP_RIGHT."
+      XCLOCK_POSITION=TOP_RIGHT
+    fi
+    
+    if [ -z "${XCLOCK_FONT}" ] ; then
+      XCLOCK_FONT="-misc-dejavu sans light-extralight-r-normal--17-*-*-*-*-*-*-*"
+      log_infos "Warning, XCLOCK_FONT is not set. Initialized to default (${XCLOCK_FONT})"
+    fi
+    
+    if [ -z "${XCLOCK_FG_COLOR}" ] ; then
+      XCLOCK_FG_COLOR=white
+      log_infos "Warning, XCLOCK_FG_COLOR is not set. Initialized to default (${XCLOCK_FG_COLOR})"
+    fi
+    
+    if [ -z "${XCLOCK_STRFTIME}" ] ; then
+      XCLOCK_STRFTIME="%T"
+      log_infos "Warning, XCLOCK_STRFTIME is not set. Initialized to default (${XCLOCK_STRFTIME})"
+    fi
+  fi
+  
+  # Ensure the buttons-bar and xclock widget don't overlaps ...
+  #
+  if is_enabled ${WITH_BUTTONS_BAR} && is_enabled ${WITH_XCLOCK} \
+     && [ "${BUTTONS_BAR_POSITION}" == "${XCLOCK_POSITION}" ] ; then
+    local MSG=" Warning, the buttons bar and xclock widget overlap."
+    
+    case ${BUTTONS_BAR_POSITION} in
+      TOP_LEFT)
+        XCLOCK_POSITION=TOP_RIGHT
+        MSG="${MSG} set XCLOCK_POSITION to TOP_RIGHT."
+      ;;
+      
+      TOP_RIGHT)
+        BUTTONS_BAR_POSITION=TOP_LEFT
+	MSG="${MSG} set BUTTONS_BAR_POSITION to TOP_LEFT."
+      ;;
+      
+      BOTTOM_LEFT)
+        XCLOCK_POSITION=BOTTOM_RIGHT
+	MSG="${MSG} set XCLOCK_POSITION to BOTTOM_RIGHT."
+      ;;
+      
+      BOTTOM_RIGHT)
+        BUTTONS_BAR_POSITION=BOTTOM_LEFT
+	MSG="${MSG} set BUTTONS_BAR_POSITION to BOTTOM_LEFT"
+      ;;
+    esac
+    log_infos "${MSG}"
+  fi
+  
+  # Determine if a border on top/bottom is required.
+  #
+  if is_enabled ${WITH_BUTTONS_BAR} ; then
+    case ${BUTTONS_BAR_POSITION} in
+      TOP_LEFT|TOP_RIGHT)       BONTOP=on ;;
+      BOTTOM_LEFT|BOTTOM_RIGHT) BONBTM=on ;;
+    esac
+  fi
+  
+  if is_enabled ${WITH_XCLOCK} ; then
+    case ${XCLOCK_POSITION} in
+      TOP_LEFT|TOP_RIGHT)       BONTOP=on ;;
+      BOTTOM_LEFT|BOTTOM_RIGHT) BONBTM=on ;;
+    esac
+  fi
+  
+  # Gets the height and color of border at the top, if any.
+  #
+  if is_enabled ${BONTOP} ; then
+    if echo "${BORDER_TOP}" | grep -qE ":" ; then
+      BHEIGHT_TOP=$(echo "${BORDER_TOP}" | cut -f1 -d":")
+      BCOLOR_TOP=$(echo "${BORDER_TOP}" | cut -f2- -d":")
+      
+      [ -z "BCOLOR_TOP" ] && BCOLOR_TOP=black
+    else
+      BHEIGHT_TOP=${BORDER_TOP}
+      BCOLOR_TOP=black
+    fi
+    
+    if ! echo "${BHEIGHT_TOP}" | grep -qE "^[[:digit:]]+$" ; then
+      log_infos "BORDER_TOP: invalid height '${BHEIGHT_TOP}'. Reset to 40."
+      BHEIGHT_TOP=40
+    fi
+  fi
+  
+  # Gets the height and color of border at the bottom, if any.
+  #
+  if is_enabled ${BONBTM} ; then
+    if echo "${BORDER_BTM}" | grep -qE ":" ; then
+      BHEIGHT_BTM=$(echo "${BORDER_BTM}" | cut -f1 -d":")
+      BCOLOR_BTM=$(echo "${BORDER_BTM}" | cut -f2- -d":")
+
+      [ -z "BCOLOR_BTM" ] && BCOLOR_BTM=black
+    else
+      BHEIGHT_BTM=${BORDER_BTM}
+      BCOLOR_BTM=black
+    fi
+    
+    if ! echo "${BHEIGHT_BTM}" | grep -qE "^[[:digit:]]+$" ; then
+      log_infos "BORDER_BTM: invalid height '${BHEIGHT_BTM}'. Reset to 40."
+      BHEIGHT_BTM=40
+    fi
+  fi
+  
+  # Logs current configuration...
+  #
+  log_infos "-- Configuration --------------------------------------------"
+  log_infos "  WITH_COMPTON         : ${WITH_COMPTON}"
+  log_infos "  COMPTON_ARGS         : ${COMPTON_ARGS[*]}"
+  log_infos "  WITH_BUTTONS_BAR     : ${WITH_BUTTONS_BAR}"
+  log_infos "  BUTTONS_BAR_POSITION : ${BUTTONS_BAR_POSITION}"
+  log_infos "  WITH_XCLOCK          : ${WITH_XCLOCK}"
+  log_infos "  XCLOCK_POSITION      : ${XCLOCK_POSITION}"
+  log_infos "  XCLOCK_FONT          : ${XCLOCK_FONT}"
+  log_infos "  XCLOCK_FG_COLOR      : ${XCLOCK_FG_COLOR}"
+  log_infos "  XCLOCK_STRFTIME      : ${XCLOCK_STRFTIME}"
+  log_infos "  WITH_NUMLOCK_ON      : ${WITH_NUMLOCK_ON}"
+  log_infos "  PRIMARY_ONLY         : ${PRIMARY_ONLY}"
+  log_infos "  PRIMARY_ID           : ${PRIMARY_ID}"
+  log_infos "  XDMBGIMG             : ${XDMBGIMG}"
+  log_infos "  BORDER_TOP           : ${BORDER_TOP}"
+  log_infos "  BORDER_BTM           : ${BORDER_BTM}"
+  log_infos "  EXTRAIMGOPS          : ${EXTRAIMGOPS[*]}"
+  log_infos "  EXTENSIONS           : ${EXTENSIONS[*]}" 
+  log_infos ""
+  log_infos "  BHEIGHT_TOP          : ${BHEIGHT_TOP}"
+  log_infos "  BCOLOR_TOP           : ${BCOLOR_TOP}"
+  log_infos "  BHEIGHT_BTM          : ${BHEIGHT_BTM}"
+  log_infos "  BCOLOR_BTM           : ${BCOLOR_BTM}"
+  log_infos "-------------------------------------------------------------"  
+}
+
+# Script's initialization function. Must be called first. Executes the
+# following tasks:
+#
+#   * create/reset the process registry BKPROCESS_REGISTRY
+#
+#   * if the log file pointed by LOGFILE exists, saves its content in 
+#     file ${LOGFILE}.old
+#
+#   * initializes the properties to their default to prevent runtime 
+#     errors in case configuration loading fails.
+#
+#   * loads configuration file.
+#
+#   * initializes variable XSCREEN_NFO, if required.
+#
+#   * initialized variable PRIMARY_NFO, if required.
+#	
+function init() {
+  
+  # creates/resets the process registry pointed by BKPROCESS_REGISTRY
+  #
+  local BR_DIR=$(dirname ${BKPROCESS_REGISTRY})
+
+  if [ ! -d "${BR_DIR}" ] ; then
+    if ! mkdir 2>/dev/null "${DIR}" ; then
+      log_infos "Failed to create directory ${DIR}. mkdir returns $?"
+    fi
+    log_infos "Created directory ${DIR}"    
+  fi
+  echo -n "" > ${BKPROCESS_REGISTRY}
+  
+  # save (old) logfile, when present ...
+  #
+  if [ -e "${LOGFILE}" ] ; then
+    mv ${LOGFILE} ${LOGFILE}.old
+  fi
+  
+  # Init. the properties to their defaults to prevent runtime
+  # errors in case configuration loading fails.
+  #
+  XDM_LOCALE=en_US.UTF-8
+  WITH_COMPTON=off
+  COMPTON_ARGS=()
+  WITH_BUTTONS_BAR=on
+  BUTTONS_BAR_POSITION=TOP_LEFT
+  WITH_XCLOCK=on
+  XCLOCK_POSITION=TOP_RIGHT
+  XCLOCK_FONT="-misc-dejavu sans light-extralight-r-normal--17-*-*-*-*-*-*-*"
+  XCLOCK_FG_COLOR=white
+  XCLOCK_STRFTIME="%T"
+  WITH_NUMLOCK_ON=off
+  PRIMARY_ONLY=off
+  XDMBGIMG=${SCRIPTDIR}/pixmaps/default-wallpaper.pixmap
+  BORDER_TOP=40:black
+  BORDER_BTM=40:black
+  EXTRAIMGOPS=()
+  EXTENSIONS=()
+  
+  # Loads settings ...
+  #
+  load_config
+  
+  # Init. XSCREEN_NFO, unless when already set (ie. redefined in
+  # Xsetup configuration file) ...
+  #
+  if [ -z "${XSCREEN_NFO}" ] ; then
+    XSCREEN_NFO=( $(get_xscreen_infos) )
+    
+    if [ ${#XSCREEN_NFO[@]} -gt 0 ] ; then
+      local MIN="minimum ${XSCREEN_NFO[0]} x ${XSCREEN_NFO[1]}"
+      local CUR="current ${XSCREEN_NFO[2]} x ${XSCREEN_NFO[3]}"
+      local MAX="maximum ${XSCREEN_NFO[4]} x ${XSCREEN_NFO[5]}"
+      log_infos "X abstract screen: ${MIN}, ${CUR}, ${MAX}"
+    else    
+      log_infos "Warning, failed to get X abstract screen informations."
+      XSCREEN_NFO=( 0 0 0 0 0 0 )
+    fi
+  fi
+  
+  # Init. PRIMARY_NFO, unless PRIMARY_ONLY is not set or when 
+  # already set (ie. redefined in Xsetpu configuration file) ...
+  #
+  if is_enabled ${PRIMARY_ONLY} && [ -z "${PRIMARY_NFO}" ] ; then
+    local DISP="${PRIMARY_ID}"
+    
+    [ ${DISP} == "auto" ] && DISP="primary"
+    
+    PRIMARY_NFO=( $(get_display_infos ${DISP}) )
+    
+    # Reminder:
+    #                0    1   2   3    4      5      6      7       8      9
+    # PRIMARY_NFO= <OUT> <W> <H> <mW> <mH> <XOFF> <YOFF> <AFLAG> <PFLAG> <RANK> 
+
+    if [ ${#PRIMARY_NFO[@]} -gt 0 ] ; then
+      local TTL
+      local RES="${PRIMARY_NFO[1]}x${PRIMARY_NFO[2]}"
+      local DIM="${PRIMARY_NFO[3]}x${PRIMARY_NFO[4]} mm"
+      local OFS="+${PRIMARY_NFO[5]}+${PRIMARY_NFO[6]}"
+      local RNK=${PRIMARY_NFO[9]}
+      
+      if is_enabled ${PRIMARY_NFO[8]} ; then
+        TTL="Primary display :"
+      else
+        TTL="Primary display (forced) :"
+      fi
+        log_infos "${TTL} [#${RNK}] ${PRIMARY_NFO[0]} ${RES}${OFS} (${DIM})"
+    else
+      log_infos "Warning, failed to get informations on primary display \
+(PRIMARY_ID=${PRIMARY_ID}). Turns PRIMARY_ONLY off"
+      PRIMARY_ONLY=off
+      PRIMARY_NFO=( "" 0 0 0 0 0 0 off off 0 )
+    fi
+  fi
+  
+  if [ ! -z "${XDM_LOCALE}" ] ; then
+    log_infos "Set locale to ${XDM_LOCALE}"
+    export LC_ALL=${XDM_LOCALE}
+  fi
+}
+
+# Registers informations on a process in the registry pointed by
+# BKPROCESS_REGISTRY.
+#
+# $1 is the process's PID
+# $2 is the (internal) process's name. 
+#
+# if $2 is missing, the process is registered as process 'NONAME-$1'
+#
+# This function must be called by any Xsetup function and any Xsetup 
+# extension which starts a process in the background.
+#
+# Before calling register_process(), remember that $! is the PID of the 
+# last executed background command, which might not the PID of the process
+# to track :
+#
+#  /usr/bin/foo -bar $(head -n 1 /foo/bar) &
+#  register_process $! FOO-0
+#
+# In the example above, the PID of command $(head -n 1 /foo/bar) is passed
+# to register_process() instead of PID of /usr/bin/foo. To avoid this, 
+# instead of passing commands to the process to track, use variables :
+#
+#  ARG=$(head -n 1 /foo/bar)
+#  /usr/bin/foo -bar ${ARG} &
+#  register_process $! FOO-0 
+#
+function register_process() {
+  local PID=$1
+  local NAME=$2
+  local CMD
+  
+  if ! ps -p ${PID} > /dev/null 2>&1 ; then
+    log_infos "Cannot register process ${NAME} with PID #${PID}: Process is not running."
+    return
+  fi
+  
+  [ -z "${NAME}" ] && NAME="NONAME-${PID}"
+
+  CMD=$(ps -p ${PID} -o cmd=|cat)
+  
+  log_infos "Registers process ${NAME} with PID #${PID} (${CMD}) ..."
+  echo "${NAME}:${PID}:${CMD}" >> ${BKPROCESS_REGISTRY}
+}
+
+# De-registers a process from the registry pointed by BKPROCESS_REGISTRY.
+# Returns 0 on success, 1 otherwise.
+#
+# $1 is the (internal) name of the process to de-register.
+# $2 true when the process must be killed, false otherwise.
+#
+function deregister_process() {
+  local NAME=$1
+  local KILL=$2
+  local INFOS=$(grep "^${NAME}[:]" ${BKPROCESS_REGISTRY})
+  local PID
+  local CMD
+  local STATUS="NOT RUNNING"
+  
+  [ -z "${INFOS}" ] && return 1
+  
+  grep -v "^${NAME}[:]" ${BKPROCESS_REGISTRY} > ${BKPROCESS_REGISTRY}.new
+  mv ${BKPROCESS_REGISTRY}.new ${BKPROCESS_REGISTRY}
+  
+  PID=$(echo "${INFOS}" | cut -f2 -d":")
+  CMD=$(echo "${INFOS}" | cut -f3- -d":")
+
+  if ps -p ${PID} > /dev/null 2>&1 ; then
+    STATUS="RUNNING"
+  fi
+  
+  if ${KILL} && [ "${STATUS}" = "RUNNING" ] ; then
+    kill 2>/dev/null ${PID}
+    [ $? -eq 0 ] && STATUS="KILLED" || STATUS="UNKILLABLE"
+  fi
+  
+  log_infos "de-registered the process ${NAME} [${PID}] (${CMD}) [${STATUS}]"
+  
+  return 0
+}
+
+# Returns, 0 if there's a process with (internal) name $1 in the registry
+# pointed by BKPROCESS_REGISTRY, 1 otherwise.
+#
+function is_process_registered() {
+  local NAME=$1
+  grep -qE "^${NAME}[:]" ${BKPROCESS_REGISTRY} && return 0
+  return 1
+}
+
+# Display xdm background image using 'setxdmbg' according
+# to the current settings.
+#
+function set_background() {
+  local OPTS=()
+  local IMGOPS=()
+  local ERRMSG=""
+  
+  [ -z "${XDMBGIMG}" ] && return
+
+  if which setxdmbg &>/dev/null ; then    
+    is_disabled ${DISABLE_LOG} && OPTS+=("--log" "${LOGFILE}" )
+    
+    if is_enabled ${PRIMARY_ONLY} ; then
+      [ "${PRIMARY_ID}" = "auto" ] \
+        && OPTS+=("--physical-screen" "primary" ) \
+	|| OPTS+=("--physical-screen" "${PRIMARY_ID}" )
+    fi
+
+    [ ${BHEIGHT_TOP} -gt 0 ] && OPTS+=( "--top-border" "${BHEIGHT_TOP}:${BCOLOR_TOP}" )
+    [ ${BHEIGHT_BTM} -gt 0 ] && OPTS+=( "--bottom-border" "${BHEIGHT_BTM}:${BCOLOR_BTM}" )
+
+    IOCOUNT=${#EXTRAIMGOPS[*]}
+  
+    if [ ${IOCOUNT} -gt 0 ] ; then
+      # Attention: Items in EXTRAIMGOPS can includes spaces, 
+      # therefore, it is required to use a 'while' loop 
+      # instead of a 'for' loop...
+    
+      IDX=0
+      while [ ${IDX} -lt ${IOCOUNT} ] ; do
+        IMGOPS+=( "--extra-image-op" "${EXTRAIMGOPS[${IDX}]}" )
+        ((IDX++))
+      done
+    fi
+ 
+    log_infos "  Execing 'setxdmbg --image ${XDMBGIMG} ${OPTS[*]} ${IMGOPS[*]}' ..."
+
+    # Attention, ${IMGOPS[@]} must not be passed in quotes otherwise
+    # setxdmbg handles it as an unique argument even if it
+    # includes more (ex. -x -blur 4x2 -x -paint 3), in which case
+    # setxdmbg will fails with an error.
+    #  
+    setxdmbg --image "${XDMBGIMG}" ${OPTS[@]} ${IMGOPS[@]}
+
+    if [ $? -ne 0 ] ; then
+      ERRMSG="Warning, setxdmbg failed to display ${XDMBGIMG}"
+    fi
+  else
+    ERRMSG="Warning, setxdmbg is not available."
+  fi
+  
+  if [ ! -z "${ERRMSG}" ] ; then
+    # An error occured. set background to black, prints the error 
+    # message on stdout and notifies user with an xmessage dialog 
+    # box. Finally, compton is disabled (WITH_COMPTON=off). This 
+    # is required, otherwise, the background will not be set to 
+    # black because compton is not compatible with xsetroot.
+    #
+    xsetroot -solid black
+    log_infos "  ${ERRMSG}"
+    xmessage -center \
+            -bg "#eeeeee" \
+	    -xrm "xmessage*scrollVertical: never" \
+	    -xrm "xmessage*scrollHorizontal: always" \
+	    -xrm "xmessage*shapeStyle: Rectangle"\
+	    "${ERRMSG}" &
+
+    WITH_COMPTON=off
+  fi
+}
+
+# Enable numlock when requested and if numlockx is available.
+#
+function enable_numlock() {
+  if is_enabled ${WITH_NUMLOCK_ON} ; then
+    if which numlockx &>/dev/null ; then
+      log_infos "  Execing 'numlockx on'"
+      numlockx on
+    else
+      log_infos "  Warning, numlockx is not available."
+    fi
+  fi
+}
+
+# Starts compton, when required and if possible.
+#
+function start_compton() {
+  
+  is_disabled ${WITH_COMPTON} && return
+  
+  # Reset WITH_COMPTON when it is not available, or when the 
+  # image viewer "feh" (1) is not installed. This is required 
+  # becase when "feh" is not available, setxdmbg uses "display"
+  # which is incompatible with compton: the background is greyed
+  # and compton emis bunch of messages like as below :
+  #
+  #   [5.43] error 141 BadPicture request 138 minor ....
+  # 
+  if is_enabled ${WITH_COMPTON} ; then
+    if ! which compton &>/dev/null ; then
+      log_infos "  compton is not available."
+      WITH_COMPTON=off
+      return
+    elif ! which feh &>/dev/null ; then
+      log_infos "  Warning, the image viewer 'feh' is not available and \
+compton is enabled which can lead to issues. Turns compton off."
+      WITH_COMPTON=off
+      return
+    fi
+  fi
+  
+  # invariant: compton is enabled and available..
+  #  
+  log_infos "  Execing 'compton ${COMPTON_ARGS[*]} &'"
+  picom "${COMPTON_ARGS[@]}" &
+  register_process $! "COMPTON-0"
+}
+
+# Starts the xclock widget, if enabled and available ...
+#
+function start_xclock() {
+  local ARGS=()
+  local GEOM
+  local HEIGHT
+  local BCOLOR
+  local XOFF
+  local YOFF
+  local PID
+  
+  is_disabled ${WITH_XCLOCK} && return
+  
+  # invariant: xclock is enabled.
+
+  case ${XCLOCK_POSITION} in
+    TOP_LEFT|TOP_RIGHT)
+      HEIGHT=$(( ${BHEIGHT_TOP} - 2 ))
+      BCOLOR=${BCOLOR_TOP}
+    ;;
+    
+    BOTTOM_LEFT|BOTTOM_RIGHT)
+      HEIGHT=$(( ${BHEIGHT_BTM} - 2 ))
+      BCOLOR=${BCOLOR_BTM}
+    ;;
+  esac
+
+  # xclock geometry must include the height but not the width (thus
+  # the geometry starts with 'x') which is automatically computed by
+  # xclock. When the height is not specified, xclock height can be
+  # greater than BHEIGHT_xxx, which looks ugly.
+  #
+  XOFF=$(get_xoff ${XCLOCK_POSITION} 0)
+  YOFF=$(get_yoff ${XCLOCK_POSITION} 0)
+  GEOM="x${HEIGHT}${XOFF}${YOFF}"
+  
+  # To enable display of international texts in xclock, it is required
+  # to set :
+  #   XClock*international to "true"
+  #   XClock*FontSet to ${XCLOCK_FONT}
+  #
+  # Note that option -fn (or -font) does not work when *international 
+  # is set to true. 
+  #
+  ARGS=( "-digital" \
+         "-fg" "${XCLOCK_FG_COLOR}" \
+	 "-bg" "${BCOLOR}" \
+	 "-bd" "${BCOLOR}" \
+	 "-update" "1" \
+	 "-strftime" "${XCLOCK_STRFTIME}" \
+	 "-norender" \
+	 "-xrm" "XClock*international: True" \
+	 "-xrm" "XClock*FontSet: ${XCLOCK_FONT}" \
+	 "-geometry" "${GEOM}" )
+	 
+  if which xclock &>/dev/null ; then
+    log_infos "  Execing 'xclock ${ARGS[*]} &'"
+    xclock "${ARGS[@]}" &
+    PID=$!
+    log_infos "  xclock started with PID #${PID}"
+    register_process ${PID} "XCLOCK-0"
+  else
+    log_infos "  Warning, xclock is not available."
+  fi
+}
+
+# Starts the button bars, if enabled and available.
+#
+function start_buttons_bar() {
+  local ARGS=()
+  local HEIGHT
+  local BCOLOR
+  local XOFF
+  local YOFF
+  local GEOM
+  local PID
+  
+  is_disabled ${WITH_BUTTONS_BAR} && return
+  
+  # invariant: the buttons bar is enabled
+  
+  
+  case ${BUTTONS_BAR_POSITION} in
+    TOP_LEFT|TOP_RIGHT)
+      HEIGHT=$(( ${BHEIGHT_TOP} - 2 ))
+      BCOLOR=${BCOLOR_TOP}
+    ;;
+    
+    BOTTOM_LEFT|BOTTOM_RIGHT)
+      HEIGHT=$(( ${BHEIGHT_BTM} - 2 ))
+      BCOLOR=${BCOLOR_BTM}
+    ;;
+  esac
+
+  XOFF=$(get_xoff ${BUTTONS_BAR_POSITION} 0)
+  YOFF=$(get_yoff ${BUTTONS_BAR_POSITION} 0)
+ 
+  ARGS+=( \
+    "--xoff" "${XOFF}" \
+    "--yoff" "${YOFF}" \
+    "--height" "${HEIGHT}" \
+    "--bg-color" "${BCOLOR}" )
+    
+  if is_enabled ${PRIMARY_ONLY} ; then
+    # Reminder:
+    #                0    1   2   3    4      5      6      7       8      9
+    # PRIMARY_NFO= <OUT> <W> <H> <mW> <mH> <XOFF> <YOFF> <AFLAG> <PFLAG> <RANK> 
+    
+    GEOM="${PRIMARY_NFO[1]}x${PRIMARY_NFO[2]}+${PRIMARY_NFO[5]}+${PRIMARY_NFO[6]}"
+    ARGS+=( "--primary" "${GEOM}")
+  fi
+  
+  if [ -x ${SCRIPTDIR}/Xbuttons_bar ] ; then
+    log_infos "  Execing '${SCRIPTDIR}/Xbuttons_bar ${ARGS[*]} &'"
+    ${SCRIPTDIR}/Xbuttons_bar "${ARGS[@]}" &
+    PID=$!
+    log_infos "  Xbuttons_bar started with PID #${PID}"
+    register_process ${PID} "XBUTTONS_BAR-0"
+  else
+    log_infos "  Warning, Xbuttons_bar is not available."
+  fi
+}
+
+# Starts the widgets. By default, this function calls :
+#   start_xclock
+#   start_buttons_bar
+#
+function start_widgets() {
+  start_xclock
+  start_buttons_bar
+}
+
+# Sources the extensions declared by variable EXTENSIONS, if any.
+#
+# An extension is a shell script which adds new feature(s) to
+# Xsetup.
+#
+# The extensions must be in the folder "extensions.d" of Xsetup's 
+# directory. They are loaded/executed at the end of Xsetup according 
+# to the order in which they are declared.
+#
+function source_extensions() {
+  for CEXT in ${EXTENSIONS[@]} ; do
+    if [ -r ${EXTDIR}/${CEXT} ] ; then
+      log_infos "Loading extension ${EXTDIR}/${CEXT}..."
+      source ${EXTDIR}/${CEXT}
+    else
+      log_infos "Warning, extension ${CEXT} not found in ${EXTDIR}"
+    fi
+  done
+}
+
+# The main Xsetup function.
+#
+function main() {
+  # Set root window color to black and select cursor left_ptr...
+  xsetroot -solid "#000000" -cursor_name left_ptr
+
+  set_background
+  enable_numlock
+  start_compton
+  start_widgets
+  source_extensions  
+  log_infos "Terminated.\n"
+}
+
+          ###
+          #    Entry Point    #
+                            ###
+init
+main

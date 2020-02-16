@@ -1,0 +1,90 @@
+#!/bin/bash
+#
+# Copyright 2019 Sébastien Ballet. All rights reserved.
+# 
+# Use of this source code is governed by the BSD 3-clause license
+# that can be found in the LICENSE file. 
+#
+
+####
+# Xreset ver. 2019.0617
+#
+# This script is the program that XDM runs (as root) after the 
+# session terminates. It must be specified through the properties 
+# DisplayManager.<DISPLAY>.reset in xdm-config configuration file.
+#
+# This implementation deletes from system utmp/utmpx database the
+# session registered by Xstartup.
+#
+
+          ###
+          #    Variables    #
+                          ###
+
+# Xreset version number.
+#
+VERSION="2019.0617"
+
+# Absolute path to this script's directory.
+#
+SCRIPTDIR=$(dirname $(realpath $0))
+
+# The X server display name, without field 'screennumber', and to 
+# XDM resource name format, that is, with underscores in place of 
+# dots and colons.
+#
+XDISP=$(echo ${DISPLAY} | cut -f1 -d":" | tr "." "_")_$(echo ${DISPLAY} | cut -f2- -d":" | cut -f1 -d".")
+
+
+          ###
+          #    Functions    #
+                          ###
+
+# Prints the informations (ie. $@) onto the standard output.
+#
+function log_infos() {
+ echo -e "$(date +%Y/%m/%d\ %T) Xreset.${XDISP} [$$]: $@"
+}
+
+# Deletes from system utmp/utmpx database the session registered by 
+# Xstartup.
+#
+function deregister_xsession() {
+
+  log_infos "Execing '/usr/bin/sessreg \
+-d \
+-w /var/log/wtmp \
+-u /var/run/utmp \
+-x ${SCRIPTDIR} \
+-l ${DISPLAY} \
+-h "" ${USER}' ..."
+
+  # NOTE:
+  # ====
+  # The option -x is ignored by versions of sessreg built with
+  # POSIX pututxline(). It's still there for compatibility purpose,
+  # in case this file is used on system with (really) earlier 
+  # sessreg version.
+  #
+
+  /usr/bin/sessreg \
+    -d \
+    -w /var/log/wtmp \
+    -u /var/run/utmp \
+    -x ${SCRIPTDIR} \
+    -l ${DISPLAY} \
+    -h "" ${USER}
+}
+
+# Xreset's main function.
+#
+function main() {
+  log_infos "Xreset ver. ${VERSION}"
+  deregister_xsession
+}
+
+          ###
+          #    Entry Point    #
+                            ###
+
+main

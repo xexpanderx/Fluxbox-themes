@@ -1,0 +1,146 @@
+#!/bin/bash
+#
+# Copyright 2019 Sébastien Ballet. All rights reserved.
+#
+# Use of this source code is governed by the BSD 3-clause license
+# that can be found in the LICENSE file.
+#
+
+###
+# sysmon-conky ver. 2019.0624
+#
+# An Xsetup extension to integrate the system monitor conky on the XDM 
+# screen.
+#
+# The sysmon-conky settings are loaded from the configuration file 
+# sysmon-conky.<XDISP>.conf when available, from the default configuration
+# file sysmon-conky.conf otherwise.
+#
+# <XDISP> is the X server display name, without field 'screennumber',
+# and to XDM resource name format, that is, with underscores in place
+# of dots and colons.
+#
+# For instance, the value of <XDISP> in case of X server display
+# name :0 is "_0". It is "_1" in case of X server display name :1,
+# it is "com_foo_bar_0" in case of X server name com.foo.bar:0.
+#
+# On a system configured to run 2 local X servers (:0,:1), the
+# sysmon-conky configuration dedicated to X server :0 must be in file 
+# sysmon-conky._0.conf, and the configuration dedicated to X server :1
+# must be in file sysmon-conky._1.conf. 
+#
+# When any of these files is missing, sysmon-conky will fallback to
+# the default configuration file sysmon-conky.conf.
+#
+# The sysmon-conky configuration files must be located in the same
+# directory as script sysmon-conky.
+#
+# If conky is not installed, sysmon-conky does nothing.
+###
+
+          ###
+          #    Variables    #
+                          ###
+
+# sysmon-conky's version number.
+#
+SYSMON_CONKY_VERSION="2019.0624"
+
+          ###
+          #    Functions    #
+                          ###
+
+# Loads sysmon-conky settings.
+#
+# The settings are loaded from the configuration file
+# sysmon-conky.${XDISP}.conf when available, from the 
+# default configuration file sysmon-conky.conf otherwise.
+#
+function sysmon_conky_load_config() {
+  local CFGFILE=""
+  local INIMSG=""
+  
+  # Identify the configuration file to load ...
+  #
+  if [ -r ${EXTDIR}/sysmon-conky.${XDISP}.conf ] ; then
+    CFGFILE=${EXTDIR}/sysmon-conky.${XDISP}.conf
+  elif [ -r ${EXTDIR}/sysmon-conky.conf ] ; then
+    CFGFILE=${EXTDIR}/sysmon-conky.conf
+  fi
+  
+  # Loads the configuration file, if any...
+  #  
+  if [ ! -z "${CFGFILE}" ] ; then
+    source ${CFGFILE}
+    INIMSG="    Settings loaded from ${CFGFILE}."
+  else
+    INIMSG="    Warning, missing configuration file. Check your installation."
+  fi
+
+  log_infos "${INIMSG}\n"
+  
+  
+  # Logs current configuration...
+  #
+  log_infos "    -- Configuration ------------------------------------------"
+  log_infos "      CONKY_REAL_TRANSPARENT_CFG   : ${CONKY_REAL_TRANSPARENT_CFG}"
+  log_infos "      CONKY_PSEUDO_TRANSPARENT_CFG : ${CONKY_PSEUDO_TRANSPARENT_CFG}"
+  log_infos "      CONKY_EXTRA_ARGS             : ${CONKY_EXTRA_ARGS[*]}"
+  log_infos "    -------------------------------------------------------------"  
+}
+
+
+# Starts conky if available.
+#
+function start_conky() {
+  local ARGS=()
+  local PROPNAME
+  local CONKYCFG
+  local PID
+
+  if ! which conky &>/dev/null ; then
+    log_infos "    Warning, conky is not available. Exiting..."
+    return
+  fi
+  
+  if is_enabled ${WITH_COMPTON} ; then
+    CONKYCFG="${CONKY_REAL_TRANSPARENT_CFG}"
+    PROPNAME="CONKY_REAL_TRANSPARENT_CFG"
+  else 
+    CONKYCFG="${CONKY_PSEUDO_TRANSPARENT_CFG}"
+    PROPNAME="CONKY_PSEUDO_TRANSPARENT_CFG"
+  fi
+  
+  if [ ! -z "${CONKYCFG}" ] ; then
+    ARGS+=( "--config" "${CONKYCFG}" )
+  else
+    log_infos "    Warning, ${PROPNAME} is not set."
+  fi
+  
+  if [ ! -z "${CONKY_EXTRA_ARGS}" ] ; then
+    ARGS+=( ${CONKY_EXTRA_ARGS[@]} )
+  fi
+  
+  log_infos "    Execing 'conky ${ARGS[*]}' ..."
+  
+  conky ${ARGS[@]} &
+  register_process $! "CONKY-0"
+}
+
+
+# sysmon-conky's main function.
+#
+function sysmon_conky_main() {
+  log_infos "  sysmon-conky ver. ${SYSMON_CONKY_VERSION}"
+  
+  sysmon_conky_load_config
+  start_conky
+
+  log_infos "  sysmon-conky terminated.\n"
+}
+
+          ###
+          #    Entry-Point    #
+                            ###
+
+sysmon_conky_main

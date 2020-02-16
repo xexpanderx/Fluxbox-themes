@@ -1,0 +1,256 @@
+#!/bin/bash
+#
+# Copyright 2019 Sébastien Ballet. All rights reserved.
+#
+# Use of this source code is governed by the BSD 3-clause license
+# that can be found in the LICENSE file.
+#
+
+###
+# xdm-screensaver ver. 2019.0625
+#
+# An Xsetup extension to run a screensaver on XDM screen.
+#
+# The xdm-screensaver settings are loaded from the configuration file 
+# xdm-screensaver.<XDISP>.conf when available, from the default configuration
+# file xdm-screensaver otherwise.
+#
+# <XDISP> is the X server display name, without field 'screennumber',
+# and to XDM resource name format, that is, with underscores in place
+# of dots and colons.
+#
+# For instance, the value of <XDISP> in case of X server display
+# name :0 is "_0". It is "_1" in case of X server display name :1,
+# it is "com_foo_bar_0" in case of X server name com.foo.bar:0.
+#
+# On a system configured to run 2 local X servers (:0,:1), the 
+# xdm-screensaver configuration dedicated to X server :0 must be in 
+# file xdm-screensaver._0.conf, and the configuration dedicated to X
+# server :1 must be in file xdm-screensaver._1.conf. 
+#
+# When any of these files is missing, xdm-screensaver will fallback to
+# the default configuration file xdm-screensaver.conf.
+#
+# The xdm-screensaver configuration files must be located in the same
+# directory as script xdm-screensaver.
+###
+
+          ###
+          #    Variables    #
+                          ###
+
+# xdm-screensaver's version number.
+#
+SCREENSAVER_VERSION="2019.0625"
+
+          ###
+          #    Functions    #
+                          ###
+
+# Loads xdm-screensaver settings. Returns 0 on success, 1 otherwise in
+# which case xdm-screensaver must terminate immediately.
+#
+# The settings are loaded from the configuration file
+# xdm-screensaver.${XDISP}.conf when available, from the 
+# default configuration file xdm-screensaver.conf otherwise.
+#
+function xdm_screensaver_load_config() {
+  local CFGFILE=""
+  local INIMSG=""
+  
+  # Identify the configuration file to load ...
+  #
+  if [ -r ${EXTDIR}/xdm-screensaver.${XDISP}.conf ] ; then
+    CFGFILE=${EXTDIR}/xdm-screensaver.${XDISP}.conf
+  elif [ -r ${EXTDIR}/xdm-screensaver.conf ] ; then
+    CFGFILE=${EXTDIR}/xdm-screensaver.conf
+  fi
+  
+  # Loads the configuration file, if any...
+  #  
+  if [ ! -z "${CFGFILE}" ] ; then
+    source ${CFGFILE}
+    INIMSG="    Settings loaded from ${CFGFILE}."
+  else
+    INIMSG="    Warning, missing configuration file. Check your installation."
+  fi
+
+  log_infos "${INIMSG}\n"
+  
+  if ! echo "${SCREENSAVER_MODE}" | grep -qE "(fullscreen|windowed)" ; then
+    log_infos "    Error, unsupported mode ${SCREENSAVER_MODE}"
+    return 1
+  fi
+  
+  if [ "${SCREENSAVER_MODE}" == "windowed" ] ; then
+    if [ -z "${SCREENSAVER_DISPLAY}" ] ; then
+      log_infos "    Error, property SCREENSAVER_DISPLAY is not set."
+      return 1
+    fi
+    
+    if [ -z "${SCREENSAVER_WINDOW_POS}" ] ; then
+      log_infos "    Error, property SCREENSAVER_WINDOW_POS is not set."
+      return 1
+    fi
+    
+    if ! echo "${SCREENSAVER_WINDOW_POS}" | grep -qE "^(TOP|MIDDLE|BOTTOM)[_](LEFT|MIDDLE|RIGHT)$" ; then
+      log_infos "    Error, invalid window position '${SCREENSAVER_WINDOW_POS}'"
+      return 1
+    fi
+    
+    if [ "${#SCREENSAVER_WINDOW_SIZE[@]}" -ne 2 ] ; then
+      log_infos "    Error, invalid window size '${SCREENSAVER_WINDOW_SIZE[*]}'"
+      return 1
+    fi
+    
+    if ! echo "${SCREENSAVER_WINDOW_SIZE[0]}" | grep -qE "^[0-9]+[%]{0,1}$" ; then
+      log_infos "    Error, invalid window width '${SCREENSAVER_WINDOW_SIZE[0]}'"
+      return 1
+    fi
+
+    if ! echo "${SCREENSAVER_WINDOW_SIZE[1]}" | grep -qE "^[0-9]+[%]{0,1}$" ; then
+      log_infos "    Error, invalid window height '${SCREENSAVER_WINDOW_SIZE[1]}'"
+      return 1
+    fi
+    
+    if [ "${#SCREENSAVER_WINDOW_MARGINS[@]}" -ne 2 ] ; then 
+      log_infos "    Error, invalid window margins '${SCREENSAVER_WINDOW_MARGINS[*]}'"
+      return 1
+    fi
+
+    if ! echo "${SCREENSAVER_WINDOW_MARGINS[0]}" | grep -qE "^[0-9]+$" ; then
+      log_infos "    Error, invalid window X margin '${SCREENSAVER_WINDOW_MARGINS[0]}'"
+      return 1
+    fi
+
+    if ! echo "${SCREENSAVER_WINDOW_MARGINS[1]}" | grep -qE "^[0-9]+$" ; then
+      log_infos "    Error, invalid window Y margin '${SCREENSAVER_WINDOW_MARGINS[1]}'"
+      return 1
+    fi
+  fi
+  
+  if [ ! -d "${SCREENSAVER_DIR}" ] ; then
+    log_infos "    Error, invalid screensaver directory '${SCREENSAVER_DIR}'"
+    return 1
+  fi
+  
+  if [ ! -r "${SCREENSAVER_DIR}/${SCREENSAVER}" ] ; then
+    log_infos "    Error, screensaver '${SCREENSAVER}' does not exist."
+    return 1
+  fi
+  
+  # Logs current configuration...
+  #
+  log_infos "    -- Configuration ------------------------------------------"
+  log_infos "      SCREENSAVER_MODE           : ${SCREENSAVER_MODE}"
+  log_infos "      SCREENSAVER_DISPLAY        : ${SCREENSAVER_DISPLAY}"
+  log_infos "      SCREENSAVER_WINDOW_POS     : ${SCREENSAVER_WINDOW_POS}"
+  log_infos "      SCREENSAVER_WINDOW_SIZE    : ${SCREENSAVER_WINDOW_SIZE[*]}"
+  log_infos "      SCREENSAVER_WINDOW_MARGINS : ${SCREENSAVER_WINDOW_MARGINS[*]}"
+  log_infos "      SCREENSAVER_DIR            : ${SCREENSAVER_DIR}"
+  log_infos "      SCREENSAVER                : ${SCREENSAVER}"
+  log_infos "      SCREENSAVER_EXTRA_ARGS     : ${SCREENSAVER_EXTRA_ARGS}"
+  log_infos "    -------------------------------------------------------------"
+  
+  return 0
+}
+
+
+# Runs the screensaver in fullscreen mode.
+#
+function xdm_screensaver_fullscreen() {
+  local SSPROG=${SCREENSAVER_DIR}/${SCREENSAVER}
+  
+  log_infos "    Execing ${SSPROG} -root ${SCREENSAVER_EXTRA_ARGS[*]} ..."
+  
+  ${SSPROG} -root "${SCREENSAVER_EXTRA_ARGS[@]}" &
+  register_process $! XDM-SCREENSAVER-0
+}
+
+# Runs the screensaver in windowed mode.
+#
+function xdm_screensaver_windowed() {
+  local SINFOS=( $(get_display_infos "${SCREENSAVER_DISPLAY}" ) )
+  local SSPROG
+  local ANCHORS
+  local WIDTH
+  local HEIGHT
+  local XPOS
+  local YPOS
+  local MX
+  local MY
+  local GEOM
+  
+  if [ -z "${SINFOS}" ] ; then
+    log_infos "    invalid display '${SCREENSAVER_DISPLAY}'"
+    return 1
+  fi
+
+  WIDTH=${SCREENSAVER_WINDOW_SIZE[0]}
+  HEIGHT=${SCREENSAVER_WINDOW_SIZE[1]}
+  MX=${SCREENSAVER_WINDOW_MARGINS[0]}
+  MY=${SCREENSAVER_WINDOW_MARGINS[1]}
+  
+  # reminder:
+  #               0    1   2    3    4     5      6      7       8     9
+  #    SINFOS=( <OUT> <W> <H> <mW> <mH> <XOFF> <YOFF> <AFLAG> <PLAG> <RANK> )
+  
+  if echo "${WIDTH}" | grep -qE "%$" ; then
+    # ${WIDTH%?} removes the last character (ie. %) from WIDTH
+    #
+    WIDTH=$(( (${SINFOS[1]} * ${WIDTH%?}) / 100 ))
+  fi
+  
+  if echo "${HEIGHT}" | grep -qE "%$" ; then
+    # ${HEIGHT%?} removes the last character (ie. %) from HEIGHT
+    #
+    HEIGHT=$(( (${SINFOS[2]} * ${HEIGHT%?}) / 100 ))
+  fi
+  
+  WIDTH=$(( ${WIDTH} - (${MX} * 2) ))
+  HEIGHT=$(( ${HEIGHT} - (${MY} * 2) ))
+  
+  ANCHORS=( $(echo ${SCREENSAVER_WINDOW_POS} | tr "_" " ") )
+  
+  case ${ANCHORS[0]} in
+    TOP)    YPOS=$(( ${SINFOS[6]} + ${MY} )) ;;
+    MIDDLE) YPOS=$(( ${SINFOS[6]} + (${SINFOS[2]}/2) - (${HEIGHT}/2) )) ;;
+    BOTTOM) YPOS=$(( (${SINFOS[6]} + ${SINFOS[2]}) - ${HEIGHT} - ${MY} )) ;;
+  esac
+  
+  case ${ANCHORS[1]} in
+    LEFT)   XPOS=$(( ${SINFOS[5]} + ${MX} ));;
+    MIDDLE) XPOS=$(( ${SINFOS[5]} + (${SINFOS[1]}/2) - (${WIDTH}/2) )) ;;
+    RIGHT) XPOS=$(( (${SINFOS[5]} + ${SINFOS[1]}) - ${WIDTH} - ${MX} )) ;;
+  esac
+  
+  GEOM=${WIDTH}x${HEIGHT}+${XPOS}+${YPOS}
+  SSPROG=${SCREENSAVER_DIR}/${SCREENSAVER}
+  
+  log_infos "    Execing ${SSPROG} -window -geometry ${GEOM} ${SCREENSAVER_EXTRA_ARGS[*]} ..."
+  
+  ${SSPROG} -window -geometry ${GEOM} "${SCREENSAVER_EXTRA_ARGS[@]}" &
+  register_process $! XDM-SCREENSAVER-0
+}
+
+# xdm-screensaver's main function.
+#
+function xdm_screensaver_main() {
+  
+  log_infos "  xdm-screensaver ver. ${SCREENSAVER_VERSION}"
+
+  if xdm_screensaver_load_config ; then  
+    case ${SCREENSAVER_MODE} in
+      fullscreen) xdm_screensaver_fullscreen ;;
+      windowed) xdm_screensaver_windowed ;;
+    esac
+  fi
+  
+  log_infos "  xdm-screensaver terminated.\n"
+}
+
+          ###
+          #    Entry-Point    #
+                            ###
+
+xdm_screensaver_main

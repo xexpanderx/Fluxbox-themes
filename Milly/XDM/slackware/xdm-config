@@ -1,0 +1,36 @@
+!
+! XDM configuration file for xdm-slackware-theme
+!
+
+DisplayManager.authDir:       /var/lib/xdm
+DisplayManager.errorLogFile:  /var/log/xdm.log
+DisplayManager.pidFile:       /var/run/xdm.pid
+DisplayManager.keyFile:       /etc/X11/xdm/xdm-keys
+DisplayManager.servers:       /etc/X11/xdm/slackware/Xservers
+DisplayManager.accessFile:    /etc/X11/xdm/Xaccess
+DisplayManager*resources:     /etc/X11/xdm/slackware/Xresources
+DisplayManager.willing:       su nobody -c /etc/X11/xdm/Xwilling
+
+! All displays should use authorization, but we cannot be sure
+! X terminals may not be configured that way, so they will require
+! individual resource settings.
+!
+DisplayManager*authorize: true
+
+DisplayManager*chooser:      /etc/X11/xdm/chooser
+DisplayManager*setup:        /etc/X11/xdm/slackware/Xsetup
+DisplayManager*startup:      /etc/X11/xdm/slackware/Xstartup
+DisplayManager*session:      /etc/X11/xdm/slackware/Xsession
+DisplayManager*reset:        /etc/X11/xdm/slackware/Xreset
+DisplayManager*authComplain: true
+
+DisplayManager*loginmoveInterval: 10
+
+! SECURITY: do not listen for XDMCP or Chooser requests
+! Comment out this line if you want to manage X terminals with xdm
+!
+DisplayManager.requestPort: 0
+
+! Mate and Cinnamon fail without this:
+!
+DisplayManager*authName: MIT-MAGIC-COOKIE-1

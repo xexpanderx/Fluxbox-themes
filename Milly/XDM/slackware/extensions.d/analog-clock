@@ -1,0 +1,279 @@
+#!/bin/bash
+#
+# Copyright 2019 Sébastien Ballet. All rights reserved.
+#
+# Use of this source code is governed by the BSD 3-clause license
+# that can be found in the LICENSE file.
+#
+
+###
+# analog-clock ver. 2019.0624
+#
+# An Xsetup extension to display an analog-clock on the XDM screen.
+#
+# The analog-clock settings are loaded from the configuration file 
+# analog-clock.<XDISP>.conf when available, from the default configuration
+# file analog-clock otherwise.
+#
+# <XDISP> is the X server display name, without field 'screennumber',
+# and to XDM resource name format, that is, with underscores in place
+# of dots and colons.
+#
+# For instance, the value of <XDISP> in case of X server display
+# name :0 is "_0". It is "_1" in case of X server display name :1,
+# it is "com_foo_bar_0" in case of X server name com.foo.bar:0.
+#
+# On a system configured to run 2 local X servers (:0,:1), the
+# analog-clock configuration dedicated to X server :0 must be in file 
+# analog-clock._0.conf, and the configuration dedicated to X server :1
+# must be in file analog-clock._1.conf. 
+#
+# When any of these files is missing, analog-clock will fallback to
+# the default configuration file analog-clock.conf.
+#
+# The analog-clock configuration files must be located in the same
+# directory as script analog-clock.
+#
+# When Xsetup is configured with compton support (i.e. WITH_COMPTON=on),
+# analog-clock starts an instance of cairo-clock, otherwise, an instance
+# of xonclock is started.
+#
+# if neither cairo-clock nor xonclock is installed, analog-clock does
+# nothing.
+###
+
+          ###
+          #    Variables    #
+                          ###
+
+# analog-clock's version number.
+#
+ANALOG_CLOCK_VERSION="2019.0624"
+
+# Used to store the width and height specified by CC_SIZE which is to
+# the format WIDTH[:HEIGHT]
+#
+CC_WIDTH=0
+CC_HEIGHT=0
+
+          ###
+          #    Functions    #
+                          ###
+
+# Loads analog-clock settings.
+#
+# The settings are loaded from the configuration file
+# analog-clock.${XDISP}.conf when available, from the 
+# default configuration file analog-clock.conf otherwise.
+#
+function analog_clock_load_config() {
+  local CFGFILE=""
+  local INIMSG=""
+  
+  # Identify the configuration file to load ...
+  #
+  if [ -r ${EXTDIR}/analog-clock.${XDISP}.conf ] ; then
+    CFGFILE=${EXTDIR}/analog-clock.${XDISP}.conf
+  elif [ -r ${EXTDIR}/analog-clock.conf ] ; then
+    CFGFILE=${EXTDIR}/analog-clock.conf
+  fi
+  
+  # Loads the configuration file, if any...
+  #  
+  if [ ! -z "${CFGFILE}" ] ; then
+    source ${CFGFILE}
+    INIMSG="    Settings loaded from ${CFGFILE}."
+  else
+    INIMSG="    Warning, missing configuration file. Check your installation."
+  fi
+
+  log_infos "${INIMSG}\n"
+  
+  CC_WIDTH=${CC_SIZE%:*}
+  CC_HEIGHT=${CC_SIZE#*:}
+
+  ! echo "${XOC_SIZE}" | grep -qE "^[[:digit:]]+$" && XOC_SIZE=128
+  ! echo "${XOC_MARGIN}" | grep -qE "^[[:digit:]]+$" && XOC_MARGIN=0
+  ! echo "${CC_MARGIN}" | grep -qE "^[[:digit:]]+$" && CC_MARGIN=0
+  
+  ! echo "${CC_WIDTH}"  | grep -qE "^[[:digit:]]+$" && CC_WIDTH=128
+  ! echo "${CC_HEIGHT}" | grep -qE "^[[:digit:]]+$" && CC_HEIGHT=${CC_WIDTH}
+  
+  # Logs current configuration...
+  #
+  log_infos "    -- Configuration ------------------------------------------"
+  log_infos "      XOC_SKIN           : ${XOC_SKIN}"
+  log_infos "      XOC_POSITION       : ${XOC_POSITION}"
+  log_infos "      XOC_SIZE           : ${XOC_SIZE}"
+  log_infos "      XOC_MARGIN         : ${XOC_MARGIN}"
+  log_infos "      XOC_USE_BACKGROUND : ${XOC_USE_BACKGROUND}"
+  log_infos "      XOC_SHOW_SECONDS   : ${XOC_SHOW_SECONDS}"
+  log_infos "      XOC_SHOW_DATE      : ${XOC_SHOW_DATE}"
+  log_infos "      XOC_DATE_FORMAT    : ${XOC_DATE_FORMAT}"
+  log_infos "      XOC_EXTRA_ARGS     : ${XOC_EXTRA_ARGS[*]}"
+  log_infos ""
+  log_infos "      CC_THEME           : ${CC_THEME}"
+  log_infos "      CC_POSITION        : ${CC_POSITION}"
+  log_infos "      CC_SIZE            : ${CC_SIZE}"
+  log_infos "      CC_MARGIN          : ${CC_MARGIN}"
+  log_infos "      CC_SHOW_SECONDS    : ${CC_SHOW_SECONDS}"
+  log_infos "      CC_SHOW_DATE       : ${CC_SHOW_DATE}"
+  log_infos "      CC_EXTRA_ARGS      : ${CC_EXTRA_ARGS[*]}"
+  log_infos ""
+  log_infos "      CC_WIDTH           : ${CC_WIDTH}"
+  log_infos "      CC_HEIGHT          : ${CC_HEIGHT}"
+  log_infos "    -------------------------------------------------------------"
+}
+
+# Returns the X position at which the analog-clock must be placed
+# according to the current configuration and the specified parameter:
+#
+# $1 : the anchor which can be TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT
+# $2 : the clock margin
+# $3 : the clock width
+#
+function analog_clock_get_xpos() {
+  local ANCHOR=$1
+  local MARGIN=$2
+  local WIDTH=$3
+  local XPOS=0
+  
+  # Note that functions get_xpos() and get_ypos() are declared in
+  # Xsetup.
+  #
+  case ${ANCHOR} in
+    TOP_LEFT|BOTTOM_LEFT)    XPOS=$(get_xpos LEFT ${MARGIN} ) ;;
+    TOP_RIGHT|BOTTOM_RIGHT)  XPOS=$(get_xpos RIGHT $(( ${WIDTH} + ${MARGIN} )) ) ;;
+  esac
+  
+  echo ${XPOS}
+}
+
+
+# Returns the Y position at which the analog-clock must be placed
+# according to the current configuration and the specified parameter:
+#
+# $1 : the anchor which can be TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT
+# $2 : the clock margin
+# $3 : the clock height
+#
+function analog_clock_get_ypos() {
+  local ANCHOR=$1
+  local MARGIN=$2
+  local HEIGHT=$3
+  local YPOS=0
+  
+  # BHEIGHT_TOP/BHEIGHT_BTM is the height of the border at the 
+  # top/bottom of XDM screen. These variables are initialized by
+  # Xsetup.
+  #
+  # Note that functions get_xpos() and get_ypos() are declared in
+  # Xsetup.
+  #
+  case ${ANCHOR} in
+    TOP_LEFT|TOP_RIGHT)    
+      YPOS=$(get_ypos TOP $(( ${BHEIGHT_TOP} + ${MARGIN} )) ) 
+    ;;
+    
+    BOTTOM_LEFT|BOTTOM_RIGHT)  
+      YPOS=$(get_ypos BOTTOM $(( ${BHEIGHT_BTM} + ${HEIGHT} + ${MARGIN} )) )
+    ;;
+  esac
+  
+  echo ${YPOS}
+}
+
+# Starts an xonclock instance.
+#
+function analog_clock_start_xonclock() {
+  local ARGS=()
+  
+  if ! which xonclock &>/dev/null ; then
+    log_infos "    Warning, xonclock is not available. Exiting..."
+    return
+  fi
+  
+  if [ ! -z "${XOC_POSITION}" ] ; then
+    local XPOS=$(analog_clock_get_xpos ${XOC_POSITION} ${XOC_MARGIN} ${XOC_SIZE})
+    local YPOS=$(analog_clock_get_ypos ${XOC_POSITION} ${XOC_MARGIN} ${XOC_SIZE})
+    
+    ARGS+=( "--position=TOP-LEFT" "--offset-h=${XPOS}" "--offset-v=${YPOS}" )
+  fi
+  
+  [ ! -z "${XOC_SKIN}" ] && ARGS+=( "--skin=${XOC_SKIN}" )
+  
+  is_enabled ${XOC_USE_BACKGROUND} && ARGS+=( "--use-background" )
+  is_enabled ${XOC_SHOW_SECONDS} && ARGS+=( "--show-seconds" )
+  is_enabled ${XOC_SHOW_DATE} && ARGS+=( "--show-date" "--date-offset-v=16" )
+  
+  [ ! -z "${XOC_DATE_FORMAT}" ] && ARGS+=( "--date-format=${XOC_DATE_FORMAT}" )
+  
+  [ ! -z "${XOC_EXTRA_ARGS}" ] && ARGS+=( ${XOC_EXTRA_ARGS[@]} )
+
+  log_infos "    Execing 'xonclock ${ARGS[*]}' ..."
+
+  xonclock "${ARGS[@]}" &
+  register_process $! "XONCLOCK-0"
+}
+
+
+# Starts a cairo-clock instance.
+#
+function analog_clock_start_cairoclock() {
+  local ARGS=()
+
+  if ! which cairo-clock &>/dev/null ; then
+    log_infos "    Warning, cairo-clock is not available. Exiting..."
+    return
+  fi
+
+  if [ ! -z "${CC_POSITION}" ] ; then
+    local XPOS=$(analog_clock_get_xpos ${CC_POSITION} ${CC_MARGIN} ${CC_WIDTH})
+    local YPOS=$(analog_clock_get_ypos ${CC_POSITION} ${CC_MARGIN} ${CC_HEIGHT})
+    
+    ARGS+=( "--xposition" "${XPOS}" "--yposition" "${YPOS}" )
+  fi
+
+  ARGS+=( "--width" "${CC_WIDTH}" "--height" "${CC_HEIGHT}" ) 
+  
+  [ ! -z "${CC_THEME}" ] && ARGS+=( "--theme" "${CC_THEME}" )
+  
+  is_enabled ${CC_SHOW_SECONDS} && ARGS+=( "--seconds" )
+  is_enabled ${CC_SHOW_DATE} && ARGS+=( "--date" )
+  
+  # set refresh to 1 to avoid high cpu usage.
+  #
+  ARGS+=( "--refresh" "1"  )
+  
+  [ ! -z "${CC_EXTRA_ARGS}" ] && ARGS+=( ${CC_EXTRA_ARGS[@]} )
+
+
+  log_infos "    Execing 'cairo-clock ${ARGS[*]}' ..."
+
+  cairo-clock "${ARGS[@]}" &
+  register_process $! "CAIRO-CLOCK-0"
+}
+
+# analog-clock's main function.
+#
+function analog_clock_main() {
+  log_infos "  analog-clock ver. ${ANALOG_CLOCK_VERSION}"
+
+  analog_clock_load_config
+  
+  if is_enabled ${WITH_COMPTON} ; then
+    log_infos "    compton is enabled. Starts 'cairo-clock' ..."
+    analog_clock_start_cairoclock
+  else
+    log_infos "    compton is disabled. Starts 'xonclock' ..."
+    analog_clock_start_xonclock
+  fi
+  
+  log_infos "  analog-clock terminated.\n"
+}
+
+          ###
+          #    Entry-Point    #
+                            ###
+
+analog_clock_main

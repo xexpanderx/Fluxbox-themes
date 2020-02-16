@@ -1,0 +1,444 @@
+#!/bin/bash
+#
+# Copyright 2018,2019 Sébastien Ballet. All rights reserved.
+# 
+# Use of this source code is governed by the BSD 3-clause license
+# that can be found in the LICENSE file. 
+#
+
+###
+# Xsession ver. 2019.0627
+#
+# This script is the command which is run as the user's session. It must
+# be specified through the properties DisplayManager.<DISPLAY>.session
+# in xdm-config configuration file.
+#
+# The Xsession's settings are loaded from the configuration file 
+# Xsession.<XDISP>.conf when available, from the default configuration 
+# file Xsession.conf otherwise.
+#
+# <XDISP> is the X server display name, without field 'screennumber',
+# and to XDM resource name format, that is, with underscores in place
+# of dots and colons.
+#
+# For instance, the value of <XDISP> in case of X server display
+# name :0 is "_0". It is "_1" in case of X server display name :1,
+# it is "com_foo_bar_0" in case of X server name com.foo.bar:0.
+#
+# On a system configured to run 2 local X servers (:0,:1), the
+# Xsession configuration dedicated to X server :0 must be in
+# file Xsession._0.conf, and the Xsession configuration dedicated
+# to X server :1 must be in file Xsession._1.conf. 
+#
+# When any of these files is missing, Xsession will fallback to the
+# default configuration file Xsession.conf.
+#
+# The Xsession configuration files must be located in the same
+# directory as script Xsession.
+
+
+	  ####
+	  #    Variables    #
+			 ####
+
+# Xsession version number.
+#
+VERSION="2019.0627"
+
+# Absolute path to this script's directory.
+#
+SCRIPTDIR=$(dirname $(realpath $0))
+
+# The X server display name, without field 'screennumber', and to 
+# XDM resource name format, that is, with underscores in place of 
+# dots and colons.
+#
+XDISP=$(echo ${DISPLAY} | cut -f1 -d":" | tr "." "_")_$(echo ${DISPLAY} | cut -f2- -d":" | cut -f1 -d".")
+
+# The file in which Xsession logs its activity.
+#
+LOGFILE=${HOME}/xdm-xsession.${XDISP}.log
+
+# The file in which is stored the name of the latest selected session
+# through the xdm buttons-bar (see Xbuttons_bar), if any.
+#
+# When Xsession is run with no argument and this file is not empty, 
+# Xsession start the session specified in this file.
+#
+XSESSION_FILE=/var/lib/xdm/xdm.${XDISP}.xsession
+
+
+	  ####
+	  #    Functions    #
+			 ####
+
+# Returns 0 when $1 matches (case insensitive) 1|on|yes|true,
+# otherwise returns 1.
+#
+function is_enabled() {
+  echo "$1" | grep -qiE "^(1|on|yes|true)$" && return 0
+  return 1
+}
+
+# Logs the informations (ie. $@) into the file pointed by
+# LOGFILE unless DISABLE_LOG (*) is enabled.
+#
+# (*) defined in Xsession's configuration file.
+#
+function log_infos() {
+ is_enabled ${DISABLE_LOG} && return
+ echo 2>/dev/null -e "$(date +%Y/%m/%d\ %T) [$$]: $@" >> ${LOGFILE}
+}
+
+# Script's initialization function. Must be called first. Executes the
+# following tasks:
+#
+#   * Set the PATH to something valid.
+#
+#   * if the log file pointed by LOGFILE exists, saves its content in 
+#     file ${LOGFILE}.old
+#
+#   * initializes the properties to their default to prevent runtime 
+#     errors in case configuration loading fails.
+#
+#   * loads configuration file.
+#	
+function init() {
+  
+  # Ensure the PATH is valid
+  #
+  PATH=/usr/local/bin:/usr/bin:/bin
+  
+  # save (old) logfile, when present ...
+  #
+  if [ -e "${LOGFILE}" ] ; then
+    mv ${LOGFILE} ${LOGFILE}.old
+  fi
+  
+  # Initializes the properties to their defaults to prevent runtime
+  # errors in case configuration loading fails.
+  #
+  USR_XSESSION=${HOME}/.xsession
+  SYS_XSESSION=/etc/X11/xinit/xinitrc
+  XINITRC_FILES_DIR=/etc/X11/xinit
+  SYS_XRESOURCES=/etc/X11/xinit/.Xresources
+  USR_XRESOURCES=${HOME}/.Xresources
+  SYS_XMODMAP=/etc/X11/xinit/.Xmodmap
+  USR_XMODMAP=${HOME}/.Xmodmap
+  LOAD_XRESOURCES_ON=( "failsafe" )
+  LOAD_XMODMAP_ON=( "failsafe" )
+  XSESSION_ERRFILE=( ${HOME}/.xsession-errors.${XDISP} /tmp/xses-${USER}.${XDISP} )
+  SOURCE_SYS_PROFILE=on
+  SOURCE_USR_PROFILE=on
+  SOURCE_SYS_XPROFILE=on
+  SOURCE_USR_XPROFILE=on
+  FAILSAFE_TERM=/usr/bin/uxterm
+  FAILSAFE_TERM_GEOMETRY=80x24+0+0
+
+  # Loads settings ...
+  #
+  load_config
+}
+
+# Loads Xsession settings.
+#
+# The settings are loaded from the configuration file
+# Xsession.${XDISP}.conf when available, from the default
+# configuration file Xsession.conf otherwise.
+#
+function load_config() {
+  local CFGFILE=""
+  local INIMSG=""
+
+  # Identify the configuration file to load ...
+  #
+    
+  if [ -r ${SCRIPTDIR}/Xsession.${XDISP}.conf ] ; then
+    CFGFILE=${SCRIPTDIR}/Xsession.${XDISP}.conf
+  elif [ -r ${SCRIPTDIR}/Xsession.conf ] ; then
+    CFGFILE=${SCRIPTDIR}/Xsession.conf
+  fi
+  
+  # Loads the configuration file, if any...
+  #
+  if [ ! -z "${CFGFILE}" ] ; then
+    source ${CFGFILE}
+    INIMSG="Settings loaded from ${CFGFILE}."
+  else
+    INIMSG="Warning, missing configuration file. Check your installation."
+  fi
+
+  log_infos "Xsession ver. ${VERSION}"
+  log_infos "${INIMSG}\n"
+
+  # verify settings and proceed to adjustments and correction
+  # when required.
+  #
+  if [ -z "${FAILSAFE_TERM}" ] ; then
+    log_infos "FAILSAFE_TERM is not set. Initialized to default."
+    FAILSAFE_TERM=/usr/bin/uxterm
+    FAILSAFE_TERM_GEOMETRY=80x24+0+0
+  fi
+  
+  # Logs current configuration...
+  #
+  log_infos "-- Configuration ------------------------------------------"
+  log_infos "  USR_XSESSION           : ${USR_XSESSION}"
+  log_infos "  SYS_XSESSION           : ${SYS_XSESSION}"
+  log_infos "  XINITRC_FILES_DIR      : ${XINITRC_FILES_DIR}"
+  log_infos "  SYS_XRESOURCES         : ${SYS_XRESOURCES}"
+  log_infos "  USR_XRESOURCES         : ${USR_XRESOURCES}"
+  log_infos "  SYS_XMODMAP            : ${SYS_XMODMAP}"
+  log_infos "  USR_XMODMAP            : ${USR_XMODMAP}"
+  log_infos "  LOAD_XRESOURCES_ON     : ${LOAD_XRESOURCES_ON[*]}"
+  log_infos "  LOAD_XMODMAP_ON        : ${LOAD_XMODMAP_ON[*]}"
+  log_infos "  XSESSION_ERRFILE       : ${XSESSION_ERRFILE[*]}"
+  log_infos "  SOURCE_SYS_PROFILE     : ${SOURCE_SYS_PROFILE}"
+  log_infos "  SOURCE_USR_PROFILE     : ${SOURCE_USR_PROFILE}"
+  log_infos "  SOURCE_SYS_XPROFILE    : ${SOURCE_SYS_XPROFILE}"
+  log_infos "  SOURCE_USR_XPROFILE    : ${SOURCE_USR_XPROFILE}"
+  log_infos "  FAILSAFE_TERM          : ${FAILSAFE_TERM}"
+  log_infos "  FAILSAFE_TERM_GEOMETRY : ${FAILSAFE_TERM_GEOMETRY}"
+  log_infos "-----------------------------------------------------------"  
+}
+
+# Redirect errors to the first file, specified by variable 
+# XSESSION_ERRFILE (1), that met the following condition :
+# 
+#  umask 077 && cp /dev/null "${XSESSION_ERRFILE[i]}" 2> /dev/null
+#
+# Errors are not redirected when XSESSION_ERRFILE is not set, nor
+# when the condition above is not met by any of the specified 
+# files. 
+#
+# (1) declared in the Xsession's configuration file.
+#
+function redirect_errors() {  
+  local ERRFILE
+  
+  if [ -z "${XSESSION_ERRFILE}" ] ; then
+    log_infos "XSESSION_ERRFILE is not set. Errors are not redirected."
+    return
+  fi
+    
+  for ERRFILE in ${XSESSION_ERRFILE[@]} ; do
+    if ( umask 077 && cp /dev/null "${ERRFILE}" 2> /dev/null ) ; then
+      exec > "${ERRFILE}" 2>&1
+      log_infos "Redirected errors to ${ERRFILE}."
+      return
+    fi
+  done
+  
+  log_infos "Unable to redirect errors. Check permissions on files \
+specified by variable XSESSION_ERRFILE (${XSESSION_ERRFILE[*]})."
+}
+
+# Loads the X resources from file $1, when present.
+#
+function load_resources() {
+  local RFILE=$1
+  
+  if [ -r "${RFILE}" ] ; then
+    log_infos "  loading Xresources from ${RFILE} ..."
+    /usr/bin/xrdb -merge "${RFILE}"
+  fi
+}
+
+# Loads the X modmap from file $1, when present.
+# 
+function load_modmap() {
+  local MFILE=$1
+  
+  if [ -r "${MFILE}" ] ; then
+    log_infos "  loading Xmodmap from ${MFILE} ..."
+    /usr/bin/xmodmap "${MFILE}"
+  fi
+}
+
+# Returns 0 if the X resources must be loaded before the session
+# $1 is started according to LOAD_XRESOURCES_ON, 1 otherwise.
+#
+function is_resources_required() {
+  local SNAME=$1
+  local CNAME
+
+  for CNAME in ${LOAD_XRESOURCES_ON[@]} ; do
+    [ "${SNAME}" == "${CNAME}" ] && return 0
+  done
+
+  return 1
+}
+
+# Returns 0 if the X modmap must be loaded before the session
+# $1 is started according to LOAD_XMODMAP_ON, 1 otherwise.
+#
+function is_modmap_required() {
+  local SNAME=$1
+  local CNAME
+
+  for CNAME in ${LOAD_XMODMAP_ON[@]} ; do
+    [ "${SNAME}" == "${CNAME}" ] && return 0
+  done
+
+  return 1
+}
+
+# Source the file $1, when possible.
+#
+function sourcing() {
+  local CFILE=$1
+  local MSG="Sourcing ${CFILE}"
+  
+  if [ -r "${CFILE}" ] ; then
+    source "${CFILE}" &>/dev/null
+    [ $? -eq 0 ] && MSG="[DONE] ${MSG}" || MSG=" [FAIL] ${MSG}"
+  else
+    MSG="[SKIP] ${MSG}: File does not exist or not readable."
+  fi
+  log_infos "${MSG}"
+}
+
+# Starts the session specified by $1 which can be one of
+# the following :
+#
+#   * The name of any WM/DE for which there is an xinitrc
+#     script named xinitrc.$1 in directory specified by 
+#     variable XINITRC_FILES_DIR.
+#
+#   * The keyword USER_SESSION to start user's session
+#     specified by variable USR_XSESSION.
+#
+#   * The keyword SYSTEM_SESSION to start system's session
+#     specified by variable SYS_XSESSION.
+#
+function start_session() {   
+  local XINITRC=""
+  
+  log_infos "start_session($1)"
+  
+  if [ "$1" == "USER_SESSION" ] ; then
+    XINITRC=${USR_XSESSION}
+  elif [ "$1" == "SYSTEM_SESSION" ] ; then
+    XINITRC=${SYS_XSESSION}
+  elif [ ! -z "$1" ] ; then
+    XINITRC="${XINITRC_FILES_DIR}/xinitrc.$1"
+  fi
+  
+  if [ -r "${XINITRC}" ] ; then
+    if [ -x "${XINITRC}" ] ; then
+      # Extract session name from xinitrc filename
+      #
+      local SNAME=$(basename "${XINITRC}" | sed "s/^xinitrc[.]//")
+
+      if is_resources_required "${SNAME}" ; then
+        load_resources "${SYS_XRESOURCES}"
+	load_resources "${USR_XRESOURCES}"
+      fi
+
+      if is_modmap_required "${SNAME}" ; then
+        load_modmap "${SYS_XMODMAP}"
+	load_modmap "${USR_XMODMAP}"
+      fi
+
+      log_infos "  Running ${XINITRC} ..."
+      exec "${XINITRC}"
+    else
+      log_infos "  Unable to run ${XINITRC} (not executable)"
+    fi
+  else
+    log_infos "  Warning, ${XINITRC} does not exist or is not readable."
+  fi
+}
+
+# Runs failsafe mode.
+# 
+function failsafe() { 
+  log_infos "Entering failsafe mode ..."
+
+  if is_resources_required "failsafe" ; then
+    load_resources "${SYS_XRESOURCES}"
+    load_resources "${USR_XRESOURCES}"
+  fi
+
+  if is_modmap_required "failsafe" ; then
+    load_modmap "${SYS_XMODMAP}"
+    load_modmap "${USR_XMODMAP}"
+  fi
+  
+  if [ -x "${FAILSAFE_TERM}" ]  ; then
+    local ARGS=()
+    
+    if [ ! -z "${FAILSAFE_TERM_GEOMETRY}" ] ; then
+      ARGS=( "-geometry" "${FAILSAFE_TERM_GEOMETRY}" )
+    fi
+    
+    log_infos "  Running ${FAILSAFE_TERM} ${ARGS[*]}..."
+    exec ${FAILSAFE_TERM} ${ARGS[@]}
+  else
+    # if we've reached this point, there is nothing else to do than
+    # to exit...
+    #
+    log_infos "  Unable to run ${FAILSAFE_TERM}."
+    exit 1
+  fi
+}
+
+#  Xsession's main function. 
+#
+# This function must be called with the arguments passed on 
+# the command line, as below :
+#
+#  main "$@"
+#
+function main() {
+  
+  redirect_errors
+
+  is_enabled ${SOURCE_SYS_PROFILE}  && sourcing /etc/profile
+  is_enabled ${SOURCE_USR_PROFILE}  && sourcing ${HOME}/.profile
+  is_enabled ${SOURCE_SYS_XPROFILE} && sourcing /etc/xprofile
+  is_enabled ${SOURCE_USR_XPROFILE} && sourcing ${HOME}/.xprofile
+
+  if [ ! -z "$1" ] ; then
+    [ "$1" = "failsafe" ] && failsafe
+    
+    # invariant: $1 != failsafe. Starts the session passed in argument,
+    #            if supported ...
+
+    start_session "$1"
+  fi
+  
+    # invariant: No session passed in argument, or it failed to start...
+    
+  # Starts the session specified in XSESSION_FILE, if any ...
+  if [ -s "${XSESSION_FILE}" ] ; then
+    read SNAME < ${XSESSION_FILE}
+    log_infos "Loaded '${SNAME}' from '${XSESSION_FILE}'"
+    start_session ${SNAME}
+  fi
+  
+    # invariant: No session specified in XSESSION_FILE, or it failed to start...
+  
+  # Starts the user's session, if possible ...
+  #
+  start_session USER_SESSION
+  
+    # invariant: There's no user's session, or it failed to start...
+    
+  # Starts the system's session, if any ...
+  #
+  start_session SYSTEM_SESSION
+  
+    # invariant: There's no system's session, or it failed  to start...
+    
+  # Run the failsafe mode...
+  #
+  failsafe
+}
+
+	  ####
+	  #    Entry-Point    #
+			   ####
+
+init
+main "$@"

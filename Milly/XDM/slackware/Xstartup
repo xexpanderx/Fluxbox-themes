@@ -1,0 +1,166 @@
+#!/bin/bash
+#
+# Copyright 2019 Sébastien Ballet. All rights reserved.
+# 
+# Use of this source code is governed by the BSD 3-clause license
+# that can be found in the LICENSE file. 
+#
+
+####
+# Xstartup ver. 2019.1023
+#
+# This script is the program that XDM runs (as root) after the 
+# authentication process succeeds. It must be specified through 
+# the properties DisplayManager.<DISPLAY>.startup in xdm-config 
+# configuration file.
+#
+# This implementation :
+#
+#   * Ensures that processes and X clients started by Xsetup are
+#     terminated before user's X session start :
+#   
+#       + The running processes started by Xsetup (referenced in the 
+#         process registry BKPROCESS_REGISTRY) are killed by function 
+#         kill_bkprocesses()
+#
+#       + The (still) running X clients started by Xsetup are killed
+#         by function kill_xclients()
+#
+#   * Registers an X session in system utmp/utmpx databases.
+####
+
+          ###
+          #    Variables    #
+                          ###
+
+# Xstartup version number.
+#
+VERSION="2019.0624"
+
+# Absolute path to this script's directory.
+#
+SCRIPTDIR=$(dirname $(realpath $0))
+
+# The X server display name, without field 'screennumber', and to 
+# XDM resource name format, that is, with underscores in place of 
+# dots and colons.
+#
+XDISP=$(echo ${DISPLAY} | cut -f1 -d":" | tr "." "_")_$(echo ${DISPLAY} | cut -f2- -d":" | cut -f1 -d".")
+
+# File that contains information on the background processes started 
+# by Xsetup instance running on X server <XDISP>.
+#
+# Each line in this file is to the format : <NAME>:<PID>:<CMD>
+#
+# <NAME> is the (internal) process's name
+# <PID> is the process's PID
+# <CMD> is the process's command line
+#
+BKPROCESS_REGISTRY=/var/lib/xdm/xdm-bkprocess.${XDISP}.reg
+
+          ###
+          #    Functions    #
+                          ###
+
+
+# Prints the informations (ie. $@) onto the standard output.
+#
+function log_infos() {
+ echo -e "$(date +%Y/%m/%d\ %T) Xstartup.${XDISP} [$$]: $@"
+}
+
+# Kills the (running) processes referenced in the registry pointed by 
+# BKPROCESS_REGISTRY, if any.
+#
+function kill_bkprocesses() {
+  local PCOUNT=$(wc 2>/dev/null -l ${BKPROCESS_REGISTRY}|cut -f1 -d" ")
+  local PINFOS
+  local NAME
+  local PID
+  local CMD
+  local RCMD
+  local RSTATUS
+  local KSTATUS
+  local INDEX=1
+  
+  [ -z "${PCOUNT}" ] || [ ${PCOUNT} -eq 0 ] && return
+  
+  log_infos "Killing running processes registered in ${BKPROCESS_REGISTRY}\n"
+  
+  while read PINFOS ; do
+    NAME=$(echo "${PINFOS}" | cut -f1 -d":")
+    PID=$(echo "${PINFOS}" | cut -f2 -d":")
+    CMD=$(echo "${PINFOS}" | cut -f3- -d":")
+  
+    RCMD=$(ps -p ${PID} -o cmd=|cat)
+    RSTATUS="NOT RUNNING"
+    KSTATUS="NOT RUNNING"
+    
+    if ps -p ${PID} > /dev/null 2>&1 ; then
+      RSTATUS="RUNNING"
+      kill 2>/dev/null ${PID}
+      [ $? -eq 0 ] && KSTATUS="KILLED" || KSTATUS="UNKILLABLE"
+    fi
+
+    log_infos "  Process #${INDEX} ${NAME} (${RSTATUS})"
+    log_infos "    PID              : ${PID}"
+    log_infos "    CMD (registered) : '${CMD}'"
+    log_infos "    CMD (running)    : '${RCMD}'"
+    log_infos "    STATUS           : ${KSTATUS}\n"
+
+    ((INDEX++))
+  done < ${BKPROCESS_REGISTRY}
+}
+
+# Kills the (still) running X clients started by Xsetup, if any.
+#
+# Messages as below can be logged in /var/log/xdm.log when
+# this function is executed :
+#
+#   XIO: fatal IO error 11 (Resource temporarily unavailable) on X server ":0"
+#        after 327 requests (262 known processed) with 0 events remaining.
+#
+function kill_xclients() {
+  local XCLIENTS=$(xwininfo -root -children | grep '  0x')
+  
+  if [ -z "${XCLIENTS}" ] ; then
+    log_infos "kill_xclients(): No remaining X clients found."
+    return
+  fi
+
+  log_infos "About to Kill the X clients started by Xsetup :\n${XCLIENTS}\n"
+  
+  echo "${XCLIENTS}" | cut -d' ' -f6 | xargs -n1 xkill -id
+}
+
+# Registers an X session in system utmp/utmpx databases.
+#
+function register_xsession() {
+  log_infos "Execing 'exec /usr/bin/sessreg \
+-a -w /var/log/wtmp -u \
+/var/run/utmp -x ${SCRIPTDIR} \
+-l ${DISPLAY} -h \"\" ${USER}' ..."
+
+  exec /usr/bin/sessreg  \
+    -a \
+    -w /var/log/wtmp \
+    -u /var/run/utmp \
+    -x ${SCRIPTDIR} \
+    -l ${DISPLAY} \
+    -h "" ${USER}
+}
+
+# Xstartup's main function.
+#
+function main() {
+  log_infos "Xstartup ver. ${VERSION}"
+  kill_bkprocesses
+  kill_xclients
+  register_xsession
+}
+
+          ###
+          #    Entry Point    #
+                            ###
+
+main
