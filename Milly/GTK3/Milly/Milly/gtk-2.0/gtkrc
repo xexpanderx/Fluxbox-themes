@@ -1,0 +1,1889 @@
+## Default colors
+gtk-color-scheme = "base_color:#0f1013\nbg_color:#0f1013\nscrollbar_color:#D53679"
+gtk-color-scheme = "text_color:#D2D2D2\nfg_color:#D2D2D2"
+gtk-color-scheme = "tooltip_bg_color:#0f1013\ntooltip_fg_color:#0f1013\nlink_color:#20474C\nvisited_link_color:#D53679"
+## Toolbar colors
+gtk-color-scheme = "toolbar_bg_color:#0f1013"
+
+## Treeview colors
+gtk-color-scheme = "treeview_bg_color:#0f1013"
+gtk-color-scheme = "treeview_header_selected_bg_color:#D53679"
+gtk-color-scheme = "treeview_header_text_selected_bg_color:#FFFFFF"
+## Handle colors
+gtk-color-scheme = "handle_bg_color:#D53679"
+
+## Dark-Flat
+gtk-color-scheme = "theme_bg_dark_color:#0f1013\ntheme_fg_dark_color:#0f1013\ntheme_text_dark_color:#0f1013"
+
+##Text colors
+gtk-color-scheme = "other_text_color:#D2D2D2"
+gtk-color-scheme = "other_text_color2:#0f1013"
+
+## Menu color selection
+gtk-color-scheme = "menu_selected_bg_color:#D53679"
+gtk-color-scheme = "menubar_selected_bg_color:#D53679"
+gtk-color-scheme = "menubar_bg_color:#0f1013"
+gtk-color-scheme = "menubar_fg_color:#D2D2D2"
+gtk-color-scheme = "menubar_fg_selected_color:#FFFFFF"
+
+## selection color
+gtk-color-scheme = "selected_fg_color:#FFFFFF"
+gtk-color-scheme = "selected_bg_color:#D53679"
+
+## Notebook colors
+gtk-color-scheme = "notebook_selected_bg_color:#D53679"
+
+## Spinbutton colors
+gtk-color-scheme = "spinbutton_fg_color:#D2D2D2"
+gtk-color-scheme = "spinbutton_selected_bg_color:#D53679"
+gtk-color-scheme = "spinbutton_bg_color: #2C2C2C"
+
+## Scale colors
+gtk-color-scheme = "scale_bg_color:#2C2C2C"
+gtk-color-scheme = "scale_bg_prelight_color:#D53679"
+gtk-color-scheme = "scale_bg_selected_color:#D53679"
+gtk-color-scheme = "scale_slider_bg_color:#2C2C2C"
+
+## Firefox and select text marker
+gtk-color-scheme = "firefox_selected_color:#D53679"
+
+## Button
+gtk-color-scheme = "button_prelight_fg_color:#D2D2D2"
+gtk-color-scheme = "button_prelight_bg_color:#D53679"
+gtk-color-scheme = "button_label_prelight_bg_color:#D53679"
+gtk-color-scheme = "button_selected_bg_color:#D53679"
+gtk-color-scheme = "button_bg_color:#0F1013"
+gtk-color-scheme = "button_bg_active_color:#D53679"
+
+## Entry
+gtk-color-scheme = "entry_bg_color:#2c2c2c"
+
+## Progressbar
+gtk-color-scheme = "progressbar_bg_selected_color:#D53679"
+
+## checkradio
+gtk-color-scheme = "checkradio_bg_color: #2C2C2C"
+gtk-color-scheme = "checkradio_selected_bg_color: #d53679"
+###################################################################
+
+gtk-auto-mnemonics	= 1
+
+style "default" {
+	xthickness	= 0
+	ythickness	= 0
+
+	#######################
+	# Style Properties
+	#######################
+	GtkButton   			::child-displacement-x			= 0
+	GtkButton				::child-displacement-y			= 0
+	GtkButton				::default-border				= {1, 1, 1, 1}
+	GtkButton				::image-spacing					= 4
+
+	GtkCheckButton			::indicator-size				= 16
+	GtkRadioButton			::indicator-size				= 16
+
+	GtkEntry				::honors-transparent-bg-hint	= 1
+	#GtkEntry				::invisible-char				= 0x2022
+	GtkEntry				::progress-border				= {2, 2, 2, 2}
+    GtkEntry    			::state-hint        			= 0
+
+	GtkProgressBar			::min-vertical-bar-width		= 13
+	GtkProgressBar			::min-horizontal-bar-height		= 13
+
+	GtkExpander				::expander-size					= 14
+
+	GtkMenuBar  			::internal-padding				= 0
+	GtkMenuBar  			::window-dragging				= 1
+	GtkMenuBar				::shadow-type					= GTK_SHADOW_NONE
+	GtkMenu					::horizontal-padding			= 0
+	GtkMenu					::vertical-padding				= 0
+
+	GtkNotebook				::tab-overlap					= 0		# Default = 2
+	GtkNotebook				::tab-curvature					= 0		# Default = 1
+	GtkNotebook				::arrow-spacing					= 0
+
+	GtkRange				::trough-border					= 0
+	GtkRange				::slider-width					= 15
+	GtkRange				::stepper-size					= 1
+
+	GtkScale				::slider-length					= 14
+	GtkScale				::slider-width					= 14
+	GtkScale				::trough-side-details			= 1
+
+	GtkScrollbar    		::has-backward-stepper			= 0  
+	GtkScrollbar			::has-forward-stepper			= 0   # El maldito rollo de gtk2 y las scrollbars
+	GtkScrollbar			::min-slider-length				= 10
+	GtkScrollbar			::slider-width					= 5
+	GtkScrollbar			::trough-border					= 5
+	GtkScrollbar			::activate-slider 				= FALSE
+	GtkScrollbar			::trough-side-details			= 0
+	GtkScrollbar			::stepper-size              	= 0
+
+	GtkScrolledWindow		::scrollbar-spacing				= 0
+	GtkScrolledWindow		::scrollbars-within-bevel		= 0
+
+	GtkToolbar				::internal-padding				= 0
+	GtkToolbar				::window-dragging				= 1
+	
+	GtkWidget				::link-color 					= @link_color
+	GtkWidget				::visited-link-color 			= @visited_link_color
+    GtkWidget				::focus-padding					= 0
+#	GtkWidget				::interior-focus				= FALSE
+#	GtkWidget				::wide-separators				= TRUE
+	GtkWidget				::separator-height				= 0
+	GtkWidget				::separator-width				= 0
+	WnckTasklist			::fade-overlay-rect				= 0
+    
+    GtkWindow               ::resize-grip-height        	= 0 # Ocultar resize-grip
+    GtkWindow           	::resize-grip-width         	= 0
+    	
+    XfceNotifyWindow		::border-color 					= @bg_color
+    XfceNotifyWindow		::border-radius 				= 0
+    XfceNotifyWindow		::border-width 					= 0.0
+    XfceNotifyWindow		::border-color-hover 			= @bg_color
+    XfceNotifyWindow		::border-width-hover 			= 0.0
+
+	GtkLabel				::text-shadow 					= none
+
+	####################
+	# Color Definitions
+	####################
+
+	bg[NORMAL]          = @bg_color
+	bg[PRELIGHT]		= @button_label_prelight_bg_color
+	bg[SELECTED]		= @menu_selected_bg_color
+	bg[INSENSITIVE] 	= @bg_color
+	bg[ACTIVE]         	= @bg_color
+
+	fg[NORMAL]          = @fg_color
+	fg[PRELIGHT]		= @selected_fg_color
+	fg[SELECTED]		= @selected_fg_color
+
+	fg[INSENSITIVE] 	= shade ( 0.5 , @other_text_color)
+	fg[ACTIVE]			= @selected_fg_color
+
+	text[NORMAL]		= @fg_color
+	text[PRELIGHT]		= @selected_fg_color
+	text[SELECTED]		= @selected_fg_color
+	text[INSENSITIVE]	= @fg_color
+	text[ACTIVE]		= @selected_fg_color
+
+	base[NORMAL]		= @base_color
+	base[PRELIGHT]		= @base_color
+	base[SELECTED]		= @firefox_selected_color
+	base[INSENSITIVE]	= @bg_color
+	base[ACTIVE]		= @selected_bg_color
+	
+	engine "murrine" {
+		animation				= FALSE
+		arrowstyle				= 0			# Estilo flechas menu (triangulos)
+		border_shades      		= {1.0, 1.0}
+		contrast				= 0.0
+		comboboxstyle 			= 0			# 0 = normal combobox, 1 = colorized combobox button		
+		expanderstyle			= 1			# Treview expander (triangulo)
+		focusstyle				= 0 # 0 to disable focus drawing. 
+								# 1 to use dots. 
+								# 2 to use a small colored rectangle. 
+								# 3 to use a colored rectangle that touches the borders.
+		glazestyle				= 0 # 0 = flat highlight, 
+								# 1 = curved highlight
+								# 2 = concave style, 
+								# 3 = top curved highlight, 
+								# 4 = beryl highlight
+		glowstyle				= 4 # 0 = top, 1 = bottom, 2 = top and bottom, 3 = horizontal, 4 = centered glow
+		glow_shade				= 1.0
+  		gradient_shades			= {1.00, 1.00, 1.00, 1.00}              
+		highlight_shade			= 1.0
+		lightborder_shade		= 1.0
+		lightborderstyle		= 0 # 0 = top side, 1 = all sides
+		listviewstyle			= 0 # 0 = nothing, 1 = dotted, 2 = line
+		menubaritemstyle		= 0 # 0 = menuitem look, 1 = button look
+		menubarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient, 3 = striped
+		menuitemstyle			= 0 # 0 = flat, 1 = glassy, 2 = striped
+		menustyle				= 0 # 0 = no vertical menu stripe, 1 = display vertical menu stripe, 2 = faint? 3 = borderless
+		progressbarstyle		= 0
+		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
+		rgba					= FALSE	# alpha transparency
+		roundness				= 0 # 0 = square
+		scrollbarstyle			= 0 # 0 = nothing
+		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
+		shadow_shades			= {1.0, 1.0}
+		sliderstyle		   		= 0 # 0 = nothing added
+		stepperstyle			= 0 # 0 = standard, 1 = integrated stepper handles, 2 = unknown
+		toolbarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient
+		trough_shades			= {1.0, 1.0}
+		text_shade				= 1.0
+		cellstyle 				= 0	
+		handlestyle				= 0
+		border_colors 			= FALSE
+		gradient_colors			= FALSE
+			
+	} 	
+
+	
+}
+
+style "wide" = "murrine" {
+	xthickness			= 0
+	ythickness			= 0
+	
+	engine "murrine" {
+		animation				= FALSE
+		arrowstyle				= 0			# Estilo flechas menu (triangulos)
+		border_shades      		= {1.0, 1.0}
+		contrast				= 0.0
+		comboboxstyle 			= 0			# 0 = normal combobox, 1 = colorized combobox button		
+		expanderstyle			= 1			# Treview expander (triangulo)
+		focusstyle				= 0 # 0 to disable focus drawing. 
+								# 1 to use dots. 
+								# 2 to use a small colored rectangle. 
+								# 3 to use a colored rectangle that touches the borders.
+		glazestyle				= 0 # 0 = flat highlight, 
+								# 1 = curved highlight
+								# 2 = concave style, 
+								# 3 = top curved highlight, 
+								# 4 = beryl highlight
+		glowstyle				= 4 # 0 = top, 1 = bottom, 2 = top and bottom, 3 = horizontal, 4 = centered glow
+		glow_shade				= 1.0
+  		gradient_shades			= {1.00, 1.00, 1.00, 1.00}              
+		highlight_shade			= 1.0
+		lightborder_shade		= 1.0
+		lightborderstyle		= 0 # 0 = top side, 1 = all sides
+		listviewstyle			= 0 # 0 = nothing, 1 = dotted, 2 = line
+		menubaritemstyle		= 0 # 0 = menuitem look, 1 = button look
+		menubarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient, 3 = striped
+		menuitemstyle			= 0 # 0 = flat, 1 = glassy, 2 = striped
+		menustyle				= 0 # 0 = no vertical menu stripe, 1 = display vertical menu stripe, 2 = faint? 3 = borderless
+		progressbarstyle		= 0
+		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
+		rgba					= FALSE	# alpha transparency
+		roundness				= 0 # 0 = square
+		scrollbarstyle			= 0 # 0 = nothing
+		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
+		shadow_shades			= {1.0, 1.0}
+		sliderstyle		   		= 0 # 0 = nothing added
+		stepperstyle			= 0 # 0 = standard, 1 = integrated stepper handles, 2 = unknown
+		toolbarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient
+		trough_shades			= {1.0, 1.0}
+		text_shade				= 1.0
+		cellstyle 				= 0	
+		handlestyle				= 0
+		border_colors 			= FALSE
+		gradient_colors			= FALSE
+			
+	} 
+}
+
+style "wider" = "murrine" {
+	xthickness			= 0
+	ythickness			= 0
+	
+engine "murrine" {
+		animation				= FALSE
+		arrowstyle				= 0			# Estilo flechas menu (triangulos)
+		border_shades      		= {1.0, 1.0}
+		contrast				= 0.0
+		comboboxstyle 			= 0			# 0 = normal combobox, 1 = colorized combobox button		
+		expanderstyle			= 1			# Treview expander (triangulo)
+		focusstyle				= 0 # 0 to disable focus drawing. 
+								# 1 to use dots. 
+								# 2 to use a small colored rectangle. 
+								# 3 to use a colored rectangle that touches the borders.
+		glazestyle				= 0 # 0 = flat highlight, 
+								# 1 = curved highlight
+								# 2 = concave style, 
+								# 3 = top curved highlight, 
+								# 4 = beryl highlight
+		glowstyle				= 4 # 0 = top, 1 = bottom, 2 = top and bottom, 3 = horizontal, 4 = centered glow
+		glow_shade				= 1.0
+  		gradient_shades			= {1.00, 1.00, 1.00, 1.00}              
+		highlight_shade			= 1.0
+		lightborder_shade		= 1.0
+		lightborderstyle		= 0 # 0 = top side, 1 = all sides
+		listviewstyle			= 0 # 0 = nothing, 1 = dotted, 2 = line
+		menubaritemstyle		= 0 # 0 = menuitem look, 1 = button look
+		menubarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient, 3 = striped
+		menuitemstyle			= 0 # 0 = flat, 1 = glassy, 2 = striped
+		menustyle				= 0 # 0 = no vertical menu stripe, 1 = display vertical menu stripe, 2 = faint? 3 = borderless
+		progressbarstyle		= 0
+		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
+		rgba					= FALSE	# alpha transparency
+		roundness				= 0 # 0 = square
+		scrollbarstyle			= 0 # 0 = nothing
+		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
+		shadow_shades			= {1.0, 1.0}
+		sliderstyle		   		= 0 # 0 = nothing added
+		stepperstyle			= 0 # 0 = standard, 1 = integrated stepper handles, 2 = unknown
+		toolbarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient
+		trough_shades			= {1.0, 1.0}
+		text_shade				= 1.0
+		cellstyle 				= 0	
+		handlestyle				= 0
+		border_colors 			= FALSE
+		gradient_colors			= FALSE
+			
+	} 
+}
+
+style "button" = "default" {
+    xthickness			= 0
+    ythickness			= 0
+	
+	bg[NORMAL]			= @button_bg_color
+	bg[SELECTED]		= @button_selected_bg_color
+	bg[ACTIVE]			= @button_bg_active_color
+    bg[INSENSITIVE] 	= shade (1.20, @button_bg_color)
+    bg[PRELIGHT]		= @button_prelight_bg_color
+    fg[PRELIGHT]		= @other_text_color
+    fg[NORMAL]   		= @other_text_color
+    fg[SELECTED]		= @selected_fg_color
+    text[NORMAL]   		= @other_text_color 
+    base[NORMAL]		= @button_bg_color
+	base[SELECTED]		= @button_selected_bg_color
+	base[ACTIVE]		= @button_bg_active_color
+    base[INSENSITIVE] 	= shade (1.20, @button_bg_color)
+    base[PRELIGHT]		= @button_prelight_bg_color
+    
+    
+
+engine "murrine" {
+		animation				= FALSE
+		arrowstyle				= 0			# Estilo flechas menu (triangulos)
+		border_shades      		= {1.0, 1.0}
+		contrast				= 0.0
+		comboboxstyle 			= 0			# 0 = normal combobox, 1 = colorized combobox button		
+		expanderstyle			= 1			# Treview expander (triangulo)
+		focusstyle				= 0 # 0 to disable focus drawing. 
+								# 1 to use dots. 
+								# 2 to use a small colored rectangle. 
+								# 3 to use a colored rectangle that touches the borders.
+		glazestyle				= 0 # 0 = flat highlight, 
+								# 1 = curved highlight
+								# 2 = concave style, 
+								# 3 = top curved highlight, 
+								# 4 = beryl highlight
+		glowstyle				= 4 # 0 = top, 1 = bottom, 2 = top and bottom, 3 = horizontal, 4 = centered glow
+		glow_shade				= 1.0
+  		gradient_shades			= {1.00, 1.00, 1.00, 1.00}              
+		highlight_shade			= 1.0
+		lightborder_shade		= 1.0
+		lightborderstyle		= 0 # 0 = top side, 1 = all sides
+		listviewstyle			= 0 # 0 = nothing, 1 = dotted, 2 = line
+		menubaritemstyle		= 0 # 0 = menuitem look, 1 = button look
+		menubarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient, 3 = striped
+		menuitemstyle			= 0 # 0 = flat, 1 = glassy, 2 = striped
+		menustyle				= 0 # 0 = no vertical menu stripe, 1 = display vertical menu stripe, 2 = faint? 3 = borderless
+		progressbarstyle		= 0
+		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
+		rgba					= FALSE	# alpha transparency
+		roundness				= 0 # 0 = square
+		scrollbarstyle			= 0 # 0 = nothing
+		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
+		shadow_shades			= {1.0, 1.0}
+		sliderstyle		   		= 0 # 0 = nothing added
+		stepperstyle			= 0 # 0 = standard, 1 = integrated stepper handles, 2 = unknown
+		toolbarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient
+		trough_shades			= {1.0, 1.0}
+		text_shade				= 1.0
+		cellstyle 				= 0	
+		handlestyle				= 0
+		border_colors 			= FALSE
+		gradient_colors			= FALSE
+			
+	} 
+}
+
+style "button_label" {
+	fg[ACTIVE]			= @button_prelight_fg_color
+	fg[PRELIGHT]		= @other_text_color
+	fg[NORMAL]			= @other_text_color
+	text[NORMAL]   		= @other_text_color
+	bg[PRELIGHT]		= @button_prelight_bg_color	
+
+	engine "murrine" {
+		animation				= FALSE
+		arrowstyle				= 0			# Estilo flechas menu (triangulos)
+		border_shades      		= {1.0, 1.0}
+		contrast				= 0.0
+		comboboxstyle 			= 0			# 0 = normal combobox, 1 = colorized combobox button		
+		expanderstyle			= 1			# Treview expander (triangulo)
+		focusstyle				= 0 # 0 to disable focus drawing. 
+								# 1 to use dots. 
+								# 2 to use a small colored rectangle. 
+								# 3 to use a colored rectangle that touches the borders.
+		glazestyle				= 0 # 0 = flat highlight, 
+								# 1 = curved highlight
+								# 2 = concave style, 
+								# 3 = top curved highlight, 
+								# 4 = beryl highlight
+		glowstyle				= 4 # 0 = top, 1 = bottom, 2 = top and bottom, 3 = horizontal, 4 = centered glow
+		glow_shade				= 1.0
+  		gradient_shades			= {1.00, 1.00, 1.00, 1.00}              
+		highlight_shade			= 1.0
+		lightborder_shade		= 1.0
+		lightborderstyle		= 0 # 0 = top side, 1 = all sides
+		listviewstyle			= 0 # 0 = nothing, 1 = dotted, 2 = line
+		menubaritemstyle		= 0 # 0 = menuitem look, 1 = button look
+		menubarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient, 3 = striped
+		menuitemstyle			= 0 # 0 = flat, 1 = glassy, 2 = striped
+		menustyle				= 0 # 0 = no vertical menu stripe, 1 = display vertical menu stripe, 2 = faint? 3 = borderless
+		progressbarstyle		= 0
+		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
+		rgba					= FALSE	# alpha transparency
+		roundness				= 0 # 0 = square
+		scrollbarstyle			= 0 # 0 = nothing
+		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
+		shadow_shades			= {1.0, 1.0}
+		sliderstyle		   		= 0 # 0 = nothing added
+		stepperstyle			= 0 # 0 = standard, 1 = integrated stepper handles, 2 = unknown
+		toolbarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient
+		trough_shades			= {1.0, 1.0}
+		text_shade				= 1.0
+		cellstyle 				= 0	
+		handlestyle				= 0
+		border_colors 			= FALSE
+		gradient_colors			= FALSE
+			
+	} 
+}
+
+style "checkradio_label" {	
+	fg[NORMAL]			= @fg_color
+	fg[ACTIVE]			= @selected_fg_color	
+	fg[PRELIGHT]		= @fg_color
+	text[NORMAL]		= @text_color
+
+	engine "murrine" {
+		animation				= FALSE
+		arrowstyle				= 0			# Estilo flechas menu (triangulos)
+		border_shades      		= {1.0, 1.0}
+		contrast				= 0.0
+		comboboxstyle 			= 0			# 0 = normal combobox, 1 = colorized combobox button		
+		expanderstyle			= 1			# Treview expander (triangulo)
+		focusstyle				= 0 # 0 to disable focus drawing. 
+								# 1 to use dots. 
+								# 2 to use a small colored rectangle. 
+								# 3 to use a colored rectangle that touches the borders.
+		glazestyle				= 0 # 0 = flat highlight, 
+								# 1 = curved highlight
+								# 2 = concave style, 
+								# 3 = top curved highlight, 
+								# 4 = beryl highlight
+		glowstyle				= 4 # 0 = top, 1 = bottom, 2 = top and bottom, 3 = horizontal, 4 = centered glow
+		glow_shade				= 1.0
+  		gradient_shades			= {1.00, 1.00, 1.00, 1.00}              
+		highlight_shade			= 1.0
+		lightborder_shade		= 1.0
+		lightborderstyle		= 0 # 0 = top side, 1 = all sides
+		listviewstyle			= 0 # 0 = nothing, 1 = dotted, 2 = line
+		menubaritemstyle		= 0 # 0 = menuitem look, 1 = button look
+		menubarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient, 3 = striped
+		menuitemstyle			= 0 # 0 = flat, 1 = glassy, 2 = striped
+		menustyle				= 0 # 0 = no vertical menu stripe, 1 = display vertical menu stripe, 2 = faint? 3 = borderless
+		progressbarstyle		= 0
+		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
+		rgba					= FALSE	# alpha transparency
+		roundness				= 0 # 0 = square
+		scrollbarstyle			= 0 # 0 = nothing
+		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
+		shadow_shades			= {1.0, 1.0}
+		sliderstyle		   		= 0 # 0 = nothing added
+		stepperstyle			= 0 # 0 = standard, 1 = integrated stepper handles, 2 = unknown
+		toolbarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient
+		trough_shades			= {1.0, 1.0}
+		text_shade				= 1.0
+		cellstyle 				= 0	
+		handlestyle				= 0
+		border_colors 			= FALSE
+		gradient_colors			= FALSE
+			
+	} 
+}
+
+style "entry" { # text
+	xthickness			= 3
+	ythickness			= 3
+
+	base[NORMAL]        = shade (1.12, @entry_bg_color)
+	base[INSENSITIVE]	= shade (0.94, @entry_bg_color)
+	text[ACTIVE]		= @selected_fg_color		
+	fg[PRELIGHT]		= @selected_fg_color
+
+
+	engine "murrine" {
+		animation				= FALSE
+		arrowstyle				= 0			# Estilo flechas menu (triangulos)
+		border_shades      		= {1.0, 1.0}
+		contrast				= 0.0
+		comboboxstyle 			= 0			# 0 = normal combobox, 1 = colorized combobox button		
+		expanderstyle			= 1			# Treview expander (triangulo)
+		focusstyle				= 0 # 0 to disable focus drawing. 
+								# 1 to use dots. 
+								# 2 to use a small colored rectangle. 
+								# 3 to use a colored rectangle that touches the borders.
+		glazestyle				= 0 # 0 = flat highlight, 
+								# 1 = curved highlight
+								# 2 = concave style, 
+								# 3 = top curved highlight, 
+								# 4 = beryl highlight
+		glowstyle				= 4 # 0 = top, 1 = bottom, 2 = top and bottom, 3 = horizontal, 4 = centered glow
+		glow_shade				= 1.0
+  		gradient_shades			= {1.00, 1.00, 1.00, 1.00}              
+		highlight_shade			= 1.0
+		lightborder_shade		= 1.0
+		lightborderstyle		= 0 # 0 = top side, 1 = all sides
+		listviewstyle			= 0 # 0 = nothing, 1 = dotted, 2 = line
+		menubaritemstyle		= 0 # 0 = menuitem look, 1 = button look
+		menubarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient, 3 = striped
+		menuitemstyle			= 0 # 0 = flat, 1 = glassy, 2 = striped
+		menustyle				= 0 # 0 = no vertical menu stripe, 1 = display vertical menu stripe, 2 = faint? 3 = borderless
+		progressbarstyle		= 0
+		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
+		rgba					= FALSE	# alpha transparency
+		roundness				= 0 # 0 = square
+		scrollbarstyle			= 0 # 0 = nothing
+		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
+		shadow_shades			= {1.0, 1.0}
+		sliderstyle		   		= 0 # 0 = nothing added
+		stepperstyle			= 0 # 0 = standard, 1 = integrated stepper handles, 2 = unknown
+		toolbarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient
+		trough_shades			= {1.0, 1.0}
+		text_shade				= 1.0
+		cellstyle 				= 0	
+		handlestyle				= 0
+		border_colors 			= FALSE
+		gradient_colors			= FALSE
+			
+	} 
+}
+
+style "expander" {
+
+	engine "murrine" {
+		animation				= FALSE
+		arrowstyle				= 0			# Estilo flechas menu (triangulos)
+		border_shades      		= {1.0, 1.0}
+		contrast				= 0.0
+		comboboxstyle 			= 0			# 0 = normal combobox, 1 = colorized combobox button		
+		expanderstyle			= 1			# Treview expander (triangulo)
+		focusstyle				= 0 # 0 to disable focus drawing. 
+								# 1 to use dots. 
+								# 2 to use a small colored rectangle. 
+								# 3 to use a colored rectangle that touches the borders.
+		glazestyle				= 0 # 0 = flat highlight, 
+								# 1 = curved highlight
+								# 2 = concave style, 
+								# 3 = top curved highlight, 
+								# 4 = beryl highlight
+		glowstyle				= 4 # 0 = top, 1 = bottom, 2 = top and bottom, 3 = horizontal, 4 = centered glow
+		glow_shade				= 1.0
+  		gradient_shades			= {1.00, 1.00, 1.00, 1.00}              
+		highlight_shade			= 1.0
+		lightborder_shade		= 1.0
+		lightborderstyle		= 0 # 0 = top side, 1 = all sides
+		listviewstyle			= 0 # 0 = nothing, 1 = dotted, 2 = line
+		menubaritemstyle		= 0 # 0 = menuitem look, 1 = button look
+		menubarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient, 3 = striped
+		menuitemstyle			= 0 # 0 = flat, 1 = glassy, 2 = striped
+		menustyle				= 0 # 0 = no vertical menu stripe, 1 = display vertical menu stripe, 2 = faint? 3 = borderless
+		progressbarstyle		= 0
+		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
+		rgba					= FALSE	# alpha transparency
+		roundness				= 0 # 0 = square
+		scrollbarstyle			= 0 # 0 = nothing
+		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
+		shadow_shades			= {1.0, 1.0}
+		sliderstyle		   		= 0 # 0 = nothing added
+		stepperstyle			= 0 # 0 = standard, 1 = integrated stepper handles, 2 = unknown
+		toolbarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient
+		trough_shades			= {1.0, 1.0}
+		text_shade				= 1.0
+		cellstyle 				= 0	
+		handlestyle				= 0
+		border_colors 			= FALSE
+		gradient_colors			= FALSE
+			
+	} 
+}
+
+style "frame_title" {
+	fg[NORMAL]   		= @other_text_color
+	text[NORMAL]   		= @other_text_color
+
+	engine "murrine" {
+		animation				= FALSE
+		arrowstyle				= 0			# Estilo flechas menu (triangulos)
+		border_shades      		= {1.0, 1.0}
+		contrast				= 0.0
+		comboboxstyle 			= 0			# 0 = normal combobox, 1 = colorized combobox button		
+		expanderstyle			= 1			# Treview expander (triangulo)
+		focusstyle				= 0 # 0 to disable focus drawing. 
+								# 1 to use dots. 
+								# 2 to use a small colored rectangle. 
+								# 3 to use a colored rectangle that touches the borders.
+		glazestyle				= 0 # 0 = flat highlight, 
+								# 1 = curved highlight
+								# 2 = concave style, 
+								# 3 = top curved highlight, 
+								# 4 = beryl highlight
+		glowstyle				= 4 # 0 = top, 1 = bottom, 2 = top and bottom, 3 = horizontal, 4 = centered glow
+		glow_shade				= 1.0
+  		gradient_shades			= {1.00, 1.00, 1.00, 1.00}              
+		highlight_shade			= 1.0
+		lightborder_shade		= 1.0
+		lightborderstyle		= 0 # 0 = top side, 1 = all sides
+		listviewstyle			= 0 # 0 = nothing, 1 = dotted, 2 = line
+		menubaritemstyle		= 0 # 0 = menuitem look, 1 = button look
+		menubarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient, 3 = striped
+		menuitemstyle			= 0 # 0 = flat, 1 = glassy, 2 = striped
+		menustyle				= 0 # 0 = no vertical menu stripe, 1 = display vertical menu stripe, 2 = faint? 3 = borderless
+		progressbarstyle		= 0
+		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
+		rgba					= FALSE	# alpha transparency
+		roundness				= 0 # 0 = square
+		scrollbarstyle			= 0 # 0 = nothing
+		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
+		shadow_shades			= {1.0, 1.0}
+		sliderstyle		   		= 0 # 0 = nothing added
+		stepperstyle			= 0 # 0 = standard, 1 = integrated stepper handles, 2 = unknown
+		toolbarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient
+		trough_shades			= {1.0, 1.0}
+		text_shade				= 1.0
+		cellstyle 				= 0	
+		handlestyle				= 0
+		border_colors 			= FALSE
+		gradient_colors			= FALSE
+			
+	} 
+}
+
+style "handle" {
+	GtkPaned				::handle-size	= 5
+	bg[NORMAL]				= @handle_bg_color
+	base[NORMAL]			= @base_color
+
+	engine "murrine" {
+		animation				= FALSE
+		arrowstyle				= 0			# Estilo flechas menu (triangulos)
+		border_shades      		= {1.0, 1.0}
+		contrast				= 0.0
+		comboboxstyle 			= 0			# 0 = normal combobox, 1 = colorized combobox button		
+		expanderstyle			= 1			# Treview expander (triangulo)
+		focusstyle				= 0 # 0 to disable focus drawing. 
+								# 1 to use dots. 
+								# 2 to use a small colored rectangle. 
+								# 3 to use a colored rectangle that touches the borders.
+		glazestyle				= 0 # 0 = flat highlight, 
+								# 1 = curved highlight
+								# 2 = concave style, 
+								# 3 = top curved highlight, 
+								# 4 = beryl highlight
+		glowstyle				= 4 # 0 = top, 1 = bottom, 2 = top and bottom, 3 = horizontal, 4 = centered glow
+		glow_shade				= 1.0
+  		gradient_shades			= {1.00, 1.00, 1.00, 1.00}              
+		highlight_shade			= 1.0
+		lightborder_shade		= 1.0
+		lightborderstyle		= 0 # 0 = top side, 1 = all sides
+		listviewstyle			= 0 # 0 = nothing, 1 = dotted, 2 = line
+		menubaritemstyle		= 0 # 0 = menuitem look, 1 = button look
+		menubarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient, 3 = striped
+		menuitemstyle			= 0 # 0 = flat, 1 = glassy, 2 = striped
+		menustyle				= 0 # 0 = no vertical menu stripe, 1 = display vertical menu stripe, 2 = faint? 3 = borderless
+		progressbarstyle		= 0
+		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
+		rgba					= FALSE	# alpha transparency
+		roundness				= 0 # 0 = square
+		scrollbarstyle			= 0 # 0 = nothing
+		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
+		shadow_shades			= {1.0, 1.0}
+		sliderstyle		   		= 0 # 0 = nothing added
+		stepperstyle			= 0 # 0 = standard, 1 = integrated stepper handles, 2 = unknown
+		toolbarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient
+		trough_shades			= {1.0, 1.0}
+		text_shade				= 1.0
+		cellstyle 				= 0	
+		handlestyle				= 0
+		border_colors 			= FALSE
+		gradient_colors			= FALSE
+			
+	} 
+
+}
+
+class "GtkPaned"	style "handle"
+
+style "menubar" {
+	xthickness				= 2
+	ythickness				= 2
+
+    fg[NORMAL]         		= @menubar_fg_color
+    fg[PRELIGHT]			= @menubar_fg_selected_color
+	fg[SELECTED]			= @menubar_fg_selected_color
+	fg[ACTIVE]				= @menubar_fg_selected_color
+	fg[INSENSITIVE] 		= shade (0.70, @other_text_color)
+
+	bg[NORMAL]				= @menubar_bg_color
+	bg[PRELIGHT]			= @menubar_selected_bg_color
+	bg[SELECTED]			= @menubar_selected_bg_color
+	bg[INSENSITIVE] 		= @menubar_selected_bg_color
+	bg[ACTIVE]        	 	= @menubar_selected_bg_color
+
+	base[PRELIGHT]			= @menubar_selected_bg_color
+	base[SELECTED]			= @menubar_selected_bg_color
+	base[INSENSITIVE] 		= @menubar_selected_bg_color
+	base[ACTIVE]         	= @menubar_selected_bg_color
+
+engine "murrine" {
+		animation				= FALSE
+		arrowstyle				= 0			# Estilo flechas menu (triangulos)
+		border_shades      		= {1.0, 1.0}
+		contrast				= 0.0
+		comboboxstyle 			= 0			# 0 = normal combobox, 1 = colorized combobox button		
+		expanderstyle			= 1			# Treview expander (triangulo)
+		focusstyle				= 0 # 0 to disable focus drawing. 
+								# 1 to use dots. 
+								# 2 to use a small colored rectangle. 
+								# 3 to use a colored rectangle that touches the borders.
+		glazestyle				= 0 # 0 = flat highlight, 
+								# 1 = curved highlight
+								# 2 = concave style, 
+								# 3 = top curved highlight, 
+								# 4 = beryl highlight
+		glowstyle				= 4 # 0 = top, 1 = bottom, 2 = top and bottom, 3 = horizontal, 4 = centered glow
+		glow_shade				= 1.0
+  		gradient_shades			= {1.00, 1.00, 1.00, 1.00}              
+		highlight_shade			= 1.0
+		lightborder_shade		= 1.0
+		lightborderstyle		= 0 # 0 = top side, 1 = all sides
+		listviewstyle			= 0 # 0 = nothing, 1 = dotted, 2 = line
+		menubaritemstyle		= 0 # 0 = menuitem look, 1 = button look
+		menubarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient, 3 = striped
+		menuitemstyle			= 0 # 0 = flat, 1 = glassy, 2 = striped
+		menustyle				= 0 # 0 = no vertical menu stripe, 1 = display vertical menu stripe, 2 = faint? 3 = borderless
+		progressbarstyle		= 0
+		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
+		rgba					= FALSE	# alpha transparency
+		roundness				= 0 # 0 = square
+		scrollbarstyle			= 0 # 0 = nothing
+		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
+		shadow_shades			= {1.0, 1.0}
+		sliderstyle		   		= 0 # 0 = nothing added
+		stepperstyle			= 0 # 0 = standard, 1 = integrated stepper handles, 2 = unknown
+		toolbarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient
+		trough_shades			= {1.0, 1.0}
+		text_shade				= 1.0
+		cellstyle 				= 0	
+		handlestyle				= 0
+		border_colors 			= FALSE
+		gradient_colors			= FALSE
+			
+	} 
+    
+}
+
+
+style "menu" {
+	xthickness				= 3
+	ythickness				= 3
+	GtkMenuItem				::arrow-scaling	= 0.5
+
+	bg[PRELIGHT]			= @menubar_selected_bg_color
+	bg[SELECTED]			= @menubar_selected_bg_color
+	bg[INSENSITIVE] 		= @menubar_selected_bg_color
+	bg[ACTIVE]         		= @menubar_selected_bg_color
+
+	base[PRELIGHT]			= @menubar_selected_bg_color
+	base[SELECTED]			= @menubar_selected_bg_color
+	base[INSENSITIVE] 		= @menubar_selected_bg_color
+	base[ACTIVE]         	= @menubar_selected_bg_color
+	fg[PRELIGHT]			= @selected_fg_color
+	fg[INSENSITIVE] 		= shade (0.70, @other_text_color)
+
+	text[NORMAL]			= @other_text_color
+
+	engine "murrine" {
+		animation				= FALSE
+		arrowstyle				= 0			# Estilo flechas menu (triangulos)
+		border_shades      		= {1.0, 1.0}
+		contrast				= 0.0
+		comboboxstyle 			= 0			# 0 = normal combobox, 1 = colorized combobox button		
+		expanderstyle			= 1			# Treview expander (triangulo)
+		focusstyle				= 0 # 0 to disable focus drawing. 
+								# 1 to use dots. 
+								# 2 to use a small colored rectangle. 
+								# 3 to use a colored rectangle that touches the borders.
+		glazestyle				= 0 # 0 = flat highlight, 
+								# 1 = curved highlight
+								# 2 = concave style, 
+								# 3 = top curved highlight, 
+								# 4 = beryl highlight
+		glowstyle				= 4 # 0 = top, 1 = bottom, 2 = top and bottom, 3 = horizontal, 4 = centered glow
+		glow_shade				= 1.0
+  		gradient_shades			= {1.00, 1.00, 1.00, 1.00}              
+		highlight_shade			= 1.0
+		lightborder_shade		= 1.0
+		lightborderstyle		= 0 # 0 = top side, 1 = all sides
+		listviewstyle			= 0 # 0 = nothing, 1 = dotted, 2 = line
+		menubaritemstyle		= 0 # 0 = menuitem look, 1 = button look
+		menubarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient, 3 = striped
+		menuitemstyle			= 0 # 0 = flat, 1 = glassy, 2 = striped
+		menustyle				= 0 # 0 = no vertical menu stripe, 1 = display vertical menu stripe, 2 = faint? 3 = borderless
+		progressbarstyle		= 0
+		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
+		rgba					= FALSE	# alpha transparency
+		roundness				= 0 # 0 = square
+		scrollbarstyle			= 0 # 0 = nothing
+		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
+		shadow_shades			= {1.0, 1.0}
+		sliderstyle		   		= 0 # 0 = nothing added
+		stepperstyle			= 0 # 0 = standard, 1 = integrated stepper handles, 2 = unknown
+		toolbarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient
+		trough_shades			= {1.0, 1.0}
+		text_shade				= 1.0
+		cellstyle 				= 0	
+		handlestyle				= 0
+		border_colors 			= FALSE
+		gradient_colors			= FALSE
+			
+	}
+	
+
+}
+
+style "notebook" {
+
+  xthickness		= 0
+  ythickness		= 0
+  
+  fg[NORMAL]        = @selected_fg_color
+  fg[PRELIGHT]		= @fg_color
+  fg[SELECTED]		= @fg_color
+  fg[INSENSITIVE] 	= shade ( 0.5 , @other_text_color)
+  fg[ACTIVE]		= @fg_color
+
+engine "pixmap" 
+  {
+    image 
+    {
+        function		= EXTENSION
+		state			= ACTIVE
+		file			= "notebook_inactive.png"
+		border			= { 0,0,0,0 }
+		stretch			= TRUE
+		gap_side		= TOP
+    }
+    image 
+    {
+        function		= EXTENSION
+		state			= ACTIVE
+		file			= "notebook_inactive.png"
+		border			= { 0,0,0,0 }
+		stretch			= TRUE
+		gap_side		= BOTTOM
+    }
+    image 
+    {
+        function		= EXTENSION
+		state			= ACTIVE
+		file			= "notebook_inactive.png"
+		border			= { 0,0,0,0 }
+		stretch			= TRUE
+		gap_side		= RIGHT
+    }
+    image 
+    {
+        function		= EXTENSION
+		state			= ACTIVE
+		file			= "notebook_inactive.png"
+		border			= { 0,0,0,0 }
+		stretch			= TRUE
+		gap_side		= LEFT
+    }	
+    image 
+    {
+        function		= EXTENSION
+		file			= "notebook_active.png"
+		border			= { 0,0,0,0 }
+		stretch			= TRUE
+		gap_side		= BOTTOM
+    }
+    image 
+    {
+        function		= EXTENSION
+		file			= "notebook_active.png"
+		border			= { 0,0,0,0 }
+		stretch			= TRUE
+		gap_side		= TOP
+    }
+    image 
+    {
+        function		= EXTENSION
+		file			= "notebook_active.png"
+		border			= { 0,0,0,0 }
+		stretch			= TRUE
+		gap_side		= RIGHT
+    }
+    image
+    {
+        function		= EXTENSION
+		file			= "notebook_active.png"
+		border			= { 0,0,0,0 }
+		stretch			= TRUE
+		gap_side		= LEFT
+    }
+    image 
+    {
+        function			= BOX_GAP
+		file				= "notebook_inactive.png"
+		border				= { 0,0,0,0 }
+		stretch				= TRUE
+		gap_file			= "notebook_inactive.png"
+		gap_border     			= { 0,0,0,0 }
+		gap_side			= TOP
+    }
+    image 
+    {
+        function			= BOX_GAP
+		file				= "notebook_inactive.png"
+		border				= { 0,0,0,0 }
+		stretch				= TRUE
+		gap_file			= "notebook_inactive.png"
+		gap_border			= { 0,0,0,0 }
+		gap_side			= BOTTOM
+    }
+    image 
+    {
+        function			= BOX_GAP
+		file				= "notebook_inactive.png"
+		border				= { 0,0,0,0 }
+		stretch				= TRUE
+		gap_file			= "notebook_inactive.png"
+		gap_border			= { 0,0,0,0 }
+		gap_side			= LEFT
+    }
+    image 
+    {
+        function			= BOX_GAP
+		file				= "notebook_inactive.png"
+		border				= { 0,0,0,0 }
+		stretch				= TRUE
+		gap_file			= "notebook_inactive.png"
+		gap_border			= { 0,0,0,0 }
+		gap_side			= RIGHT
+    }
+
+# How to draw the box of a notebook when it isnt attached to a tab
+
+    image 
+    {
+		function			= BOX
+		file				= "notebook_inactive.png"
+		border				= { 0,0,0,0 }
+		stretch				= TRUE
+    }
+
+    image 
+    {
+        function			= FOCUS
+		file				= "notebook_inactive.png"
+		border				= { 0,0,0,0 }
+		stretch				= TRUE
+    }
+
+}		
+}
+
+
+style "progressbar" = "default" {
+	xthickness			= 0
+	ythickness			= 0
+
+
+	engine "murrine" {
+		animation				= FALSE
+		arrowstyle				= 0			# Estilo flechas menu (triangulos)
+		border_shades      		= {1.0, 1.0}
+		contrast				= 0.0
+		comboboxstyle 			= 0			# 0 = normal combobox, 1 = colorized combobox button		
+		expanderstyle			= 1			# Treview expander (triangulo)
+		focusstyle				= 0 # 0 to disable focus drawing. 
+								# 1 to use dots. 
+								# 2 to use a small colored rectangle. 
+								# 3 to use a colored rectangle that touches the borders.
+		glazestyle				= 0 # 0 = flat highlight, 
+								# 1 = curved highlight
+								# 2 = concave style, 
+								# 3 = top curved highlight, 
+								# 4 = beryl highlight
+		glowstyle				= 4 # 0 = top, 1 = bottom, 2 = top and bottom, 3 = horizontal, 4 = centered glow
+		glow_shade				= 1.0
+  		gradient_shades			= {1.00, 1.00, 1.00, 1.00}              
+		highlight_shade			= 1.0
+		lightborder_shade		= 1.0
+		lightborderstyle		= 0 # 0 = top side, 1 = all sides
+		listviewstyle			= 0 # 0 = nothing, 1 = dotted, 2 = line
+		menubaritemstyle		= 0 # 0 = menuitem look, 1 = button look
+		menubarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient, 3 = striped
+		menuitemstyle			= 0 # 0 = flat, 1 = glassy, 2 = striped
+		menustyle				= 0 # 0 = no vertical menu stripe, 1 = display vertical menu stripe, 2 = faint? 3 = borderless
+		progressbarstyle		= 0
+		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
+		rgba					= FALSE	# alpha transparency
+		roundness				= 2 # 0 = square
+		scrollbarstyle			= 0 # 0 = nothing
+		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
+		shadow_shades			= {1.0, 1.0}
+		sliderstyle		   		= 0 # 0 = nothing added
+		stepperstyle			= 0 # 0 = standard, 1 = integrated stepper handles, 2 = unknown
+		toolbarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient
+		trough_shades			= {1.0, 1.0}
+		text_shade				= 1.0
+		cellstyle 				= 0	
+		handlestyle				= 0
+		border_colors 			= FALSE
+		gradient_colors			= FALSE
+			
+	} 
+}
+
+style "scale" = "default" { # slider
+
+	GtkScale			::trough-border 		= 0
+	GtkScale			::slider-width 			= 13
+	GtkScale			::slider-length 		= 13
+	GtkScale			::trough-side-details 	= 0
+
+	xthickness			= 0
+	ythickness			= 0
+	
+	bg[NORMAL]          = @scale_bg_color
+	bg[PRELIGHT]		= @scale_bg_prelight_color
+	bg[SELECTED]        = @scale_bg_selected_color
+	bg[ACTIVE]			= @scale_slider_bg_color
+	fg[PRELIGHT]		= @selected_fg_color
+
+engine "murrine" {
+		roundness 				= 30
+		animation				= FALSE
+		arrowstyle				= 0			# Estilo flechas menu (triangulos)
+		border_shades      		= {1.0, 1.0}
+		contrast				= 0.0
+		comboboxstyle 			= 0			# 0 = normal combobox, 1 = colorized combobox button		
+		expanderstyle			= 1			# Treview expander (triangulo)
+		focusstyle				= 0 # 0 to disable focus drawing. 
+								# 1 to use dots. 
+								# 2 to use a small colored rectangle. 
+								# 3 to use a colored rectangle that touches the borders.
+		glazestyle				= 0 # 0 = flat highlight, 
+								# 1 = curved highlight
+								# 2 = concave style, 
+								# 3 = top curved highlight, 
+								# 4 = beryl highlight
+		glowstyle				= 4 # 0 = top, 1 = bottom, 2 = top and bottom, 3 = horizontal, 4 = centered glow
+		glow_shade				= 1.0
+  		gradient_shades			= {1.00, 1.00, 1.00, 1.00}              
+		highlight_shade			= 1.0
+		lightborder_shade		= 1.0
+		lightborderstyle		= 0 # 0 = top side, 1 = all sides
+		listviewstyle			= 0 # 0 = nothing, 1 = dotted, 2 = line
+		menubaritemstyle		= 0 # 0 = menuitem look, 1 = button look
+		menubarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient, 3 = striped
+		menuitemstyle			= 0 # 0 = flat, 1 = glassy, 2 = striped
+		menustyle				= 0 # 0 = no vertical menu stripe, 1 = display vertical menu stripe, 2 = faint? 3 = borderless
+		progressbarstyle		= 0
+		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
+		rgba					= FALSE	# alpha transparency
+		scrollbarstyle			= 0 # 0 = nothing
+		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
+		shadow_shades			= {1.0, 1.0}
+		sliderstyle		   		= 0 # 0 = nothing added
+		stepperstyle			= 0 # 0 = standard, 1 = integrated stepper handles, 2 = unknown
+		toolbarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient
+		trough_shades			= {1.0, 1.0}
+		text_shade				= 1.0
+		cellstyle 				= 0	
+		handlestyle				= 0
+		border_colors 			= FALSE
+		gradient_colors			= FALSE
+			
+	} 
+}
+
+style "scrollbar" = "default" {
+
+    bg[PRELIGHT]			= shade (1.20, @scrollbar_color)
+    bg[SELECTED]			= @scrollbar_color			# color indicador
+    bg[NORMAL]				= @scrollbar_color			# color borde indicador
+
+    # color flechas (stepper)	
+    fg[NORMAL]          	= shade (1.00, @base_color)
+    fg[PRELIGHT]			= @selected_fg_color
+    fg[ACTIVE]		    	= shade (1.00, @base_color)
+    fg[SELECTED]        	= shade (1.00, @base_color)
+    fg[INSENSITIVE]     	= shade (1.00, @base_color)
+	
+	engine "murrine" {
+		border_shades      		= {1.0, 1.0}
+		colorize_scrollbar	    = FALSE
+		contrast				= 0.3
+  		gradient_shades			= {1.05, 1.05, 1.05, 1.05}              
+		highlight_shade			= 1.0
+		roundness				= 2 # 0 = square
+		scrollbarstyle			= 0 # 0 = nothing
+		trough_shades			= {1.04, 1.04}		
+	}
+
+}
+
+style "overlay_scrollbar"
+{
+	bg[SELECTED] 			= shade (1.0, @selected_bg_color)
+	bg[PRELIGHT]			= shade (1.20, @scrollbar_color)
+	bg[INSENSITIVE] 		= shade (0.85, @bg_color)
+	bg[ACTIVE] 				= shade (0.6, @bg_color)
+	fg[PRELIGHT]			= @selected_fg_color
+
+	engine "murrine" {
+		animation				= FALSE
+		arrowstyle				= 0			# Estilo flechas menu (triangulos)
+		border_shades      		= {1.0, 1.0}
+		contrast				= 0.0
+		comboboxstyle 			= 0			# 0 = normal combobox, 1 = colorized combobox button		
+		expanderstyle			= 1			# Treview expander (triangulo)
+		focusstyle				= 0 # 0 to disable focus drawing. 
+								# 1 to use dots. 
+								# 2 to use a small colored rectangle. 
+								# 3 to use a colored rectangle that touches the borders.
+		glazestyle				= 0 # 0 = flat highlight, 
+								# 1 = curved highlight
+								# 2 = concave style, 
+								# 3 = top curved highlight, 
+								# 4 = beryl highlight
+		glowstyle				= 4 # 0 = top, 1 = bottom, 2 = top and bottom, 3 = horizontal, 4 = centered glow
+		glow_shade				= 1.0
+  		gradient_shades			= {1.00, 1.00, 1.00, 1.00}              
+		highlight_shade			= 1.0
+		lightborder_shade		= 1.0
+		lightborderstyle		= 0 # 0 = top side, 1 = all sides
+		listviewstyle			= 0 # 0 = nothing, 1 = dotted, 2 = line
+		menubaritemstyle		= 0 # 0 = menuitem look, 1 = button look
+		menubarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient, 3 = striped
+		menuitemstyle			= 0 # 0 = flat, 1 = glassy, 2 = striped
+		menustyle				= 0 # 0 = no vertical menu stripe, 1 = display vertical menu stripe, 2 = faint? 3 = borderless
+		progressbarstyle		= 0
+		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
+		rgba					= FALSE	# alpha transparency
+		roundness				= 2 # 0 = square
+		scrollbarstyle			= 0 # 0 = nothing
+		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
+		shadow_shades			= {1.0, 1.0}
+		sliderstyle		   		= 0 # 0 = nothing added
+		stepperstyle			= 0 # 0 = standard, 1 = integrated stepper handles, 2 = unknown
+		toolbarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient
+		trough_shades			= {1.0, 1.0}
+		text_shade				= 1.0
+		cellstyle 				= 0	
+		handlestyle				= 0
+		border_colors 			= FALSE
+		gradient_colors			= FALSE
+			
+	} 
+
+}
+
+
+style "spinbutton" = "button" { # input/stepper 
+	bg[NORMAL]				= @bg_color
+	bg[SELECTED]			= @spinbutton_selected_bg_color
+	base[SELECTED]			= @spinbutton_selected_bg_color
+	base[NORMAL] 			= @spinbutton_bg_color
+	fg[NORMAL]  			= @spinbutton_fg_color
+    fg[ACTIVE]      		= @spinbutton_fg_color       
+	fg[PRELIGHT]			= @spinbutton_selected_bg_color
+	
+
+	engine "murrine" {
+		animation				= FALSE
+		arrowstyle				= 0			# Estilo flechas menu (triangulos)
+		border_shades      		= {1.0, 1.0}
+		contrast				= 0.0
+		comboboxstyle 			= 0			# 0 = normal combobox, 1 = colorized combobox button		
+		expanderstyle			= 1			# Treview expander (triangulo)
+		focusstyle				= 0 # 0 to disable focus drawing. 
+								# 1 to use dots. 
+								# 2 to use a small colored rectangle. 
+								# 3 to use a colored rectangle that touches the borders.
+		glazestyle				= 0 # 0 = flat highlight, 
+								# 1 = curved highlight
+								# 2 = concave style, 
+								# 3 = top curved highlight, 
+								# 4 = beryl highlight
+		glowstyle				= 4 # 0 = top, 1 = bottom, 2 = top and bottom, 3 = horizontal, 4 = centered glow
+		glow_shade				= 1.0
+  		gradient_shades			= {1.00, 1.00, 1.00, 1.00}              
+		highlight_shade			= 1.0
+		lightborder_shade		= 1.0
+		lightborderstyle		= 0 # 0 = top side, 1 = all sides
+		listviewstyle			= 0 # 0 = nothing, 1 = dotted, 2 = line
+		menubaritemstyle		= 0 # 0 = menuitem look, 1 = button look
+		menubarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient, 3 = striped
+		menuitemstyle			= 0 # 0 = flat, 1 = glassy, 2 = striped
+		menustyle				= 0 # 0 = no vertical menu stripe, 1 = display vertical menu stripe, 2 = faint? 3 = borderless
+		progressbarstyle		= 0
+		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
+		rgba					= FALSE	# alpha transparency
+		roundness				= 0 # 0 = square
+		scrollbarstyle			= 0 # 0 = nothing
+		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
+		shadow_shades			= {1.0, 1.0}
+		sliderstyle		   		= 0 # 0 = nothing added
+		stepperstyle			= 0 # 0 = standard, 1 = integrated stepper handles, 2 = unknown
+		toolbarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient
+		trough_shades			= {1.0, 1.0}
+		text_shade				= 1.0
+		cellstyle 				= 0	
+		handlestyle				= 0
+		border_colors 			= FALSE
+		gradient_colors			= FALSE
+			
+	} 
+}
+
+style "toolbar" {
+
+	xthickness			= 3
+	ythickness			= 3
+
+	bg[NORMAL]			= @toolbar_bg_color
+	fg[ACTIVE]			= @text_color
+	fg[PRELIGHT]		= @selected_fg_color
+
+	engine "murrine" {
+		animation				= FALSE
+		arrowstyle				= 0			# Estilo flechas menu (triangulos)
+		border_shades      		= {1.0, 1.0}
+		contrast				= 0.0
+		comboboxstyle 			= 0			# 0 = normal combobox, 1 = colorized combobox button		
+		expanderstyle			= 1			# Treview expander (triangulo)
+		focusstyle				= 0 # 0 to disable focus drawing. 
+								# 1 to use dots. 
+								# 2 to use a small colored rectangle. 
+								# 3 to use a colored rectangle that touches the borders.
+		glazestyle				= 0 # 0 = flat highlight, 
+								# 1 = curved highlight
+								# 2 = concave style, 
+								# 3 = top curved highlight, 
+								# 4 = beryl highlight
+		glowstyle				= 4 # 0 = top, 1 = bottom, 2 = top and bottom, 3 = horizontal, 4 = centered glow
+		glow_shade				= 1.0
+  		gradient_shades			= {1.00, 1.00, 1.00, 1.00}              
+		highlight_shade			= 1.0
+		lightborder_shade		= 1.0
+		lightborderstyle		= 0 # 0 = top side, 1 = all sides
+		listviewstyle			= 0 # 0 = nothing, 1 = dotted, 2 = line
+		menubaritemstyle		= 0 # 0 = menuitem look, 1 = button look
+		menubarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient, 3 = striped
+		menuitemstyle			= 0 # 0 = flat, 1 = glassy, 2 = striped
+		menustyle				= 0 # 0 = no vertical menu stripe, 1 = display vertical menu stripe, 2 = faint? 3 = borderless
+		progressbarstyle		= 0
+		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
+		rgba					= FALSE	# alpha transparency
+		roundness				= 0 # 0 = square
+		scrollbarstyle			= 0 # 0 = nothing
+		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
+		shadow_shades			= {1.0, 1.0}
+		sliderstyle		   		= 0 # 0 = nothing added
+		stepperstyle			= 0 # 0 = standard, 1 = integrated stepper handles, 2 = unknown
+		toolbarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient
+		trough_shades			= {1.0, 1.0}
+		text_shade				= 1.0
+		cellstyle 				= 0	
+		handlestyle				= 0
+		border_colors 			= FALSE
+		gradient_colors			= FALSE
+			
+	} 
+}
+
+style "toolbar_button" {
+    xthickness				= 0
+    ythickness				= 0
+	
+    GtkToolButton			::icon-spacing				= 4
+    GtkButton				::shadow-type				= GTK_SHADOW_NONE	
+	
+
+}
+
+# toolbar separator
+style "toolbar_separator" {
+	xthickness 				= 0
+  	ythickness				= 0
+
+	bg[NORMAL]	    		= @selected_bg_color
+	fg[PRELIGHT]			= @selected_fg_color
+
+	engine "murrine" {
+		animation				= FALSE
+		arrowstyle				= 0			# Estilo flechas menu (triangulos)
+		border_shades      		= {1.0, 1.0}
+		contrast				= 0.0
+		comboboxstyle 			= 0			# 0 = normal combobox, 1 = colorized combobox button		
+		expanderstyle			= 1			# Treview expander (triangulo)
+		focusstyle				= 0 # 0 to disable focus drawing. 
+								# 1 to use dots. 
+								# 2 to use a small colored rectangle. 
+								# 3 to use a colored rectangle that touches the borders.
+		glazestyle				= 0 # 0 = flat highlight, 
+								# 1 = curved highlight
+								# 2 = concave style, 
+								# 3 = top curved highlight, 
+								# 4 = beryl highlight
+		glowstyle				= 4 # 0 = top, 1 = bottom, 2 = top and bottom, 3 = horizontal, 4 = centered glow
+		glow_shade				= 1.0
+  		gradient_shades			= {1.00, 1.00, 1.00, 1.00}              
+		highlight_shade			= 1.0
+		lightborder_shade		= 1.0
+		lightborderstyle		= 0 # 0 = top side, 1 = all sides
+		listviewstyle			= 0 # 0 = nothing, 1 = dotted, 2 = line
+		menubaritemstyle		= 0 # 0 = menuitem look, 1 = button look
+		menubarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient, 3 = striped
+		menuitemstyle			= 0 # 0 = flat, 1 = glassy, 2 = striped
+		menustyle				= 0 # 0 = no vertical menu stripe, 1 = display vertical menu stripe, 2 = faint? 3 = borderless
+		progressbarstyle		= 0
+		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
+		rgba					= FALSE	# alpha transparency
+		roundness				= 0 # 0 = square
+		scrollbarstyle			= 0 # 0 = nothing
+		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
+		shadow_shades			= {1.0, 1.0}
+		sliderstyle		   		= 0 # 0 = nothing added
+		stepperstyle			= 0 # 0 = standard, 1 = integrated stepper handles, 2 = unknown
+		toolbarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient
+		trough_shades			= {1.0, 1.0}
+		text_shade				= 1.0
+		cellstyle 				= 0	
+		handlestyle				= 0
+		border_colors 			= FALSE
+		gradient_colors			= FALSE
+			
+	} 
+}
+
+style "tooltips" {
+	xthickness				= 0
+	ythickness				= 0
+
+	fg[PRELIGHT]			= @selected_fg_color
+
+	GtkWidget				::new-tooltip-style	= 0
+
+	engine "murrine" {
+		animation				= FALSE
+		arrowstyle				= 0			# Estilo flechas menu (triangulos)
+		border_shades      		= {1.0, 1.0}
+		contrast				= 0.0
+		comboboxstyle 			= 0			# 0 = normal combobox, 1 = colorized combobox button		
+		expanderstyle			= 1			# Treview expander (triangulo)
+		focusstyle				= 0 # 0 to disable focus drawing. 
+								# 1 to use dots. 
+								# 2 to use a small colored rectangle. 
+								# 3 to use a colored rectangle that touches the borders.
+		glazestyle				= 0 # 0 = flat highlight, 
+								# 1 = curved highlight
+								# 2 = concave style, 
+								# 3 = top curved highlight, 
+								# 4 = beryl highlight
+		glowstyle				= 4 # 0 = top, 1 = bottom, 2 = top and bottom, 3 = horizontal, 4 = centered glow
+		glow_shade				= 1.0
+  		gradient_shades			= {1.00, 1.00, 1.00, 1.00}              
+		highlight_shade			= 1.0
+		lightborder_shade		= 1.0
+		lightborderstyle		= 0 # 0 = top side, 1 = all sides
+		listviewstyle			= 0 # 0 = nothing, 1 = dotted, 2 = line
+		menubaritemstyle		= 0 # 0 = menuitem look, 1 = button look
+		menubarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient, 3 = striped
+		menuitemstyle			= 0 # 0 = flat, 1 = glassy, 2 = striped
+		menustyle				= 0 # 0 = no vertical menu stripe, 1 = display vertical menu stripe, 2 = faint? 3 = borderless
+		progressbarstyle		= 0
+		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
+		rgba					= FALSE	# alpha transparency
+		roundness				= 0 # 0 = square
+		scrollbarstyle			= 0 # 0 = nothing
+		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
+		shadow_shades			= {1.0, 1.0}
+		sliderstyle		   		= 0 # 0 = nothing added
+		stepperstyle			= 0 # 0 = standard, 1 = integrated stepper handles, 2 = unknown
+		toolbarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient
+		trough_shades			= {1.0, 1.0}
+		text_shade				= 1.0
+		cellstyle 				= 0	
+		handlestyle				= 0
+		border_colors 			= FALSE
+		gradient_colors			= FALSE
+			
+	} 
+}
+
+style "treeview" {
+
+	GtkTreeView			::odd_row_color				= @base_color
+	GtkTreeView			::even_row_color			= @base_color
+	GtkTreeView			::even_col_color			= @base_color
+	GtkTreeView			::odd_col_color			    = @base_color
+	GtkTreeView			::grid-line-width			= 0
+	GtkTreeView			::tree-line-width			= 0
+	GtkTreeView			::horizontal-separator		= 2
+	GtkTreeView			::vertical-separator		= 2
+
+	GtkTreeView			::expander_size				= 0
+	GtkTreeView			::row_ending_details 		= 1
+
+	base[SELECTED]  	= @selected_bg_color		
+	base[ACTIVE]  		= @selected_bg_color		
+
+	fg[NORMAL]			= @other_text_color			
+	fg[PRELIGHT]		= @treeview_header_text_selected_bg_color
+
+	bg[NORMAL]   		= @treeview_bg_color
+	bg[SELECTED]		= @progressbar_bg_selected_color		
+	text[NORMAL]    	= @fg_color				
+	text[SELECTED]  	= @selected_fg_color					
+	text[ACTIVE] 		= @selected_fg_color
+
+	engine "pixmap"
+	{
+		# Menuitem background (mouse over)
+		image
+		{	
+			function		= FLAT_BOX
+			recolorable		= TRUE
+			file			= "treeviewer_select.png"
+			border			= { 0, 0, 0, 0}
+			stretch			= TRUE
+			shadow		    = NONE
+			state			= SELECTED
+		}
+		image
+		{
+			function		= FOCUS
+			recolorable		= TRUE
+			file			= "treeviewer_focus.png"
+			border			= { 0, 0, 0, 0}
+			stretch			= TRUE
+		}
+
+       }				
+}
+
+style "treeview_header" {
+	ythickness				= 0
+	xthickness				= 0
+	GtkWidget				::focus-padding				= 0
+
+	GtkTreeView				::odd_row_color				= @base_color
+	GtkTreeView				::even_row_color			= @base_color
+	GtkTreeView				::even_col_color			= @base_color
+	GtkTreeView				::odd_col_color			    = @base_color
+	GtkTreeView				::grid-line-width			= 0
+	GtkTreeView				::tree-line-width			= 0
+	GtkTreeView				::horizontal-separator		= 0
+	GtkTreeView				::vertical-separator		= 0
+
+	GtkTreeView				::expander_size				= 0
+	GtkTreeView				::row_ending_details 			= 1	
+	
+	bg[NORMAL]              = @bg_color
+	bg[PRELIGHT]            = @treeview_header_selected_bg_color
+	bg[ACTIVE]              = @treeview_header_selected_bg_color	
+	bg[INSENSITIVE] 		= @bg_color
+	fg[PRELIGHT]			= @selected_fg_color
+}
+
+style "checkradio"  {
+    xthickness				= 0
+    ythickness				= 0
+
+    base[NORMAL]            = @checkradio_bg_color
+    base[SELECTED]		    = @checkradio_selected_bg_color
+    base[PRELIGHT]   		= @checkradio_bg_color
+
+    bg[SELECTED]   		    = @checkradio_selected_bg_color	# radiocheck color checked
+
+    text[NORMAL]			= @other_text_color	# indicador normal    
+    text[PRELIGHT]          = @other_text_color	# indicador hover
+    text[ACTIVE]			= @other_text_color	# indicador click
+    text[SELECTED]			= @other_text_color
+    text[INSENSITIVE]		= @other_text_color
+    fg[NORMAL]				= @other_text_color
+    fg[PRELIGHT]			= @selected_fg_color
+
+	engine "murrine" {
+		animation				= FALSE
+		arrowstyle				= 0			# Estilo flechas menu (triangulos)
+		border_shades      		= {1.0, 1.0}
+		contrast				= 0.0
+		comboboxstyle 			= 0			# 0 = normal combobox, 1 = colorized combobox button		
+		expanderstyle			= 1			# Treview expander (triangulo)
+		focusstyle				= 0 # 0 to disable focus drawing. 
+								# 1 to use dots. 
+								# 2 to use a small colored rectangle. 
+								# 3 to use a colored rectangle that touches the borders.
+		glazestyle				= 0 # 0 = flat highlight, 
+								# 1 = curved highlight
+								# 2 = concave style, 
+								# 3 = top curved highlight, 
+								# 4 = beryl highlight
+		glowstyle				= 4 # 0 = top, 1 = bottom, 2 = top and bottom, 3 = horizontal, 4 = centered glow
+		glow_shade				= 1.0
+  		gradient_shades			= {1.00, 1.00, 1.00, 1.00}              
+		highlight_shade			= 1.0
+		lightborder_shade		= 1.0
+		lightborderstyle		= 0 # 0 = top side, 1 = all sides
+		listviewstyle			= 0 # 0 = nothing, 1 = dotted, 2 = line
+		menubaritemstyle		= 0 # 0 = menuitem look, 1 = button look
+		menubarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient, 3 = striped
+		menuitemstyle			= 0 # 0 = flat, 1 = glassy, 2 = striped
+		menustyle				= 0 # 0 = no vertical menu stripe, 1 = display vertical menu stripe, 2 = faint? 3 = borderless
+		progressbarstyle		= 0
+		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
+		rgba					= FALSE	# alpha transparency
+		roundness				= 0 # 0 = square
+		scrollbarstyle			= 0 # 0 = nothing
+		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
+		shadow_shades			= {1.0, 1.0}
+		sliderstyle		   		= 0 # 0 = nothing added
+		stepperstyle			= 0 # 0 = standard, 1 = integrated stepper handles, 2 = unknown
+		toolbarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient
+		trough_shades			= {1.0, 1.0}
+		text_shade				= 1.0
+		cellstyle 				= 0	
+		handlestyle				= 0
+		border_colors 			= FALSE
+		gradient_colors			= FALSE
+			
+	}
+}
+
+style "menuitemwhite" = "default" {
+
+    xthickness	= 2
+    ythickness	= 2
+    GtkSeparatorMenuItem		::horizontal-padding			= 7
+    GtkMenuItem					::selected-shadow-type			= GTK_SHADOW_NONE
+    GtkMenuItem					::horizontal-padding			= 3
+    GtkMenuItem					::toggle-spacing				= 0
+    GtkLabel					::text-shadow 					= none	
+
+
+	bg[NORMAL]          		= @base_color
+	bg[PRELIGHT]				= @button_prelight_bg_color	
+	fg[PRELIGHT]				= @other_text_color
+	text[PRELIGHT]          	= @other_text_color
+	
+	text[NORMAL]				= @text_color
+    text[ACTIVE]				= @other_text_color2
+    text[SELECTED]				= @other_text_color
+    text[INSENSITIVE]			= shade (0.5, @text_color)
+}
+
+# ==============================================================================
+# FIREFOX SPECIFIC SETTINGS
+# ==============================================================================
+
+style "ff-default" {
+	GtkCheckButton				::indicator-size = 14
+	fg[PRELIGHT]				= @selected_fg_color
+}
+
+style	"ff-statusbar" {
+	fg[PRELIGHT]				= @selected_fg_color
+}
+
+widget	"MozillaGtkWidget*"			style "ff-default"
+
+###############################################################################
+# The following part of the gtkrc applies the different styles to the widgets.
+###############################################################################
+
+# The default style is applied to every widget
+class "GtkWidget"								style "default"
+class "GtkSeparator"							style "wide"
+class "GtkFrame"								style "wide"
+class "GtkCalendar"								style "wide"
+class "GtkEntry"								style "entry"
+
+class "GtkSpinButton"							style "spinbutton"
+class "GtkScale"								style "scale"
+class "GtkVScale"								style "scale"
+class "GtkHScale"								style "scale"
+class "GtkScrollbar"							style "scrollbar"
+# Overlay scrollbar
+widget_class "*<OsScrollbar>" 					style "overlay_scrollbar"
+widget_class "*<OsThumb>" 						style "overlay_scrollbar"
+# General matching follows. The order is choosen so that the right styles override
+# each other. EG. progressbar needs to be more important than the menu match.
+widget_class "*<GtkButton>*"					style "button"
+widget_class "*<GtkLabel>"  					style "button_label"
+widget_class "*<GtkLabel>*"  					style "button_label"
+widget_class "*<GtkButton>*<GtkLabel>"  		style "button_label"
+
+widget_class "*<GtkNotebook>"					style "notebook"
+widget_class "*<GtkNotebook>*<GtkLabel>"        style "notebook"
+widget_class "*<GtkNotebook>*<GtkDrawingArea>"  style "notebook"
+widget_class "*<GtkNotebook>*<GtkLayout>"       style "notebook"
+widget_class "*<GtkNotebook>*<GtkNotebookPage>" style "notebook"
+
+widget_class "*<GtkMenuBar>*"					style "menubar"
+widget_class "*<GtkMenuBar>.<GtkMenuItem>*"		style "menu"
+widget_class "*<GtkMenu>.<GtkMenuItem>"	        style "menuitemwhite"
+widget_class "*<GtkToolPalette>"				style "menu"
+widget_class "*<GtkMenu>"						style "menu"
+widget_class "*<GtkSeparatorMenuItem>*"			style "menu"
+
+widget_class "*<GtkToolbar>"                    style "toolbar"
+widget_class "*<GtkHandleBox>"                  style "toolbar"
+widget_class "*<GtkToolbar>.*.<GtkButton>*"     style "toolbar_button"
+class "GtkSeparatorToolItem"		        	style "toolbar_separator"
+
+widget_class "*.<GtkFrame>.<GtkLabel>"			style "frame_title"
+widget_class "*.<GtkTreeView>*"					style "treeview"
+
+class "*GtkExpander*"  							style "expander"
+
+widget_class "*<GtkProgress>"					style "progressbar"
+
+# Treeview headers (and similar stock GTK+ widgets)
+widget_class "*.<GtkTreeView>.<GtkButton>"		style "treeview_header"
+widget_class "*.<GtkCTree>.<GtkButton>"			style "treeview_header"
+widget_class "*.<GtkList>.<GtkButton>"			style "treeview_header"
+widget_class "*.<GtkCList>.<GtkButton>"			style "treeview_header"
+
+# The window of the tooltip is called "gtk-tooltip"
+widget "gtk-tooltip*"							style "tooltips"
+
+widget_class "*<GtkCheckButton>*"				style "checkradio"
+widget_class "*<GtkRadioButton>*" 				style "checkradio"
+
+style "FireFox-MenuBar" = "menubar" {
+	GtkMenuBar::shadow-type = GTK_SHADOW_NONE			
+}
+widget "MozillaGtkWidget*GtkMenuBar" 			style "FireFox-MenuBar"
+widget "MozillaGtkWidget*GtkCheck*"				style:highest "checkradio"
+widget "MozillaGtkWidget*GtkRadio*"				style:highest "checkradio"
+
+widget_class "*<GtkCheckButton>*<GtkLabel>"		style:highest "checkradio_label"
+widget_class "*<GtkRadioButton>*<GtkLabel>"		style:highest "checkradio_label"
+
+##########################################################################
+# Following are special cases and workarounds for issues in applications.
+##########################################################################
+# For Google Chrome/Chromium integration.
+style "chrome-gtk-frame" {
+    ChromeGtkFrame::frame-color			       		= @theme_bg_dark_color
+    ChromeGtkFrame::inactive-frame-color			= @theme_bg_dark_color
+    ChromeGtkFrame::frame-gradient-size		    	= 120
+    ChromeGtkFrame::frame-gradient-color			= @theme_bg_dark_color
+    ChromeGtkFrame::inactive-frame-gradient-color	= @theme_bg_dark_color
+    ChromeGtkFrame::incognito-frame-color 			= @theme_bg_dark_color
+    ChromeGtkFrame::incognito-inactive-frame-color 	= @theme_bg_dark_color
+    ChromeGtkFrame::incognito-frame-gradient-size 	= 120
+    ChromeGtkFrame::incognito-frame-gradient-color 	= @theme_bg_dark_color
+
+    ChromeGtkFrame::scrollbar-trough-color			= shade (0.99, @theme_bg_dark_color)
+    ChromeGtkFrame::scrollbar-slider-prelight-color	= shade (0.87, @theme_bg_dark_color)
+    ChromeGtkFrame::scrollbar-slider-normal-color	= shade (0.80, @theme_bg_dark_color)
+}
+class "ChromeGtkFrame"							style "chrome-gtk-frame"
+
+# For places where the text color is used instead of the fg color.
+style "text_is_fg_color_workaround" {
+	text[NORMAL]		= @other_text_color
+	text[PRELIGHT]		= @selected_fg_color
+	text[SELECTED]		= @selected_fg_color
+	text[ACTIVE]		= @fg_color
+	text[INSENSITIVE]	= shade (0.75, @fg_color)
+	fg[NORMAL]			= @other_text_color
+	fg[PRELIGHT]		= @selected_fg_color
+
+	bg[PRELIGHT]		= @menu_selected_bg_color
+	bg[SELECTED]		= @menu_selected_bg_color
+}
+
+widget_class "*.<GtkComboBox>.<GtkCellView>"	style "text_is_fg_color_workaround"
+
+
+# For menus where the text color is used instead of the fg color.
+style "menuitem_text_is_fg_color_workaround" {
+
+	text[NORMAL]		= @other_text_color
+	text[PRELIGHT]		= @selected_fg_color
+	text[SELECTED]		= @selected_fg_color
+	text[ACTIVE]		= @fg_color
+	text[INSENSITIVE]	= shade (0.75, @fg_color)
+	fg[NORMAL]			= @other_text_color
+	fg[PRELIGHT]		= @selected_fg_color
+
+	bg[PRELIGHT]		= @menubar_selected_bg_color
+	bg[SELECTED]		= @menubar_selected_bg_color
+
+	base[PRELIGHT]		= @menubar_selected_bg_color
+	base[SELECTED]		= @menubar_selected_bg_color
+	engine "murrine" {
+		animation				= FALSE
+		arrowstyle				= 0			# Estilo flechas menu (triangulos)
+		border_shades      		= {1.0, 1.0}
+		contrast				= 0.0
+		comboboxstyle 			= 0			# 0 = normal combobox, 1 = colorized combobox button		
+		expanderstyle			= 1			# Treview expander (triangulo)
+		focusstyle				= 0 # 0 to disable focus drawing. 
+								# 1 to use dots. 
+								# 2 to use a small colored rectangle. 
+								# 3 to use a colored rectangle that touches the borders.
+		glazestyle				= 0 # 0 = flat highlight, 
+								# 1 = curved highlight
+								# 2 = concave style, 
+								# 3 = top curved highlight, 
+								# 4 = beryl highlight
+		glowstyle				= 4 # 0 = top, 1 = bottom, 2 = top and bottom, 3 = horizontal, 4 = centered glow
+		glow_shade				= 1.0
+  		gradient_shades			= {1.00, 1.00, 1.00, 1.00}              
+		highlight_shade			= 1.0
+		lightborder_shade		= 1.0
+		lightborderstyle		= 0 # 0 = top side, 1 = all sides
+		listviewstyle			= 0 # 0 = nothing, 1 = dotted, 2 = line
+		menubaritemstyle		= 0 # 0 = menuitem look, 1 = button look
+		menubarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient, 3 = striped
+		menuitemstyle			= 0 # 0 = flat, 1 = glassy, 2 = striped
+		menustyle				= 0 # 0 = no vertical menu stripe, 1 = display vertical menu stripe, 2 = faint? 3 = borderless
+		progressbarstyle		= 0
+		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
+		rgba					= FALSE	# alpha transparency
+		roundness				= 0 # 0 = square
+		scrollbarstyle			= 0 # 0 = nothing
+		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
+		shadow_shades			= {1.0, 1.0}
+		sliderstyle		   		= 0 # 0 = nothing added
+		stepperstyle			= 0 # 0 = standard, 1 = integrated stepper handles, 2 = unknown
+		toolbarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient
+		trough_shades			= {1.0, 1.0}
+		text_shade				= 1.0
+		cellstyle 				= 0	
+		handlestyle				= 0
+		border_colors 			= FALSE
+		gradient_colors			= FALSE
+			
+	} 
+}
+
+widget "*.gtk-combobox-popup-menu.*"		style "menuitem_text_is_fg_color_workaround"
+
+# For places where the fg color is used instead of the text color.
+style "fg_is_text_color_workaround" {
+	fg[NORMAL]			= @text_color
+	fg[PRELIGHT]		= @selected_fg_color
+	fg[SELECTED]		= @selected_fg_color
+	fg[ACTIVE]			= @selected_fg_color
+	fg[INSENSITIVE] 	= darker (@bg_color)
+	engine "murrine" {
+		animation				= FALSE
+		arrowstyle				= 0			# Estilo flechas menu (triangulos)
+		border_shades      		= {1.0, 1.0}
+		contrast				= 0.0
+		comboboxstyle 			= 0			# 0 = normal combobox, 1 = colorized combobox button		
+		expanderstyle			= 1			# Treview expander (triangulo)
+		focusstyle				= 0 # 0 to disable focus drawing. 
+								# 1 to use dots. 
+								# 2 to use a small colored rectangle. 
+								# 3 to use a colored rectangle that touches the borders.
+		glazestyle				= 0 # 0 = flat highlight, 
+								# 1 = curved highlight
+								# 2 = concave style, 
+								# 3 = top curved highlight, 
+								# 4 = beryl highlight
+		glowstyle				= 4 # 0 = top, 1 = bottom, 2 = top and bottom, 3 = horizontal, 4 = centered glow
+		glow_shade				= 1.0
+  		gradient_shades			= {1.00, 1.00, 1.00, 1.00}              
+		highlight_shade			= 1.0
+		lightborder_shade		= 1.0
+		lightborderstyle		= 0 # 0 = top side, 1 = all sides
+		listviewstyle			= 0 # 0 = nothing, 1 = dotted, 2 = line
+		menubaritemstyle		= 0 # 0 = menuitem look, 1 = button look
+		menubarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient, 3 = striped
+		menuitemstyle			= 0 # 0 = flat, 1 = glassy, 2 = striped
+		menustyle				= 0 # 0 = no vertical menu stripe, 1 = display vertical menu stripe, 2 = faint? 3 = borderless
+		progressbarstyle		= 0
+		reliefstyle				= 0  # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
+		rgba					= FALSE	# alpha transparency
+		roundness				= 0 # 0 = square
+		scrollbarstyle			= 0 # 0 = nothing
+		separatorstyle 			= 1	# 0 = Hard seperators 1 = Smooth seperators
+		shadow_shades			= {1.0, 1.0}
+		sliderstyle		   		= 0 # 0 = nothing added
+		stepperstyle			= 0 # 0 = standard, 1 = integrated stepper handles, 2 = unknown
+		toolbarstyle			= 0 # 0 = flat, 1 = glassy, 2 = gradient
+		trough_shades			= {1.0, 1.0}
+		text_shade				= 1.0
+		cellstyle 				= 0	
+		handlestyle				= 0
+		border_colors 			= FALSE
+		gradient_colors			= FALSE
+			
+	} 
+
+}
+widget_class "*<GtkListItem>*"				style "fg_is_text_color_workaround"
+widget_class "*<GtkCList>"		    		style "fg_is_text_color_workaround"
+widget_class "*<EelEditableLabel>"			style "fg_is_text_color_workaround"
+
+style "performance-fix" {
+	fg[PRELIGHT]				= @selected_fg_color	
+}
+widget "*OOoFixed*"						style "performance-fix" # Openoffice/Libreoffice
+
+# For gvim scrollbars.
+style "vim-scrollbar" = "scrollbar" {
+	GtkScrollbar				::slider_width		= 16
+	GtkScrollbar				::stepper_size		= 16
+	fg[PRELIGHT]				= @selected_fg_color
+ 
+}
+widget "vim-main-window.*Scrollbar*"		style "vim-scrollbar"
+
+# For Eclipse (swt) toolbars.
+widget "*swt*toolbar*"						style "toolbar"
+
+
+# Banshee
+widget_class "__gtksharp_1*<GtkTreeView>*"	style "treeview"
+
+widget_class "XfceNotifyWindow" 			style "default"
+
+style "font_button" {
+	xthickness			= 0
+	ythickness			= 0
+
+    fg[NORMAL]         	= @other_text_color
+    fg[PRELIGHT]		= @selected_fg_color
+	fg[INSENSITIVE] 	= shade (0.70, @other_text_color)
+
+	bg[PRELIGHT]		= @menubar_selected_bg_color
+	bg[SELECTED]		= @menubar_selected_bg_color
+	bg[INSENSITIVE] 	= @menubar_selected_bg_color
+	bg[ACTIVE]         	= @menubar_selected_bg_color
+
+	base[PRELIGHT]		= @menubar_selected_bg_color
+	base[SELECTED]		= @menubar_selected_bg_color
+	base[INSENSITIVE] 	= @menubar_selected_bg_color
+	base[ACTIVE]        = @menubar_selected_bg_color
+
+	engine "murrine" {
+		separatorstyle 			= 0	# 0 = Hard seperators 1 = Smooth seperators	
+	}
+}
+widget_class "*<GtkFontButton>*"			style "font_button"
+widget_class "*<GtkHSeparator>*"			style "font_button"
+widget_class "*<GtkHSeparator>"				style "font_button"
+widget_class "*<GtkVSeparator>*"			style "font_button"
+widget_class "*<GtkVSeparator>"				style "font_button"
