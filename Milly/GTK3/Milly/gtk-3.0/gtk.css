@@ -5417,6 +5417,40 @@ filechooser #pathbarbox > stack > box > button:disabled {
   border: 1px solid rgba(28, 28, 28, 0.3);
 }
 
+
+/**********
+ * Pathbar fix *
+ **********/
+
+:not(headerbar) .path-bar button {
+border: 0px;
+border-bottom: 1px solid #0f1013;
+border-radius: 0px;
+
+}
+
+:not(headerbar) .path-bar button:hover {
+border: 0px;
+border-bottom: 1px solid #0f1013;
+border-radius: 0px;
+color: #D2D2D2;
+}
+
+:not(headerbar) .path-bar button:checked {
+border: 0px;
+border-bottom: 1px solid #9d2a5e;
+border-radius: 0px;
+color: #D2D2D2;
+}
+
+:not(headerbar) .path-bar button:checked:hover {
+border: 0px;
+border-bottom: 1px solid #9d2a5e;
+border-radius: 0px;
+color: #FFFFFF;
+}
+
+
 /* GTK NAMED COLORS
    ----------------
    use responsibly! */
