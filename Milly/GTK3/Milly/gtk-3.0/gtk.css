@@ -616,7 +616,6 @@ button.flat:checked:disabled {
   color: #383838;
 }
 
-
 button.text-button {
   padding-left: 16px;
   padding-right: 16px;
@@ -2111,7 +2110,7 @@ notebook > header.top > tabs > tab {
 }
 
 notebook > header.top > tabs > tab:hover {
-  background-color: #9d2a5e;
+  background-color: #0f1013;
   border: 0px;
   color: #D2D2D2;
   box-shadow: none;
@@ -2120,7 +2119,7 @@ notebook > header.top > tabs > tab:hover {
 
 
 notebook > header.top > tabs > tab:checked {
-  background-color: #9d2a5e;
+  background-color: #0f1013;
   border: 0px;
   color: #D2D2D2;
   box-shadow: none;
@@ -2128,9 +2127,9 @@ notebook > header.top > tabs > tab:checked {
 }
 
 notebook > header.top > tabs > tab:checked:hover {
-  background-color: #ad2a5e;
+  background-color: #0f1013;
   border: 0px;
-  color: #D2D2D2;
+  color: #FFFFFF;
   box-shadow: none;
   transition: none;
 }
@@ -2155,7 +2154,7 @@ notebook > header.bottom > tabs > tab {
 }
 
 notebook > header.bottom > tabs > tab:hover {
-  background-color: #9d2a5e;
+  background-color: #0f1013;
   border: 0px;
   color: #D2D2D2;
   box-shadow: none;
@@ -2163,7 +2162,7 @@ notebook > header.bottom > tabs > tab:hover {
 }
 
 notebook > header.bottom > tabs > tab:checked {
-  background-color: #9d2a5e;
+  background-color: #0f1013;
   border: 0px;
   color: #D2D2D2;
   box-shadow: none;
@@ -2171,9 +2170,9 @@ notebook > header.bottom > tabs > tab:checked {
 }
 
 notebook > header.bottom > tabs > tab:checked:hover {
-  background-color: #ad2a5e;
+  background-color: #0f1013;
   border: 0px;
-  color: #D2D2D2;
+  color: #FFFFFF;
   box-shadow: none;
   transition: none;
 }
@@ -2197,7 +2196,7 @@ notebook > header.left > tabs > tab {
 }
 
 notebook > header.left > tabs > tab:hover {
-  background-color: #9d2a5e;
+  background-color: #0f1013;
   border: 0px;
   color: #D2D2D2;
   box-shadow: none;
@@ -2205,7 +2204,7 @@ notebook > header.left > tabs > tab:hover {
 }
 
 notebook > header.left > tabs > tab:checked {
-  background-color: #9d2a5e;
+  background-color: #0f1013;
   border: 0px;
   color: #D2D2D2;
   box-shadow: none;
@@ -2213,9 +2212,9 @@ notebook > header.left > tabs > tab:checked {
 }
 
 notebook > header.left > tabs > tab:checked:hover {
-  background-color: #ad2a5e;
+  background-color: #0f1013;
   border: 0px;
-  color: #D2D2D2;
+  color: #FFFFFF;
   box-shadow: none;
   transition: none;
 }
@@ -2239,7 +2238,7 @@ notebook > header.right > tabs > tab {
 }
 
 notebook > header.right > tabs > tab:hover {
-  background-color: #9d2a5e;
+  background-color: #0f1013;
   border: 0px;
   color: #D2D2D2;
   box-shadow: none;
@@ -2248,7 +2247,7 @@ notebook > header.right > tabs > tab:hover {
 
 
 notebook > header.right > tabs > tab:checked {
-  background-color: #9d2a5e;
+  background-color: #0f1013;
   border: 0px;
   color: #D2D2D2;
   box-shadow: none;
@@ -2256,9 +2255,9 @@ notebook > header.right > tabs > tab:checked {
 }
 
 notebook > header.right > tabs > tab:checked:hover {
-  background-color: #ad2a5e;
+  background-color: #0f1013;
   border: 0px;
-  color: #D2D2D2;
+  color: #FFFFFF;
   box-shadow: none;
   transition: none;
 }
@@ -2337,7 +2336,7 @@ notebook > header tab {
 }
 
 notebook > header tab:hover {
-  background-color: #9d2a5e;
+  background-color: #0f1013;
   color: #D2D2D2;
 }
 
@@ -2931,9 +2930,9 @@ scale.vertical {
 }
 
 scale slider {
-  min-height: 32px;
-  min-width: 32px;
-  margin: -15px;
+  min-height: 5px;
+  min-width: 5px;
+  margin: -6px;
   background-color: #717171;
 }
 
@@ -2982,12 +2981,10 @@ scale fill:disabled {
 }
 
 scale slider {
-  transition: background-color 100ms cubic-bezier(0, 0, 0.2, 1), background-size 300ms cubic-bezier(0, 0, 0.2, 1), background-image 1200ms cubic-bezier(0, 0, 0.2, 1);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: auto, 1000% 1000%;
   border-radius: 100%;
   color: transparent;
+  min-height: 15px;
+  min-width: 15px;
 }
 
 scale slider {
