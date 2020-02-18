@@ -2387,8 +2387,13 @@ notebook > header.top tabs:not(:only-child):last-child, notebook > header.bottom
 }
 
 notebook > header.top tabs tab.reorderable-page, notebook > header.bottom tabs tab.reorderable-page {
-  border-style: none solid;
+  border-bottom: 2px solid #0f1013;
 }
+
+notebook > header.top tabs tab.reorderable-page:checked, notebook > header.bottom tabs tab.reorderable-page:checked {
+  border-bottom: 2px solid #9d2a5e;
+}
+
 
 notebook > header.left tabs, notebook > header.right tabs {
   padding-top: 8px;
