@@ -543,7 +543,7 @@ modelbutton.flat,
 .menuitem.button.flat, spinbutton:not(.vertical) button, spinbutton.vertical button, popover.background.menu button,
 popover.background button.model, notebook > header > tabs > arrow, scrollbar button, check,
 radio, calendar.button, messagedialog.csd .dialog-action-area button, button.sidebar-button, .gedit-search-slider .linked > button, popover.messagepopover .popover-action-area button, .drop-shadow button, .lightdm-gtk-greeter button, :not(headerbar) .path-bar button, layouttabbar button, toolbar button, .titlebar:not(headerbar) button:not(.suggested-action):not(.destructive-action),
-headerbar button:not(.suggested-action):not(.destructive-action), actionbar > revealer > box button:not(.suggested-action):not(.destructive-action):not(.server-list-button), .app-notification button, filechooser #pathbarbox > stack > box > button {
+headerbar button:not(.suggested-action):not(.destructive-action), actionbar > revealer > box button:not(.suggested-action):not(.destructive-action):not(.server-list-button), .app-notification button {
   transition: all 100ms cubic-bezier(0, 0, 0.2, 1), border-image 225ms cubic-bezier(0, 0, 0.2, 1), background-size 300ms cubic-bezier(0, 0, 0.2, 1), background-image 1200ms cubic-bezier(0, 0, 0.2, 1);
   box-shadow: none;
   background-color: transparent;
@@ -559,7 +559,7 @@ modelbutton.flat:hover,
 .menuitem.button.flat:hover, popover.background.menu button:hover,
 popover.background button.model:hover, notebook > header > tabs > arrow:hover, scrollbar button:hover, check:hover,
 radio:hover, calendar.button:hover, messagedialog.csd .dialog-action-area button:hover, button.sidebar-button:hover, .gedit-search-slider .linked > button:hover, popover.messagepopover .popover-action-area button:hover, .drop-shadow button:hover, .lightdm-gtk-greeter button:hover, :not(headerbar) .path-bar button:hover, layouttabbar button:hover, toolbar button:hover, .titlebar:not(headerbar) button:hover:not(.suggested-action):not(.destructive-action),
-headerbar button:hover:not(.suggested-action):not(.destructive-action), actionbar > revealer > box button:hover:not(.suggested-action):not(.destructive-action):not(.server-list-button), .app-notification button:hover, filechooser #pathbarbox > stack > box > button:hover {
+headerbar button:hover:not(.suggested-action):not(.destructive-action), actionbar > revealer > box button:hover:not(.suggested-action):not(.destructive-action):not(.server-list-button), .app-notification button:hover {
   background: #0f1013;
   color: #D2D2D2;
 }
@@ -573,7 +573,7 @@ modelbutton.flat:active,
 .menuitem.button.flat:active, spinbutton:not(.vertical) button:active, spinbutton.vertical button:active, popover.background.menu button:active,
 popover.background button.model:active, notebook > header > tabs > arrow:active, scrollbar button:active, check:active,
 radio:active, calendar.button:active, messagedialog.csd .dialog-action-area button:active, button.sidebar-button:active, .gedit-search-slider .linked > button:active, popover.messagepopover .popover-action-area button:active, .drop-shadow button:active, .lightdm-gtk-greeter button:active, :not(headerbar) .path-bar button:active, layouttabbar button:active, toolbar button:active, .titlebar:not(headerbar) button:active:not(.suggested-action):not(.destructive-action),
-headerbar button:active:not(.suggested-action):not(.destructive-action), actionbar > revealer > box button:active:not(.suggested-action):not(.destructive-action):not(.server-list-button), .app-notification button:active, filechooser #pathbarbox > stack > box > button:active {
+headerbar button:active:not(.suggested-action):not(.destructive-action), actionbar > revealer > box button:active:not(.suggested-action):not(.destructive-action):not(.server-list-button), .app-notification button:active {
   background: #0f1013;
   color: #FFFFFF;
 }
@@ -582,7 +582,7 @@ modelbutton.flat:checked:hover,
 .menuitem.button.flat:checked:hover, spinbutton:not(.vertical) button:checked:hover, spinbutton.vertical button:checked:hover, popover.background.menu button:checked:hover,
 popover.background button.model:checked:hover, notebook > header > tabs > arrow:checked:hover, scrollbar button:checked:hover, check:checked:hover,
 radio:checked:hover, calendar.button:checked:hover, messagedialog.csd .dialog-action-area button:checked:hover, button.sidebar-button:checked:hover, .gedit-search-slider .linked > button:checked:hover, popover.messagepopover .popover-action-area button:checked:hover, .drop-shadow button:checked:hover, .lightdm-gtk-greeter button:checked:hover, :not(headerbar) .path-bar button:checked:hover, layouttabbar button:checked:hover, .mate-panel-menu-bar button:checked:hover, toolbar button:checked:hover, .titlebar:not(headerbar) button:checked:hover:not(.suggested-action):not(.destructive-action),
-headerbar button:checked:hover:not(.suggested-action):not(.destructive-action), actionbar > revealer > box button:checked:hover:not(.suggested-action):not(.destructive-action):not(.server-list-button), .app-notification button:checked:hover, filechooser #pathbarbox > stack > box > button:checked:hover {
+headerbar button:checked:hover:not(.suggested-action):not(.destructive-action), actionbar > revealer > box button:checked:hover:not(.suggested-action):not(.destructive-action):not(.server-list-button), .app-notification button:checked:hover {
   background: #ad2a5e;
   color: #D2D2D2;
 }
@@ -591,14 +591,14 @@ modelbutton.flat:disabled,
 .menuitem.button.flat:disabled, spinbutton:not(.vertical) button:disabled, spinbutton.vertical button:disabled, popover.background.menu button:disabled,
 popover.background button.model:disabled, notebook > header > tabs > arrow:disabled, scrollbar button:disabled, check:disabled,
 radio:disabled, calendar.button:disabled, messagedialog.csd .dialog-action-area button:disabled, button.sidebar-button:disabled, .gedit-search-slider .linked > button:disabled, popover.messagepopover .popover-action-area button:disabled, .drop-shadow button:disabled, .lightdm-gtk-greeter button:disabled, :not(headerbar) .path-bar button:disabled, layouttabbar button:disabled, .mate-panel-menu-bar button:disabled, toolbar button:disabled, .titlebar:not(headerbar) button:disabled:not(.suggested-action):not(.destructive-action),
-headerbar button:disabled:not(.suggested-action):not(.destructive-action), actionbar > revealer > box button:disabled:not(.suggested-action):not(.destructive-action):not(.server-list-button), .app-notification button:disabled, filechooser #pathbarbox > stack > box > button:disabled, .nemo-window .toolbar button:disabled {
+headerbar button:disabled:not(.suggested-action):not(.destructive-action), actionbar > revealer > box button:disabled:not(.suggested-action):not(.destructive-action):not(.server-list-button), .app-notification button:disabled {
   box-shadow: none;
   background-color: transparent;
   color: #383838;
 }
 
 :not(headerbar) .path-bar button:checked, layouttabbar button:checked, toolbar button:checked, .titlebar:not(headerbar) button:checked:not(.suggested-action):not(.destructive-action),
-headerbar button:checked:not(.suggested-action):not(.destructive-action), actionbar > revealer > box button:checked:not(.suggested-action):not(.destructive-action):not(.server-list-button), .app-notification button:checked, filechooser #pathbarbox > stack > box > button:checked {
+headerbar button:checked:not(.suggested-action):not(.destructive-action), actionbar > revealer > box button:checked:not(.suggested-action):not(.destructive-action):not(.server-list-button), .app-notification button:checked {
   background-color: #9d2a5e;
   color: #D2D2D2;
   border-radius: 9999px;
@@ -606,7 +606,7 @@ headerbar button:checked:not(.suggested-action):not(.destructive-action), action
 }
 
 :not(headerbar) .path-bar button:checked:hover, layouttabbar button:checked:hover, toolbar button:checked:hover, .titlebar:not(headerbar) button:checked:not(.suggested-action):not(.destructive-action):hover,
-headerbar button:checked:not(.suggested-action):not(.destructive-action):hover, actionbar > revealer > box button:checked:not(.suggested-action):not(.destructive-action):not(.server-list-button):hover, .app-notification button:checked:hover, filechooser #pathbarbox > stack > box > button:checked:hover {
+headerbar button:checked:not(.suggested-action):not(.destructive-action):hover, actionbar > revealer > box button:checked:not(.suggested-action):not(.destructive-action):not(.server-list-button):hover, .app-notification button:checked:hover {
   background-color: #9d2a5e;
   color: #D2D2D2;
   border-radius: 9999px;
@@ -614,7 +614,7 @@ headerbar button:checked:not(.suggested-action):not(.destructive-action):hover, 
 }
 
 :not(headerbar) .path-bar button:checked:disabled, layouttabbar button:checked:disabled, toolbar button:checked:disabled, .titlebar:not(headerbar) button:checked:disabled:not(.suggested-action):not(.destructive-action),
-headerbar button:checked:disabled:not(.suggested-action):not(.destructive-action), actionbar > revealer > box button:checked:disabled:not(.suggested-action):not(.destructive-action):not(.server-list-button), .app-notification button:checked:disabled, filechooser #pathbarbox > stack > box > button:checked:disabled {
+headerbar button:checked:disabled:not(.suggested-action):not(.destructive-action), actionbar > revealer > box button:checked:disabled:not(.suggested-action):not(.destructive-action):not(.server-list-button), .app-notification button:checked:disabled {
   background-color: rgba(28, 28, 28, 0.5);
   color: #383838;
 }
@@ -872,7 +872,7 @@ button.image-button, toolbar .linked > button.image-button, .titlebar:not(header
 headerbar .linked > button.image-button:not(.suggested-action):not(.destructive-action), actionbar > revealer > box .linked > button.image-button:not(.suggested-action):not(.destructive-action):not(.server-list-button), .app-notification .linked > button.image-button, .nemo-window .toolbar .linked > button.image-button, toolbar .linked.vertical > button.image-button,
 headerbar .linked.vertical > button.image-button:not(.suggested-action):not(.destructive-action), .app-notification .linked.vertical > button.image-button, .nemo-window .toolbar .linked.vertical > button.image-button, .linked > button.flat.image-button,
 .linked.vertical > button.flat.image-button, .inline-toolbar button:not(.text-button), check,
-radio, filechooser #pathbarbox > stack > box > button, button.titlebutton, .disclosure-button, .nautilus-window headerbar > revealer > button,
+radio, button.titlebutton, .disclosure-button, .nautilus-window headerbar > revealer > button,
 button.close,
 button.circular {
   border-radius: 0px;
@@ -5364,6 +5364,54 @@ button.flat:checked:disabled {
 }
 
 button.flat:disabled {
+  background-color: rgba(28, 28, 28, 0.3);
+  color: #383838;
+  border: 1px solid rgba(28, 28, 28, 0.3);
+}
+
+
+/**********
+ * File chooser *
+ **********/
+filechooser #pathbarbox > stack > box > button {
+  background-color: #0f1013;
+  color: #D2D2D2;
+  border: 1px solid #1C1C1C;
+  border-radius: 9999px;
+}
+
+filechooser #pathbarbox > stack > box > button:checked {
+  background-color: #1C1C1C;
+  color: #D2D2D2;
+  border: 1px solid #0f1013;
+  border-radius: 9999px;
+}
+
+filechooser #pathbarbox > stack > box > button:active {
+  background-color: #1C1C1C;
+  color: #D2D2D2;
+  border: 1px solid #0f1013;
+  border-radius: 9999px;
+}
+
+filechooser #pathbarbox > stack > box > button:hover {
+  background-color: #1C1C1C;
+  color: #D2D2D2;
+  border: 1px solid #0f1013;
+  border-radius: 9999px;
+}
+
+filechooser #pathbarbox > stack > box > button:checked:hover {
+  border-radius: 0px;
+}
+
+filechooser #pathbarbox > stack > box > button:checked:disabled {
+  background-color: rgba(28, 28, 28, 0.3);
+  color: #383838;
+  border: 1px solid rgba(28, 28, 28, 0.3);
+}
+
+filechooser #pathbarbox > stack > box > button:disabled {
   background-color: rgba(28, 28, 28, 0.3);
   color: #383838;
   border: 1px solid rgba(28, 28, 28, 0.3);
