@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48">
+  <defs id="acyl-settings">
+    <linearGradient x1="0%" y1="0%" x2="0%" y2="100%" id="acyl-gradient">
+      <stop offset="0%" style="stop-color:#636EAE;stop-opacity:1.000000"/>
+      <stop offset="50%" style="stop-color:#829C7F;stop-opacity:1.000000"/>
+      <stop offset="100%" style="stop-color:#D73E7F;stop-opacity:1.000000"/>
+    </linearGradient>
+    <g id="acyl-filter">
+  </g>
+    <g id="acyl-drawing">
+      <path id="path-main" d="M 8.348 1.998 L 2.34 18.47 L 8 20.5 L 8 8 L 25.47 8 L 22.18 3.695 L 8.348 1.998 z M 32.3 2.689 L 28.45 8 L 38.88 8 L 32.3 2.689 z M 40 8.906 L 40 19.53 L 45.43 13.29 L 40 8.906 z M 10 10 L 10 38 L 38 38 L 38 10 L 10 10 z M 16.12 14 L 22.06 14 L 22.06 16.17 L 20.41 16.17 L 20.41 23.63 L 22.06 23.63 L 22.06 25.8 L 16.12 25.8 L 16.12 23.63 L 17.84 23.63 L 17.84 16.17 L 16.12 16.17 L 16.12 14 z M 29.24 14 L 31.88 14 L 31.88 21.71 C 31.88 22.44 31.81 23.03 31.62 23.55 C 31.42 24.09 31.15 24.48 30.76 24.88 C 30.44 25.2 29.97 25.54 29.44 25.67 C 28.91 25.87 28.39 26 27.73 26 C 26.81 26 26.02 25.8 25.42 25.48 C 24.84 25.14 24.3 24.69 23.91 24.22 L 25.55 22.37 C 25.88 22.78 26.21 23.03 26.54 23.23 C 26.87 23.42 27.26 23.55 27.66 23.55 C 28.12 23.55 28.53 23.42 28.85 23.1 C 29.11 22.78 29.24 22.31 29.24 21.58 L 29.24 14 z M 45.94 15.75 L 40 22.59 L 40 40 L 19 40 L 28.27 46 L 45.18 39.21 L 45.94 15.75 z M 19 40 L 8 40 L 8 36.21 L 5.52 44.93 L 19 40 z M 5.889 21.87 L 2.502 27.9 L 8 31.95 L 8 22.63 L 5.889 21.87 z M 16.12 31.5 L 26.12 31.5 L 26.12 34 L 16.12 34 L 16.12 31.5 z"/>
+    </g>
+  </defs>
+  <g id="acyl-visual">
+    <use id="visible1" transform="translate(24,24) scale(1.00) translate(-24,-24)" style="fill:rgb(0,0,0);fill-opacity:0.00;stroke:url(#acyl-gradient);stroke-width:1.00" xlink:href="#acyl-drawing"/>
+  </g>
+</svg>

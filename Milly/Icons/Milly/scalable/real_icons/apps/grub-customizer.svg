@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48">
+  <defs id="acyl-settings">
+    <linearGradient x1="0%" y1="0%" x2="0%" y2="100%" id="acyl-gradient">
+      <stop offset="0%" style="stop-color:#636EAE;stop-opacity:1.000000"/>
+      <stop offset="50%" style="stop-color:#829C7F;stop-opacity:1.000000"/>
+      <stop offset="100%" style="stop-color:#D73E7F;stop-opacity:1.000000"/>
+    </linearGradient>
+    <g id="acyl-filter">
+  </g>
+    <g id="acyl-drawing">
+      <path id="path-main" d="M 3.092 4.18 C 2.487 4.18 2.002 4.67 2.002 5.27 L 2.002 35.42 C 2.002 36.02 2.487 36.52 3.092 36.52 L 18.01 36.52 C 18.01 37.42 18.01 40.22 17.46 41.02 C 16.77 41.92 15.39 42.52 15.39 42.52 C 14.51 42.62 14.5 43.82 15.39 43.82 L 32.62 43.82 C 33.5 43.82 33.5 42.62 32.62 42.52 C 32.62 42.52 31.24 41.92 30.55 41.02 C 29.96 40.22 29.98 37.42 30 36.52 L 44.91 36.52 C 45.53 36.52 46 36.02 46 35.42 L 46 5.27 C 46 4.67 45.53 4.18 44.91 4.18 L 3.092 4.18 z M 4.91 7.09 L 43.09 7.09 L 43.09 33.62 L 4.91 33.62 L 4.91 7.09 z M 9 10 L 9 27 L 39 27 L 39 10 L 9 10 z M 10 11 L 38 11 L 38 26 L 10 26 L 10 11 z M 12 13 L 12 14 L 24 14 L 24 13 L 12 13 z M 12.01 15 L 12.01 16 L 30.01 16 L 30.01 15 L 12.01 15 z M 12 17 L 12 18 L 24 18 L 24 17 L 12 17 z M 12.01 19 L 12.01 20 L 30.01 20 L 30.01 19 L 12.01 19 z M 15 29 L 15 31 L 33 31 L 33 29 L 15 29 z"/>
+    </g>
+  </defs>
+  <g id="acyl-visual">
+    <use id="visible1" transform="translate(24,24) scale(1.00) translate(-24,-24)" style="fill:rgb(0,0,0);fill-opacity:0.00;stroke:url(#acyl-gradient);stroke-width:1.00" xlink:href="#acyl-drawing"/>
+  </g>
+</svg>
