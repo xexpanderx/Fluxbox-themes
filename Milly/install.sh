@@ -3,7 +3,7 @@ sponge_var="$(command -v sponge)"
 if [ "$sponge_var" != "" ] ; then
 	mkdir -p ~/.themes
 	mkdir -p ~/.icons
-	echo "Installing GTK2/GTK3 themes..."
+	echo "Installing GTK3 theme..."
 	cp -r GTK3/Milly ~/.themes/
 	echo "Installing icons..."
 	cp -r Icons/Milly ~/.icons/
@@ -17,7 +17,7 @@ if [ "$sponge_var" != "" ] ; then
 	echo "Let me try to apply Fluxbox style for you (allowRemoteActions true required)..."
 	fluxbox-remote restart
 	echo "Installation done."
-	echo "* Apply GTK2/GTK3, icons and font (Roboto, size 12) with lxappearance or similar! *"
+	echo "* Apply GTK3, icons and font (Ubuntu) with lxappearance or similar! *"
 else
 	echo "Please install moreutils."
 fi
