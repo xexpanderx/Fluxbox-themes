@@ -19,9 +19,11 @@ Use the provided installer script and follow instructions:
 
 <code> sh install.sh </code>
 
+*Note: This does not install wal sequence.
+
 <b>Post-install and configurations</b>
 
-Font used in GTK3 is Ubuntu. Make sure to apply Ubuntu font if you want consistenty with Fluxbox theme.
+Font used in Fluxbox style is Ubuntu. Make sure to apply Ubuntu font in GTK3 if you want a consistent look.
 
 <b>Demo</b>
 
