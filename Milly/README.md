@@ -21,4 +21,7 @@ Use the provided installer script and follow instructions:
 
 <b>Post-install and configurations</b>
 
-Font used in GTK2/GTK3 is Ubuntu. Make sure to apply Ubuntu font if you want consistenty with Fluxbox theme.
+Font used in GTK3 is Ubuntu. Make sure to apply Ubuntu font if you want consistenty with Fluxbox theme.
+
+<b>Demo</b>
+A demo of Milly in action: https://www.youtube.com/watch?v=ZTMMFkwK96A
