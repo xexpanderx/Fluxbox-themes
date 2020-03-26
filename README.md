@@ -1,3 +1,7 @@
+<b>Clover</b>
+
+![alt tag](https://raw.githubusercontent.com/xexpanderx/Fluxbox-themes/master/Clover/screenshot.png)
+
 <b>Milly</b>
 
 ![alt tag](https://raw.githubusercontent.com/xexpanderx/Fluxbox-themes/master/Milly/screenshot.png)
