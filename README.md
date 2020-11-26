@@ -1,3 +1,8 @@
+<b>Zombie</b>
+
+![alt tag](https://raw.githubusercontent.com/xexpanderx/Fluxbox-themes/master/Zombie/screenshot.png)
+
+
 <b>Clover</b>
 
 ![alt tag](https://raw.githubusercontent.com/xexpanderx/Fluxbox-themes/master/Clover/screenshot.png)

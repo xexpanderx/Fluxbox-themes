@@ -1,0 +1,98 @@
+session.screen0.iconbar.usePixmap:	false
+session.screen0.iconbar.iconWidth:	160
+session.screen0.iconbar.iconTextPadding:	15
+session.screen0.iconbar.alignment:	Left
+session.screen0.iconbar.mode:	{static groups} (workspace)
+session.screen0.window.focus.alpha:	255
+session.screen0.window.unfocus.alpha:	255
+session.screen0.toolbar.button.rootmenu.label: \357\203\211  
+session.screen0.toolbar.button.rootmenu.commands:	:RootMenu
+session.screen0.toolbar.button.screenshot.label: \357\200\260 
+session.screen0.toolbar.button.screenshot.commands:	:Exec scrot -d 5 '%Y-%m-%d_$wx$h_scrot.png' -e 'mv $f ~/Downloads && notify-send -t 10 -i ~/.local/share/icons/Qogir-ubuntu-dark/16/devices/camera-photo.svg "Screenshot taken!"'
+session.screen0.toolbar.button.google_chrome.label:	\357\211\250 
+session.screen0.toolbar.button.google_chrome.commands:	:Exec google-chrome-stable
+session.screen0.toolbar.button.lock.label:	\357\200\243 
+session.screen0.toolbar.button.lock.commands:	:Exec i3lock -B 4 -k --timecolor=ffffff80 --datecolor=ffffff99
+session.screen0.toolbar.button.urxvt.label:	\357\204\240  
+session.screen0.toolbar.button.urxvt.commands:	:Exec urxvt256c
+session.screen0.toolbar.button.thunar.label:	 
+session.screen0.toolbar.button.thunar.commands:	:Exec thunar
+session.screen0.toolbar.widthPercent:	100
+session.screen0.toolbar.layer:	Dock
+session.screen0.toolbar.tools:	button.rootmenu,button.lock,button.screenshot,button.thunar,button.urxvt,iconbar,systemtray,prevworkspace,workspacename,nextworkspace
+session.screen0.toolbar.height:	0
+session.screen0.toolbar.alpha:	255
+session.screen0.toolbar.autoRaise:	false
+session.screen0.toolbar.autoHide:	false
+session.screen0.toolbar.placement:	BottomLeft
+session.screen0.toolbar.onhead:	1
+session.screen0.toolbar.visible:	true
+session.screen0.toolbar.maxOver:	false
+session.screen0.tabs.usePixmap:	false
+session.screen0.tabs.maxOver:	true
+session.screen0.tabs.intitlebar:	true
+session.screen0.systray.pinLeft:	
+session.screen0.systray.pinRight:	
+session.screen0.tab.placement:	TopLeft
+session.screen0.tab.width:	10
+session.screen0.titlebar.left:	
+session.screen0.titlebar.right:	Minimize Maximize Close 
+session.screen0.slit.layer:	Dock
+session.screen0.slit.onhead:	0
+session.screen0.slit.placement:	RightCenter
+session.screen0.slit.autoHide:	false
+session.screen0.slit.autoRaise:	false
+session.screen0.slit.acceptKdeDockapps:	true
+session.screen0.slit.maxOver:	false
+session.screen0.slit.alpha:	255
+session.screen0.clientMenu.usePixmap:	true
+session.screen0.menu.alpha:	255
+session.screen0.edgeResizeSnapThreshold:	0
+session.screen0.colPlacementDirection:	TopToBottom
+session.screen0.maxDisableResize:	false
+session.screen0.showwindowposition:	false
+session.screen0.menuDelay:	200
+session.screen0.focusModel:	ClickFocus
+session.screen0.demandsAttentionTimeout:	500
+session.screen0.fullMaximization:	false
+session.screen0.windowMenu:	/home/alexsson/.fluxbox/windowmenu
+session.screen0.workspacewarping:	true
+session.screen0.tabFocusModel:	ClickToTabFocus
+session.screen0.rowPlacementDirection:	LeftToRight
+session.screen0.edgeSnapThreshold:	10
+session.screen0.workspacewarpingvertical:	true
+session.screen0.maxDisableMove:	false
+session.screen0.workspaceNames:	\342\235\266,\342\235\267,
+session.screen0.clickRaises:	true
+session.screen0.windowPlacement:	RowMinOverlapPlacement
+session.screen0.workspacewarpingverticaloffset:	1
+session.screen0.opaqueMove:	true
+session.screen0.tooltipDelay:	999999999
+session.screen0.noFocusWhileTypingDelay:	0
+session.screen0.allowRemoteActions:	false
+session.screen0.strftimeFormat:	%k:%M | %d %b
+session.screen0.autoRaise:	true
+session.screen0.workspaces:	2
+session.screen0.focusNewWindows:	true
+session.screen0.focusSameHead:	false
+session.screen0.maxIgnoreIncrement:	true
+session.screen0.defaultDeco:	
+session.doubleClickInterval:	250
+session.appsFile:	/home/alexsson/.fluxbox/apps
+session.focusTabMinWidth:	20
+session.slitlistFile:	/home/alexsson/.fluxbox/slitlist
+session.menuFile:	~/.fluxbox/menu
+session.tabs:	false
+session.cacheLife:	5
+session.autoRaiseDelay:	250
+session.forcePseudoTransparency:	false
+session.styleOverlay:	/home/alexsson/.fluxbox/overlay
+session.menuSearch:	itemstart
+session.cacheMax:	200
+session.tabsAttachArea:	Window
+session.tabPadding:	0
+session.colorsPerChannel:	4
+session.styleFile:	/home/alexsson/.fluxbox/styles/Zombie
+session.ignoreBorder:	false
+session.keyFile:	~/.fluxbox/keys
+session.configVersion:	13
