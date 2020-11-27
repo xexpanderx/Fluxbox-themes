@@ -4,4 +4,4 @@
 
 <b> Notes </b>
 
-The provided init file only works with the dev branch of Fluxbox. To use it for Fluxbox stable, remove the lines with "*.button.label*" and ".button.commands".
+The provided init file only works with the dev branch of Fluxbox. To use it for Fluxbox stable, remove the lines with "\*.button.label.\*" and "\*.button.commands.\*".
