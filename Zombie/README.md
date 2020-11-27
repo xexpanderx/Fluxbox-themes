@@ -2,6 +2,5 @@
 
 ![alt tag](https://raw.githubusercontent.com/xexpanderx/Fluxbox-themes/master/Zombie/screenshot.png)
 
-<b> Notes </b>
-
-The provided init file only works with the dev branch of Fluxbox. To use it for Fluxbox stable, remove the lines with "\*.button.label.\*" and "\*.button.commands.\*".
+<b> Use the new launcher feature in the toolbar </b>
+Clone https://github.com/bosim/fluxbox, and install. Use this fork since it fixes iconbar-alignments that works with the provided init-file. 
